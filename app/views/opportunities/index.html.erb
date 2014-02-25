@@ -6,12 +6,12 @@
 <table>
   <thead>
     <tr>
-      <th>Rating</th>
-      <th>Opportunity</th>
-      <th>Agency</th>
-      <th>Type</th>
-      <th>Post Date</th>
-      <th>Response Date</th>
+      <th><%= sortable "like", "Rating" %></th>
+      <th><%= sortable "id", "Opportunity" %></th>
+      <th><%= sortable "agency" %></th>
+      <th><%= sortable "opp_type", "Type" %></th>
+      <th><%= sortable "post_date", "Post Date" %></th>
+      <th><%= sortable "response_date", "Response Date" %></th>
     </tr>
   </thead>
 
