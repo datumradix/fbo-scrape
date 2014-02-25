@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+<h1>FBO Opportunities</h1>
+
+<%= will_paginate @opportunities %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rating</th>
+      <th>Opportunity</th>
+      <th>Agency</th>
+      <th>Type</th>
+      <th>Post Date</th>
+      <th>Response Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= link_to opportunity.like, edit_opportunity_path(opportunity) %></td>
+        <td><%= link_to opportunity.opportunity, opportunity.link %></td>
+        <td><%= opportunity.agency %></td>
+        <td><%= opportunity.opp_type %></td>
+        <td><%= opportunity.post_date %></td>
+        <td><%= opportunity.response_date %></td>
+        <% if opportunity.comments && opportunity.comments.length > 1 %>
+          </tr>
+          <tr>
+            <td><%= opportunity.comments %></td>
+          </tr>
+        <% else %>
+          </tr>
+        <% end %>
+    <% end %>
+  </tbody>
+</table>
+
