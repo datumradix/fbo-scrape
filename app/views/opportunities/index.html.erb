@@ -18,7 +18,9 @@
   <tbody>
     <% @opportunities.each do |opportunity| %>
       <tr>
-        <td><%= link_to opportunity.like, edit_opportunity_path(opportunity) %></td>
+        <td><%= link_to opportunity.like, edit_opportunity_path(opportunity) %> 
+        <%= link_to "+", increment_opportunity_path(opportunity), :remote => true %> 
+        <%= link_to "-", decrement_opportunity_path(opportunity), :remote => true %> </td>
         <td><%= link_to opportunity.opportunity, opportunity.link %></td>
         <td><%= opportunity.agency %></td>
         <td><%= opportunity.opp_type %></td>

@@ -4,11 +4,26 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @opportunities = Opportunity.paginate(:page => params[:page], :per_page => 25).order(params[:sort])
+    @opportunities = Opportunity.paginate(:page => params[:page], :per_page => 25).order("#{params[:sort]} #{params[:direction]}")
   end
-
   # GET /opportunities/1
   # GET /opportunities/1.json
+  
+  def increment
+    opportunity = Opportunity.find(params[:id])
+    opportunity.like += 1
+    opportunity.save
+    redirect_to opportunities_path
+  end
+
+  def decrement
+    opportunity = Opportunity.find(params[:id])
+    opportunity.like -= 1
+    opportunity.save
+    redirect_to opportunities_path
+  end
+
+
   def show
   end
 
