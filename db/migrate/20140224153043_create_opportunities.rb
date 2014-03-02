@@ -2,6 +2,7 @@ class CreateOpportunities < ActiveRecord::Migration
   def change
     create_table :opportunities do |t|
       t.text :opportunity
+      #t.text :class_code
       t.string :agency
       t.string :opp_type
       t.date :post_date

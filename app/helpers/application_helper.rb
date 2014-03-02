@@ -6,12 +6,3 @@ module ApplicationHelper
 	end
 end
 
-def increment(opportunity)
-	opportunity.like += 1
-	opportunity.save
-end
-
-def decrement(opportunity)
-	opportunity.like -= 1
-	opportunity.save
-end

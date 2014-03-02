@@ -4,7 +4,13 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @opportunities = Opportunity.paginate(:page => params[:page], :per_page => 25).order("#{params[:sort]} #{params[:direction]}")
+    @search = Opportunity.search do
+      fulltext params[:search]
+      paginate(:page => params[:page] || 1, :per_page => 30)
+      #order_by params[:sort].to_sym, params[:direction].to_sym
+    end
+    @opportunities = @search.results
+    #@opportunities = Opportunity.order("#{params[:sort]} #{params[:direction]}")
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
@@ -13,14 +19,16 @@ class OpportunitiesController < ApplicationController
     opportunity = Opportunity.find(params[:id])
     opportunity.like += 1
     opportunity.save
-    redirect_to opportunities_path
+    #redirect_to opportunities_path
+    format.js
   end
 
   def decrement
     opportunity = Opportunity.find(params[:id])
     opportunity.like -= 1
     opportunity.save
-    redirect_to opportunities_path
+    #redirect_to opportunities_path
+    format.js
   end
 
 
@@ -84,6 +92,6 @@ class OpportunitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
-      params.require(:opportunity).permit(:opportunity, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like)
+      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like)
     end
 end

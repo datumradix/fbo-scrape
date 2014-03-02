@@ -1,9 +1,8 @@
-<h1>About FBO Scraper</h1>
 <p>
-  Scans Federal Business Opportunities and returns opportunities that match evaluation criteria shown below.  
+  <strong>weFBO</strong> scans <%= link_to "Federal Business Opportunities", "https://www.fbo.gov" %> and returns opportunities that match your evaluation criteria.  
 </p>
 <p>
-  Opportunities are evaluated by crowd sourcing. Evaluators may enter a positive number for good opportunities. Bad opportunites are either ignored and scored with a negative number.  Evaluators may comment on opportunities as needed. Capture leads may sort on ratings to view opportunities with the highest potential for persuit.
+  Opportunities are evaluated by crowd sourcing. Evaluators may enter a upvote <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %> good opportunites and downvote <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %> the bad ones. Evaluators may comment on opportunities as needed. Capture leads may sort on ratings to view opportunities with the highest potential for persuit.
 </p>
 <p>
   This scrape may be configured to run automatically.  Opportunites that are over 10 days expired are purged from the list.

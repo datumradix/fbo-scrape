@@ -29,17 +29,29 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'will_paginate'
 # Use sqlite3 as the database for Active Record
-
 group :development do
   gem 'sqlite3'
+  gem 'sunspot_solr'
 end
 
 group :production do 
 	gem 'pg', '0.15.1'
 	gem 'rails_12factor', '0.0.2'
 end
+
+gem 'will_paginate'
+
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+
+gem 'progress_bar'
+
+gem 'pry'
+
+gem "therubyracer"
+gem "less-rails" 
+gem "twitter-bootstrap-rails"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
