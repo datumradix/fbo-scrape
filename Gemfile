@@ -32,7 +32,7 @@ end
 # Use sqlite3 as the database for Active Record
 group :development do
   gem 'sqlite3'
-  gem 'sunspot_solr'
+  gem 'pry'
 end
 
 group :production do 
@@ -42,16 +42,15 @@ end
 
 gem 'will_paginate'
 
-gem 'sunspot_rails'
-gem 'sunspot_solr'
-
-gem 'progress_bar'
-
-gem 'pry'
+#gem 'sunspot_rails'
+#gem 'sunspot_solr'
+#gem 'progress_bar'
 
 gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
+
+gem "jquery-rails"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

@@ -10,7 +10,7 @@ class OpportunitiesController < ApplicationController
       #order_by params[:sort].to_sym, params[:direction].to_sym
     #end
     #@opportunities = @search.results
-    @opportunities = Opportunity.order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
+    @opportunities = Opportunity.search(params[:search]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
@@ -19,7 +19,6 @@ class OpportunitiesController < ApplicationController
     opportunity = Opportunity.find(params[:id])
     opportunity.like += 1
     opportunity.save
-    #redirect_to opportunities_path
     format.js
   end
 
@@ -27,7 +26,6 @@ class OpportunitiesController < ApplicationController
     opportunity = Opportunity.find(params[:id])
     opportunity.like -= 1
     opportunity.save
-    #redirect_to opportunities_path
     format.js
   end
 

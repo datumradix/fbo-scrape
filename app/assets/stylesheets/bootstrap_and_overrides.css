@@ -11,6 +11,8 @@
   /*---------------------------------------------*/
 
   body { padding-top: 60px; }
+  body { padding-bottom: 20px; }
+
 
 /* Overide link style */
 .green_href{
@@ -20,4 +22,15 @@
 /* Overide link style */
 .red_href{
 	color: red;
+}
+
+/* Overide link style */
+.black_href{
+  color: black;
+}
+
+/* Overide link style */
+.black_icon{
+  color: black;
+  font-size: 1.5em;
 }

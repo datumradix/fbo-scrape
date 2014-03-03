@@ -1,38 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span12">
+      <%= will_paginate @opportunities %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= sortable "like", "Rating" %></th>
+            <th><%= sortable "id", "Opportunity" %></th>
+            <th><%= sortable "class_code", "Classification" %> </th>
+            <th><%= sortable "agency" %></th>
+            <th><%= sortable "opp_type", "Type" %></th>
+            <th><%= sortable "post_date", "Posted" %></th>
+            <th><%= sortable "response_date", "Deadline" %></th>
+          </tr>
+        </thead>
 
-<%= will_paginate @opportunities %>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th><%= sortable "like", "Rating" %></th>
-      <th><%= sortable "id", "Opportunity" %></th>
-      <th><%= sortable "class_code", "Classification" %> </th>
-      <th><%= sortable "agency" %></th>
-      <th><%= sortable "opp_type", "Type" %></th>
-      <th><%= sortable "post_date", "Posted" %></th>
-      <th><%= sortable "response_date", "Deadline" %></th>
-    </tr>
-  </thead>
+        <tbody>
+          <% @opportunities.each do |opportunity| %>
+            
+            <tr>
+              <div id="likes">
+                <td><%= link_to render(opportunity), edit_opportunity_path(opportunity) %> 
+                <%= link_to glyph(:thumbs_up), increment_opportunity_path(opportunity), remote: true, :class=>"green_href"  %>
+                <%= link_to glyph(:thumbs_down), decrement_opportunity_path(opportunity), remote: true, :class =>"red_href" %> 
+                 </td>
+               </div>
+              <td><%= link_to opportunity.opportunity, opportunity.link %></td>
+              <td><%= opportunity.class_code %> </td> 
+              <td><%= opportunity.agency %></td>
+              <td><%= opportunity.opp_type %></td>
+              <td><%= opportunity.post_date.strftime("%b %d") %></td>
+              <td><%= "#{(opportunity.response_date - Date.today).to_i } days" if opportunity.response_date %></td>
+            </tr>
 
-  <tbody>
-    <% @opportunities.each do |opportunity| %>
-      <tr>
-        <td> <%= link_to render(opportunity), edit_opportunity_path(opportunity) %> 
-        <%= link_to glyph(:thumbs_up), increment_opportunity_path(opportunity), remote: true, :class=>"green_href"  %>
-        <%= link_to glyph(:thumbs_down), decrement_opportunity_path(opportunity), remote: true, :class =>"red_href" %> 
-         </td>
-        <td><%= link_to opportunity.opportunity, opportunity.link %></td>
-        <td><%= opportunity.class_code %> </td> 
-        <td><%= opportunity.agency %></td>
-        <td><%= opportunity.opp_type %></td>
-        <td><%= opportunity.post_date.strftime("%b %d") %></td>
-        <td><%= "#{(opportunity.response_date - Date.today).to_i } days" if opportunity.response_date %></td>
-      </tr>
-        <% if opportunity.comments && opportunity.comments.length > 1 %>
-              <td><%= opportunity.comments %></td>
-        <% end %>
-    <% end %>
-  </tbody>
-</table>
+              <% if opportunity.comments && opportunity.comments.length > 1 %>
+                <div class="span12">
+                    <td><%= opportunity.comments %></td>
+                </div>
+              <% end %>
+          <% end %>
+        </tbody>
+      </table>
 
-<%= will_paginate @opportunities %>
+      <%= will_paginate @opportunities %>
+  </div>
+</div>
+
