@@ -4,13 +4,13 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @search = Opportunity.search do
-      fulltext params[:search]
-      paginate(:page => params[:page] || 1, :per_page => 30)
+    #@search = Opportunity.search do
+      #fulltext params[:search]
+      #paginate(:page => params[:page] || 1, :per_page => 30)
       #order_by params[:sort].to_sym, params[:direction].to_sym
-    end
-    @opportunities = @search.results
-    #@opportunities = Opportunity.order("#{params[:sort]} #{params[:direction]}")
+    #end
+    #@opportunities = @search.results
+    @opportunities = Opportunity.order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
