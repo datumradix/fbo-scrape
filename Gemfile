@@ -50,6 +50,11 @@ gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
 
+#Rake gems
+require 'nokogiri'
+require 'open-uri'
+require 'date'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
