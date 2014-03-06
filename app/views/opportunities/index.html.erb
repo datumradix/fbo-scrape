@@ -18,13 +18,14 @@
           <% @opportunities.each do |opportunity| %>
             
             <tr>
-              <div id="likes">
-                <td><%= link_to render(opportunity), edit_opportunity_path(opportunity) %> 
+              <div>
+                <td>
+                <h4><%= link_to render(opportunity), opportunity %> </h4>
                 <%= link_to glyph(:thumbs_up), increment_opportunity_path(opportunity), remote: true, :class=>"green_href"  %>
                 <%= link_to glyph(:thumbs_down), decrement_opportunity_path(opportunity), remote: true, :class =>"red_href" %> 
                  </td>
                </div>
-              <td><%= link_to opportunity.opportunity, opportunity.link %></td>
+              <td><%= link_to opportunity.opportunity, opportunity %></td>
               <td><%= opportunity.class_code %> </td> 
               <td><%= opportunity.agency %></td>
               <td><%= opportunity.opp_type %></td>
@@ -32,10 +33,10 @@
               <td><%= "#{(opportunity.response_date - Date.today).to_i } days" if opportunity.response_date %></td>
             </tr>
 
-              <% if opportunity.comments && opportunity.comments.length > 1 %>
-                <div class="span12">
-                    <td><%= opportunity.comments %></td>
-                </div>
+              <% if opportunity.comments.length > 0 %>
+                
+                    <td><%= link_to pluralize(opportunity.comments.count, 'Comment'), opportunity %></td>
+                
               <% end %>
           <% end %>
         </tbody>

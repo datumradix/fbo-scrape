@@ -34,3 +34,9 @@
   color: black;
   font-size: 1.5em;
 }
+
+/* Comment form style */
+form.comment_form {
+    width: 75%;
+    height: 500px;
+}

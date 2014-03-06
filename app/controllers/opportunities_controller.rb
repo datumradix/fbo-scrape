@@ -16,21 +16,29 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1.json
   
   def increment
-    opportunity = Opportunity.find(params[:id])
-    opportunity.like += 1
-    opportunity.save
-    format.js
+    @opportunity = Opportunity.find(params[:id])
+    @opportunity.like += 1
+    @opportunity.save
+    @opptag = "#likes-#{@opportunity.id}"
+    respond_to do |format|
+      format.js
+    end
   end
 
   def decrement
-    opportunity = Opportunity.find(params[:id])
-    opportunity.like -= 1
-    opportunity.save
-    format.js
+    @opportunity = Opportunity.find(params[:id])
+    @opportunity.like -= 1
+    @opportunity.save
+    @opptag = "#likes-#{@opportunity.id}"
+    respond_to do |format|
+      format.js
+    end
   end
 
 
   def show
+    @comments = @opportunity.comments
+    @comment = Comment.new
   end
 
   # GET /opportunities/new

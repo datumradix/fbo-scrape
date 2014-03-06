@@ -1,6 +1,14 @@
 Fbo::Application.routes.draw do
+  resources :comments
+
   get "static_pages/about"
   resources :opportunities do
+    member do
+      get 'increment'
+      get 'decrement'
+    end
+  end
+  resources :opportunity do
     member do
       get 'increment'
       get 'decrement'

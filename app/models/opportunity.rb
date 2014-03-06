@@ -1,9 +1,5 @@
 class Opportunity < ActiveRecord::Base
 	validates :opportunity, uniqueness: true
-	#searchable do 
-	#	text :opportunity, :agency, :class_code, :opp_type
-	#	time :post_date
-	#end
 	def self.search(search)
 		if search
 			where('opportunity LIKE ?', "%#{search}%")
@@ -11,4 +7,5 @@ class Opportunity < ActiveRecord::Base
 			scoped
 		end
 	end
+	has_many :comments
 end

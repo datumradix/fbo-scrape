@@ -1,44 +1,83 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span2">
+    
+  </div>
+</div>
 
-<p>
-  <strong>Opportunity:</strong>
-  <%= @opportunity.opportunity %>
-</p>
+<div class="row">
+  <div class="span10">
+    <%= link_to 'Opportunities', opportunities_path %> / <h4><%= link_to @opportunity.opportunity, @opportunity.link, :target=>"_blank" %></h4>
+  </div>
+</div>
+<div class="row">
+  <div class="span10">
+    <p><%= @opportunity.agency %></p>
+  </div>
+</div>
 
-<p>
-  <strong>Agency:</strong>
-  <%= @opportunity.agency %>
-</p>
 
-<p>
-  <strong>Opp type:</strong>
-  <%= @opportunity.opp_type %>
-</p>
+<div class="row">
+  <div class="span3"><strong>Opportunity Type</strong></div>
+  <div class="span2"><strong>Submit Date</strong></div>
+  <div class="span2"><strong>Response Due</strong></div>
+  <div class="span2"><strong>Rating</strong>
+  </div>
+</div>
+<div class="row">
+  <div class="span3"><p><%= @opportunity.opp_type %></p></div>
+  <div class="span2"><p><%= @opportunity.post_date.strftime("%b %d") %></p></div>
+  <div class="span2"><p><%= @opportunity.response_date.strftime("%b %d") if @opportunity.response_date %></p></div>
+  <div class="span2"><h4><%= link_to render(@opportunity), @opportunity %> </h4>
+    <%= link_to glyph(:thumbs_up), increment_opportunity_path(@opportunity), remote: true, :class=>"green_href"  %>
+    <%= link_to glyph(:thumbs_down), decrement_opportunity_path(@opportunity), remote: true, :class =>"red_href" %>
+  </div>
+</div>
+<div class="row">
+  
+</div>
+<br>
 
-<p>
-  <strong>Post date:</strong>
-  <%= @opportunity.post_date %>
-</p>
+<strong>Comment on this opportunity</strong><br>
+<%= form_for @comment, :html => {:class=> "form-control"} do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+    <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+    <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    </div>
+  <% end %>
+  <p><%= f.text_field :name, placeholder: "Name"%></p> 
+  <p><%= f.text_area :comment, placeholder: "Comment", rows: "4" %></p> 
+  <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
+  <%= f.submit "Submit", :class => "btn btn-default" %>
+<% end %>
+<hr>
 
-<p>
-  <strong>Response date:</strong>
-  <%= @opportunity.response_date %>
-</p>
 
-<p>
-  <strong>Link:</strong>
-  <%= @opportunity.link %>
-</p>
+<% unless @comments.count == 0 %>  
+  <div class="row">
+    <div class="span1">
+      <strong>Date</strong>
+    </div>
+    <div class="span2">
+      <strong>Name</strong>
+    </div>
+    <div class="span8">
+      <strong>Comments</strong>
+    </div>
+  </div>
+  <% @comments.each do |comment| %>
+    <div class="row">
+      <div class="span1"><%= comment.created_at.strftime("%b %d") %> </div>
+      <div class="span2"><%= comment.name %></div>
+      <div class="span8"><%= comment.comment %></div>
+      <hr>
+    </div>
+  <% end %>
+<% end %>
+<hr>
 
-<p>
-  <strong>Comments:</strong>
-  <%= @opportunity.comments %>
-</p>
-
-<p>
-  <strong>Like:</strong>
-  <%= @opportunity.like %>
-</p>
-
-<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
-<%= link_to 'Back', opportunities_path %>
+      
