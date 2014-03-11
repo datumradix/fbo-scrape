@@ -33,51 +33,84 @@
   </div>
 </div>
 <div class="row">
-  
-</div>
-<br>
-
-<strong>Comment on this opportunity</strong><br>
-<%= form_for @comment, :html => {:class=> "form-control"} do |f| %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-    <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-    <ul>
-    <% @comment.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+  <div class="span4">
+    <strong>Comment on this opportunity</strong><br>
+    <%= form_for @comment, :html => {:class=> "form-control"} do |f| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+          <ul>
+          <% @comment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <p><%= f.text_field :name, placeholder: "Name"%></p> 
+      <p><%= f.text_area :comment, placeholder: "Comment", rows: "4" %></p> 
+      <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
+      <%= f.submit "Submit", :class => "btn btn-default" %>
     <% end %>
-    </ul>
-    </div>
-  <% end %>
-  <p><%= f.text_field :name, placeholder: "Name"%></p> 
-  <p><%= f.text_area :comment, placeholder: "Comment", rows: "4" %></p> 
-  <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
-  <%= f.submit "Submit", :class => "btn btn-default" %>
-<% end %>
-<hr>
-
-
-<% unless @comments.count == 0 %>  
-  <div class="row">
-    <div class="span1">
-      <strong>Date</strong>
-    </div>
-    <div class="span2">
-      <strong>Name</strong>
-    </div>
-    <div class="span8">
-      <strong>Comments</strong>
-    </div>
   </div>
-  <% @comments.each do |comment| %>
-    <div class="row">
-      <div class="span1"><%= comment.created_at.strftime("%b %d") %> </div>
-      <div class="span2"><%= comment.name %></div>
-      <div class="span8"><%= comment.comment %></div>
-      <hr>
+  <div class="span4">
+    <strong>Management Evaluation: </strong> <%= @opportunity.management_evaluation %><br><br>
+    <div class="radio">
+    <%= form_for(@opportunity) do |f| %>
+      <% if @opportunity.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this management_evaluation from being saved:</h2>
+          <ul>
+          <% @opportunity.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="radio">
+        <%= f.radio_button(:management_evaluation, "Watchlist") %>
+        <%= f.label :management_evaluation, "Watchlist" %>
+        <%= f.radio_button(:management_evaluation, "Red Team Evaluate") %>
+        <%= f.label :management_evaluation, "Red Team Evaluate" %>
+        <%= f.radio_button(:management_evaluation, "Escalate") %>
+        <%= f.label :management_evaluation, "Escalate" %>
+        <%= f.radio_button(:management_evaluation, "Pass") %>
+        <%= f.label :management_evaluation, "Pass" %> <br>
+        <%= f.submit  "Submit", :class => "btn btn-default"%>
+      </div>
+    <% end %>
     </div>
-  <% end %>
-<% end %>
-<hr>
+
+
+
+  </div>
+</div>
+<div class="row">
+  <div span="12">
+    <% unless @comments.count == 0 %>  
+      <div class="row">
+        <div class="span1">
+          <strong>Date</strong>
+        </div>
+        <div class="span2">
+          <strong>Name</strong>
+        </div>
+        <div class="span8">
+          <strong>Comments</strong>
+        </div>
+      </div>
+      <% @comments.each do |comment| %>
+        <div class="row">
+          <div class="span1"><%= comment.created_at.strftime("%b %d") %> </div>
+          <div class="span2"><%= comment.name %></div>
+          <div class="span8"><%= comment.comment %></div>
+          <hr>
+        </div>
+      <% end %>
+    <% end %>
+    <hr>
+  </div>
+</div>
+
+
 
       

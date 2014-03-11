@@ -9,6 +9,7 @@ class CreateOpportunities < ActiveRecord::Migration
       t.date :response_date
       t.string :link
       t.text :comments
+      t.string :management_evaluation 
       t.integer :like, :default => 0
 
       t.timestamps

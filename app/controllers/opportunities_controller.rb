@@ -1,20 +1,17 @@
 class OpportunitiesController < ApplicationController
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
+  #load_and_autohrize_resource #cancan method
 
   # GET /opportunities
   # GET /opportunities.json
   def index
-    #@search = Opportunity.search do
-      #fulltext params[:search]
-      #paginate(:page => params[:page] || 1, :per_page => 30)
-      #order_by params[:sort].to_sym, params[:direction].to_sym
-    #end
-    #@opportunities = @search.results
-    @opportunities = Opportunity.search(params[:search]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
+    #@opportunities = Opportunity.search(params[:search]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
+    @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
+    
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
-  
+
   def increment
     @opportunity = Opportunity.find(params[:id])
     @opportunity.like += 1
@@ -71,7 +68,7 @@ class OpportunitiesController < ApplicationController
   def update
     respond_to do |format|
       if @opportunity.update(opportunity_params)
-        format.html { redirect_to opportunities_path, notice: "Likes and comments updated for opportunity: #{@opportunity.opportunity[0..20]}....." }
+        format.html { redirect_to @opportunity, notice: "Updated Management Evaluation for: #{@opportunity.opportunity[0..20]}....." }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -98,6 +95,6 @@ class OpportunitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
-      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like)
+      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like, :management_evaluation)
     end
 end

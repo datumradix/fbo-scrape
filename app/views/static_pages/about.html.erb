@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span12">
 	<p>
-	  <strong>weFBO</strong> scans the <%= link_to "Federal Business Opportunities", "https://www.fbo.gov" %> and returns opportunities that match your evaluation criteria. These opportunities are evaluated by crowd sourcing. Evaluators upvote <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %> good opportunites and downvote <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %> the bad ones. Management sorts by "likes", picks the strongest candidates, and goes for the win.
+	  <strong>weFBO</strong> scans <%= link_to "Federal Business Opportunities", "https://www.fbo.gov" %> and returns opportunities that match your evaluation criteria. These opportunities are evaluated by crowd sourcing. Evaluators upvote <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %> good opportunites and downvote <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %> the bad ones. Management sorts by "likes", picks the strongest candidates, and goes for the win.
 	</p>
 	<br>
   </div>
@@ -32,6 +32,8 @@
         <%= link_to glyph(:user), "#", :class=>"black_icon" %>
         Crowd Evaluation 
         </p>
+        <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %>
+        <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %>
     </div>
     <div class="span1", align="center">
       <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>

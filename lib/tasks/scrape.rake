@@ -4,6 +4,7 @@ end
 
 task :scrape => :environment do 
 	#require 'date'
+    require 'open-uri'
     todays_date = Date.today.strftime('%m/%d/%Y')
     doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=500"))
     puts doc.css("title")[0].text 

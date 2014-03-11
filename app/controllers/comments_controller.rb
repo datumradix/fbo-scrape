@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  #load_and_autohrize_resource #cancan method
 
   # GET /comments
   # GET /comments.json

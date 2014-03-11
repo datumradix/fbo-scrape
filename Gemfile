@@ -50,9 +50,12 @@ gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
 
+#Authentication & Authorization
+gem "authlogic", '3.4.0'
+#gem "cancan"
+
 #Rake gems
 gem 'nokogiri'
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

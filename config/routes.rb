@@ -1,4 +1,16 @@
 Fbo::Application.routes.draw do
+  
+  resources :management_evaluations
+
+  #match '/new_user' to "login", :controller => "user_sessions", :action => "new"
+  #login "logout", :controller => "user_sessions", :action => "destroy"
+
+  resources :user_sessions 
+
+  get 'logout' => 'user_sessions#destroy', :as => :logout
+
+  resources :users
+
   resources :comments
 
   get "static_pages/about"
@@ -12,6 +24,7 @@ Fbo::Application.routes.draw do
     member do
       get 'increment'
       get 'decrement'
+      get 'manager'
     end
   end
 

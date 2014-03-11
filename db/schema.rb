@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305010521) do
+ActiveRecord::Schema.define(version: 20140307170638) do
 
   create_table "comments", force: true do |t|
     t.text     "comment"
@@ -31,10 +31,26 @@ ActiveRecord::Schema.define(version: 20140305010521) do
     t.date     "response_date"
     t.string   "link"
     t.text     "comments"
-    t.integer  "like",          default: 0
+    t.string   "management_evaluation"
+    t.integer  "like",                  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "class_code"
+  end
+
+  create_table "user_sessions", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
