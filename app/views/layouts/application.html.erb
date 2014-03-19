@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "weFBO" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "teamFBO" %></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -48,7 +48,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" <%= link_to "weFBO", opportunities_path %></a>
+          <a class="brand" <%= link_to "teamFBO", opportunities_path %></a>
           <div class="container nav-collapse">
             <ul class="nav">
               <li><%= link_to "About", static_pages_about_path %></li>
@@ -80,7 +80,7 @@
       <%= bootstrap_flash %>
       <%= yield %>
       <footer>
-        <small>weFBO: crowdsource your business opportunities</small>
+        <small>teamFBO: go team!</small>
       </footer>
     </div> <!-- /container -->
 

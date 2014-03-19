@@ -1,12 +1,5 @@
 ops = Opportunity.create([
-{ opportunity: '
-      
-      59--SEMICONDUCTOR DEVIC SPE7M514T5034 ', 
- class_code: '59 -- Electrical and electronic equipment components', 
- agency: '
-      
-            Defense Logistics Agency DLA Acquisition LocationsDLA Land and Maritime - BSM
-      ', 
+{ opportunity: 'cat', 
  opp_type: '
       
             Combined Synopsis/Solicitation

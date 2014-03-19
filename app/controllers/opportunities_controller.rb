@@ -6,8 +6,8 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     #@opportunities = Opportunity.search(params[:search]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
-    @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
-    
+    #@opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
+    @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
@@ -15,6 +15,7 @@ class OpportunitiesController < ApplicationController
   def increment
     @opportunity = Opportunity.find(params[:id])
     @opportunity.like += 1
+    @opportunity.management_evaluation = "Watchlist"
     @opportunity.save
     @opptag = "#likes-#{@opportunity.id}"
     respond_to do |format|

@@ -2,11 +2,23 @@ task :greet do
 	puts "hello world"
 end
 
+task :clean => :environment do
+	#If submit date > 10 days old && no comments && eval != pass   delete record
+    @opportunities = Opportunity.all 
+    @opportunities.each do |opportunity| 
+    	if (Date.today - opportunity.post_date).to_i > 10
+    		unless opportunity.management_evaluation && opportunity.management_evaluation.length > 1 && opportunity.management_evaluation != "Reject Opportunity"
+    			opportunity.delete
+    		end
+    	end
+    end
+end
+#if scrape and clean works, write a "first" so scheduled scrape will not run forever.
 task :scrape => :environment do 
 	#require 'date'
     require 'open-uri'
     todays_date = Date.today.strftime('%m/%d/%Y')
-    doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=500"))
+    doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=50"))
     puts doc.css("title")[0].text 
 
 	bad_class_codes =  ["10 -- Weapons", "11 -- Nuclear ordnance", "13 -- Ammunition & explosives", "14 -- Guided missiles", "15 -- Aircraft & airframe structural components",
@@ -36,7 +48,7 @@ task :scrape => :environment do
 					"G -- Social services", "M -- Operation of Government-owned facilities", "N -- Installation of equipment", "P -- Salvage services", "Q -- Medical services", "S -- Utilities and housekeeping services", 
 					"T -- Photographic, mapping, printing, & publication services", "V -- Transportation, travel, & relocation services",
 					"W -- Lease or Rental of equipment", "X -- Lease or rental of facilities", "Y -- Construction of structures and facilities",
-					"Z -- Maintenance, repair, and alteration of real property", 
+					"Z -- Maintenance, repair, and alteration of real property" 
 					 ]
 
 	good_class_codes = ["12 -- Fire control equipment", 
@@ -83,33 +95,33 @@ task :scrape => :environment do
 		hash_counter += 1
 	end
 
-	#Remove scraped rows that are junk. Only rows with data in all four columns are valid.
-	opportunity_hash.each do |k,v|
-		unless v[:response_due]
-			v[:valid_record] = false
-		end
-	end
-
 	opportunity_hash.each do |k,v| 
-		unless v[:valid_record] == false
+		if v[:response_due] #checks for valid record
 			v[:classification_code] = "Bad Classification"
 			good_class_codes.each do |c_code|
 				if v[:column_values][0].include?(c_code)
-					bad_set_asides.each do |set_aside|
-						unless v[:column_values][2].include?(set_aside)
-							v[:classification_code] = "Good Classification"
-							v[:opportunity] = v[:column_values][0].split(c_code)[0]
-							v[:class_code] = c_code
-						end
-					end
+					# bad_set_asides.each do |set_aside|
+					# 	unless v[:column_values][2].include?(set_aside)
+					 		v[:classification_code] = "Good Classification"
+					 		v[:opportunity] = v[:column_values][0].split(c_code)[0]
+					 		v[:class_code] = c_code
+					# 	end
+					# end
 				end
 			end
 			v[:procurement_type] = "Bad Procurement"
 			procurement_type.each do |p_type|
 				if v[:column_values][2].include?(p_type)
-					unless v[:column_values][2].include?("Cancelled")
-						v[:procurement_type] = "Good Procurement"
-					end
+					#bad_set_asides.each do |bad_set_aside|
+					#	unless v[:column_values].include?(bad_set_aside)
+							v[:procurement_type] = "Good Procurement"
+						#end
+					#end
+				end
+			end
+			bad_set_asides.each do |bad_set_aside|
+				if v[:column_values][2].include?(bad_set_aside)
+					v[:procurement_type] = "Bad Procurement"
 				end
 			end
 		end
@@ -118,13 +130,17 @@ task :scrape => :environment do
     opportunity_hash.each do |k,v|
 		unless v[:valid_record] == false
 			if v[:classification_code] == "Good Classification" && v[:procurement_type] == "Good Procurement"
-				Opportunity.create ([{ opportunity: "#{v[:opportunity]}",
-					                   class_code: "#{v[:class_code]}",
-				    	               agency: "#{v[:column_values][1]}",
-				        	           opp_type: "#{v[:column_values][2]}",
-				            	       post_date: "#{v[:column_values][3]}",
-				                	   response_date: "#{v[:response_due]}",
-				    	               link: "#{v[:link]}" }])
+				if Opportunity.where(opportunity: v[:opportunity]) == []
+					Opportunity.create ([{ opportunity: "#{v[:opportunity]}",
+						                   class_code: "#{v[:class_code]}",
+					    	               agency: "#{v[:column_values][1]}",
+					        	           opp_type: "#{v[:column_values][2]}",
+					            	       post_date: "#{v[:column_values][3]}",
+					                	   response_date: "#{v[:response_due]}",
+					    	               link: "#{v[:link]}" }])
+				else
+					break
+				end
 			end
 		end
     end

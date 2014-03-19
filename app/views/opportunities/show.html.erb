@@ -29,7 +29,7 @@
   <div class="span2"><p><%= @opportunity.response_date.strftime("%b %d") if @opportunity.response_date %></p></div>
   <div class="span2"><h4><%= link_to render(@opportunity), @opportunity %> </h4>
     <%= link_to glyph(:thumbs_up), increment_opportunity_path(@opportunity), remote: true, :class=>"green_href"  %>
-    <%= link_to glyph(:thumbs_down), decrement_opportunity_path(@opportunity), remote: true, :class =>"red_href" %>
+    <%#= link_to glyph(:thumbs_down), decrement_opportunity_path(@opportunity), remote: true, :class =>"red_href" %>
   </div>
 </div>
 <div class="row">
@@ -69,12 +69,12 @@
       <div class="radio">
         <%= f.radio_button(:management_evaluation, "Watchlist") %>
         <%= f.label :management_evaluation, "Watchlist" %>
-        <%= f.radio_button(:management_evaluation, "Red Team Evaluate") %>
-        <%= f.label :management_evaluation, "Red Team Evaluate" %>
-        <%= f.radio_button(:management_evaluation, "Escalate") %>
-        <%= f.label :management_evaluation, "Escalate" %>
-        <%= f.radio_button(:management_evaluation, "Pass") %>
-        <%= f.label :management_evaluation, "Pass" %> <br>
+        <%= f.radio_button(:management_evaluation, "Red Team Escalate") %>
+        <%= f.label :management_evaluation, "Red Team Escalate" %>
+        <%= f.radio_button(:management_evaluation, "Management Escalate") %>
+        <%= f.label :management_evaluation, "Management Escalate" %>
+        <%= f.radio_button(:management_evaluation, "Reject Opportunity") %>
+        <%= f.label :management_evaluation, "Reject Opportunity" %> <br>
         <%= f.submit  "Submit", :class => "btn btn-default"%>
       </div>
     <% end %>
