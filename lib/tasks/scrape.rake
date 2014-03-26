@@ -2,22 +2,24 @@ task :greet do
 	puts "hello world"
 end
 
-task :clean => :environment do  #heroku scheduler run this every 2 days?
+task :clean => :environment do  #heroku scheduler run this every 1 days
     @opportunities = Opportunity.all 
     @opportunities.each do |opportunity| 
+    	if opportunity.management_evaluation == "Reject Opportunity"
+    		opportunity.destroy
+    	end
     	if (Date.today - opportunity.post_date).to_i > 8
-    		unless opportunity.management_evaluation && opportunity.management_evaluation.length > 1 && opportunity.management_evaluation != "Reject Opportunity"
-    			opportunity.destroy  #cleaner than delete
-    			puts "deleted record"
+    		unless opportunity.management_evaluation && opportunity.management_evaluation.length > 1 
+    			opportunity.destroy  
+    			puts "destroy record"
     		end
     	end
     end
 end
 
-task :scrape => :environment do  #heroku scheduler run every hour with a size of 500?
+task :scrape => :environment do  #heroku scheduler run every hour with list of 400
     require 'open-uri'
     todays_date = Date.today.strftime('%m/%d/%Y')
-    $been_there = false #will change to true when scraper detects duplicate opportunity. when true, script terminates
     doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400"))
     puts doc.css("title")[0].text 
 
@@ -75,31 +77,30 @@ task :scrape => :environment do  #heroku scheduler run every hour with a size of
 	    unless response_due == "none"
 		  	good_class_codes.each do |c_code|
 				if opportunity_row[0] && opportunity_row[0].include?(c_code)
-					bad_set_asides.each do |set_aside|
-					 	unless opportunity_row[2].include?(set_aside)
-					 		opportunity_classification[0] = "Good Classification"
-					 		opportunity_row << opportunity_row[0].split(c_code)[0]
-					 		opportunity_row << c_code
-					 	end
-					end
+			 		opportunity_classification[0] = "Good Classification"
+			 		opportunity_row << opportunity_row[0].split(c_code)[0]
+			 		opportunity_row << c_code
 				end
 			end
 			procurement_type.each do |p_type|
 				if opportunity_row[2].include?(p_type)
-					bad_set_asides.each do |bad_set_aside|
-						unless opportunity_row[2].include?(bad_set_aside)
-							opportunity_classification[1] = "Good Procurement"
-						end
-					end
+					opportunity_classification[1] = "Good Procurement"
+				end
+			end
+			bad_set_asides.each do |bad_set_aside|
+				if opportunity_row[2].include?(bad_set_aside)
+					opportunity_classification[1] = "Bad Procurement"
 				end
 			end
 		end
-		puts "#{opportunity_row[5]} is a #{opportunity_classification[0]} and #{opportunity_classification[1]}"
+		#puts "#{opportunity_row[5]} is a #{opportunity_classification[0]} and #{opportunity_classification[1]}"
 		#puts ""
 	end
 
 	def opportunity_database_evaluation(opportunity_row, response_due, opportunity_classification, full_link)
 	   	if opportunity_classification[0] == "Good Classification" && opportunity_classification[1] == "Good Procurement"
+	   		puts "THIS IS GOOD #{opportunity_row[2]}"
+	   		puts "THE GOOD CLASSIFICATION IS #{opportunity_classification[1]}"
 		   	if Opportunity.where(opportunity: opportunity_row[4]).none? #|| opportunity_row[3].to_date != Date.today
 		   		puts "Adding new record to Opportunity table"
 		 		Opportunity.create(opportunity: opportunity_row[4],
@@ -110,8 +111,8 @@ task :scrape => :environment do  #heroku scheduler run every hour with a size of
 				            	   response_date: response_due,
 					               link: full_link)
 			else
-				$been_there = true
-				raise "hey, stop the script! been_there value is #{$been_there}"
+				puts opportunity_row[4]
+				raise "Killing the script! We have been here before!. See Opportunity "
 			end
 		end
 	end
@@ -119,47 +120,42 @@ task :scrape => :environment do  #heroku scheduler run every hour with a size of
 	base_link = "https://www.fbo.gov/index"
 
 	doc.css('tr').each do |table_row|
-		puts "been_there value is #{$been_there}"
-		if $been_there == false #checks for new opportunity 
-			opportunity_row = []
-			opportunity_link = "none"
-			response_due = "none"
-			full_link = "none"
-			opportunity_classification = ["Bad Classification", "Bad Procurement"]
+		opportunity_row = []
+		opportunity_link = "none"
+		response_due = "none"
+		full_link = "none"
+		opportunity_classification = ["Bad Classification", "Bad Procurement"]
 
-			table_row.css('td').each do |table_division|
-				
-				links = table_division.css("a")
-				if links.length == 1
-					#puts "Checking opportunity #{hash_counter}"
-					opportunity_link = links[0]["href"] 
-					full_link = "#{base_link}#{opportunity_link}"
-					#opportunity_hash[hash_counter][:link] = full_link
-					#puts full_link
-					link_doc = Nokogiri::HTML(open(full_link))	
-		    		response_due = link_doc.css("div[id = 'dnf_class_values_procurement_notice__response_deadline__widget']").text
-		    		#opportunity_hash[hash_counter][:response_due] = response_due
-				end
-				opportunity_row << table_division.text 
-				#opportunity_row[0] merged opportunity title and classification code
-				#opportunity_row[1] agency
-				#opportunity_row[2] state & setaside code
-				#opportunity_row[3] submit date
-				#opportunity_link   link to the opportunity
-				#response_due       the day the response is expected
-				#opportunity_checker output opportunity_row[4] = opportunity title
-				#opportunity_checker output opportunity_row[5] = classification code
-				#full_link   url to opportunity
-			end
+		table_row.css('td').each do |table_division|
 			
-			opportunity_checker(opportunity_row, response_due, opportunity_classification, 
-				good_class_codes, procurement_type, bad_set_asides)
-
-			opportunity_database_evaluation(opportunity_row, response_due, opportunity_classification, 
-				full_link)
-		else
-			"been there, stop the sceipt"
+			links = table_division.css("a")
+			if links.length == 1
+				#puts "Checking opportunity #{hash_counter}"
+				opportunity_link = links[0]["href"] 
+				full_link = "#{base_link}#{opportunity_link}"
+				#opportunity_hash[hash_counter][:link] = full_link
+				#puts full_link
+				link_doc = Nokogiri::HTML(open(full_link))	
+	    		response_due = link_doc.css("div[id = 'dnf_class_values_procurement_notice__response_deadline__widget']").text
+	    		#opportunity_hash[hash_counter][:response_due] = response_due
+			end
+			opportunity_row << table_division.text 
+			#opportunity_row[0] merged opportunity title and classification code
+			#opportunity_row[1] agency
+			#opportunity_row[2] state & setaside code
+			#opportunity_row[3] submit date
+			#opportunity_link   link to the opportunity
+			#response_due       the day the response is expected
+			#opportunity_checker output opportunity_row[4] = opportunity title
+			#opportunity_checker output opportunity_row[5] = classification code
+			#full_link   url to opportunity
 		end
+		
+		opportunity_checker(opportunity_row, response_due, opportunity_classification, 
+			good_class_codes, procurement_type, bad_set_asides)
+
+		opportunity_database_evaluation(opportunity_row, response_due, opportunity_classification, 
+			full_link)
 	end
 end
 
