@@ -7,7 +7,7 @@ task :clean => :environment do  #heroku scheduler run this every 2 days?
     @opportunities.each do |opportunity| 
     	if (Date.today - opportunity.post_date).to_i > 8
     		unless opportunity.management_evaluation && opportunity.management_evaluation.length > 1 && opportunity.management_evaluation != "Reject Opportunity"
-    			opportunity.delete
+    			opportunity.destroy  #cleaner than delete
     			puts "deleted record"
     		end
     	end
