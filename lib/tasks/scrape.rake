@@ -18,7 +18,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with a size of
     require 'open-uri'
     todays_date = Date.today.strftime('%m/%d/%Y')
     $been_there = false #will change to true when scraper detects duplicate opportunity. when true, script terminates
-    doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=50"))
+    doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400"))
     puts doc.css("title")[0].text 
 
 	bad_class_codes =  ["10 -- Weapons", "11 -- Nuclear ordnance", "13 -- Ammunition & explosives", "14 -- Guided missiles", "15 -- Aircraft & airframe structural components",
@@ -100,7 +100,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with a size of
 
 	def opportunity_database_evaluation(opportunity_row, response_due, opportunity_classification, full_link)
 	   	if opportunity_classification[0] == "Good Classification" && opportunity_classification[1] == "Good Procurement"
-		   	if Opportunity.where(opportunity: opportunity_row[4]) == [] || opportunity_row[3].to_date != Date.today
+		   	if Opportunity.where(opportunity: opportunity_row[4]).none? #|| opportunity_row[3].to_date != Date.today
 		   		puts "Adding new record to Opportunity table"
 		 		Opportunity.create(opportunity: opportunity_row[4],
 					               class_code: opportunity_row[5],
@@ -111,7 +111,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with a size of
 					               link: full_link)
 			else
 				$been_there = true
-				puts "hey, stop the script! been_there value is #{$been_there}"
+				raise "hey, stop the script! been_there value is #{$been_there}"
 			end
 		end
 	end
