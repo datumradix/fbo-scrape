@@ -57,6 +57,8 @@ gem "authlogic", '3.4.0'
 #Rake gems
 gem 'nokogiri'
 
+gem 'newrelic_rpm'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
