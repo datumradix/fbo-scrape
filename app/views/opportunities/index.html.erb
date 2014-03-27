@@ -37,7 +37,7 @@
               <div>
                 <td>
                 <h4><%= link_to render(opportunity), opportunity %> </h4>
-                <%= link_to glyph(:thumbs_up), increment_opportunity_path(opportunity), remote: true, :class=>"green_href"  %>
+                <%= link_to glyph(:thumbs_up), increment_opportunity_path(opportunity), :alt =>"hello", remote: true, :class=>"green_href"  %>
                 <%#= link_to glyph(:thumbs_down), decrement_opportunity_path(opportunity), remote: true, :class =>"red_href" %> 
                  </td>
                </div>
