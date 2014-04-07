@@ -1,40 +1,60 @@
 <div class="row">
-  <div class="span2">
-    
+  <div class="span8">
+    <% unless @comments.count == 0 %>  
+      <h4>Comments</h4>
+      <table class="table">   
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Comment</th>
+        </tr>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td><%= comment.created_at.strftime("%b %d") %></td>
+            <td><%= comment.name %></td>
+            <td><%= comment.comment %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
   </div>
-</div>
-
-<div class="row">
-  <div class="span10">
-    <%= link_to 'Opportunities', opportunities_path %> / <h4><%= link_to @opportunity.opportunity, @opportunity.link, :target=>"_blank" %></h4>
-  </div>
-</div>
-<div class="row">
-  <div class="span10">
-    <p><%= @opportunity.agency %></p>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="span3"><strong>Opportunity Type</strong></div>
-  <div class="span2"><strong>Submit Date</strong></div>
-  <div class="span2"><strong>Response Due</strong></div>
-  <div class="span2"><strong>Rating</strong>
-  </div>
-</div>
-<div class="row">
-  <div class="span3"><p><%= @opportunity.opp_type %></p></div>
-  <div class="span2"><p><%= @opportunity.post_date.strftime("%b %d") %></p></div>
-  <div class="span2"><p><%= @opportunity.response_date.strftime("%b %d") if @opportunity.response_date %></p></div>
-  <div class="span2"><h4><%#= link_to render(@opportunity), @opportunity %> </h4>
-    <%#= link_to glyph(:thumbs_up), increment_opportunity_path(@opportunity), remote: true, :class=>"green_href"  %>
-    <%#= link_to glyph(:thumbs_down), decrement_opportunity_path(@opportunity), remote: true, :class =>"red_href" %>
-  </div>
-</div>
-<div class="row">
   <div class="span4">
-    <strong>Comment on this opportunity</strong><br>
+    <%if @opportunity.management_evaluation %>
+      <blockquote><h4>Evaluation: <%= @opportunity.management_evaluation %></h4></blockquote>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+
+    <h4><%= link_to @opportunity.opportunity, @opportunity.link, :target=>"_blank", :title =>"View Opportunity on FBO.gov", data: {tooltip: true} %></h4>
+    <table class="table table-bordered">
+      <tr>
+        <th>Agency</th>
+        <th>Classification</th>
+        <th>Solicitation Type</th>
+        <th>Submit Date</th>
+        <th>Response Deadline</th>
+      </tr>
+      <tr>
+        <td><%= @opportunity.agency %></td>
+        <td><%= @opportunity.class_code %></td>
+        <td><%= @opportunity.opp_type %></td>
+        <td><%= @opportunity.post_date.strftime("%b %d") %></td>
+        <td><%= @opportunity.response_date.strftime("%b %d") if @opportunity.response_date %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="span8">
+    <p><%= @opportunity.opportunity_description %></p>
+  </div>
+  <div class="span4">
+    <div class="span4">
+    <div class="radio">
+    <strong>Comment on Opportunity</strong><br>
     <%= form_for @comment, :html => {:class=> "form-control"} do |f| %>
       <% if @comment.errors.any? %>
         <div id="error_explanation">
@@ -51,10 +71,10 @@
       <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
       <%= f.submit "Submit", :class => "btn btn-default" %>
     <% end %>
-  </div>
-  <div class="span4">
-    <strong>Management Evaluation: </strong> <%= @opportunity.management_evaluation %><br><br>
+    </div>
+
     <div class="radio">
+    <strong>Evaluate Opportunity</strong><br>
     <%= form_for(@opportunity) do |f| %>
       <% if @opportunity.errors.any? %>
         <div id="error_explanation">
@@ -69,48 +89,13 @@
       <div class="radio">
         <%= f.radio_button(:management_evaluation, "Watchlist") %>
         <%= f.label :management_evaluation, "Watchlist" %>
-        <%= f.radio_button(:management_evaluation, "Red Team Escalate") %>
-        <%= f.label :management_evaluation, "Red Team Escalate" %>
-        <%= f.radio_button(:management_evaluation, "Management Escalate") %>
-        <%= f.label :management_evaluation, "Management Escalate" %>
+        <%= f.radio_button(:management_evaluation, "Pursue Opportunity") %>
+        <%= f.label :management_evaluation, "Pursue Opportunity" %>
         <%= f.radio_button(:management_evaluation, "Reject Opportunity") %>
-        <%= f.label :management_evaluation, "Reject Opportunity" %> <br>
-        <%= f.submit  "Submit", :class => "btn btn-default"%>
+        <%= f.label :management_evaluation, "Reject Opportunity" %>
       </div>
+      <%= f.submit  "Submit", :class => "btn btn-default" %>
     <% end %>
     </div>
-
-
-
   </div>
 </div>
-<div class="row">
-  <div span="12">
-    <% unless @comments.count == 0 %>  
-      <div class="row">
-        <div class="span1">
-          <strong>Date</strong>
-        </div>
-        <div class="span2">
-          <strong>Name</strong>
-        </div>
-        <div class="span8">
-          <strong>Comments</strong>
-        </div>
-      </div>
-      <% @comments.each do |comment| %>
-        <div class="row">
-          <div class="span1"><%= comment.created_at.strftime("%b %d") %> </div>
-          <div class="span2"><%= comment.name %></div>
-          <div class="span8"><%= comment.comment %></div>
-          <hr>
-        </div>
-      <% end %>
-    <% end %>
-    <hr>
-  </div>
-</div>
-
-
-
-      

@@ -97,7 +97,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 		#puts ""
 	end
 
-	def opportunity_database_evaluation(opportunity_row, response_due, opportunity_classification, full_link)
+	def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, opportunity_classification, full_link)
 	   	if opportunity_classification[0] == "Good Classification" && opportunity_classification[1] == "Good Procurement"
 	   		puts "THIS IS GOOD #{opportunity_row[2]}"
 	   		puts "THE GOOD CLASSIFICATION IS #{opportunity_classification[1]}"
@@ -109,6 +109,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 			        	           opp_type: opportunity_row[2],
 			            	       post_date: opportunity_row[3],
 				            	   response_date: response_due,
+				            	   opportunity_description: opportunity_description,
 					               link: full_link)
 			else
 				puts opportunity_row[4]
@@ -123,6 +124,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 		opportunity_row = []
 		opportunity_link = "none"
 		response_due = "none"
+		opportunity_description = "none"
 		full_link = "none"
 		opportunity_classification = ["Bad Classification", "Bad Procurement"]
 
@@ -137,6 +139,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 				#puts full_link
 				link_doc = Nokogiri::HTML(open(full_link))	
 	    		response_due = link_doc.css("div[id = 'dnf_class_values_procurement_notice__response_deadline__widget']").text
+	    		opportunity_description = link_doc.css("div[id = 'dnf_class_values_procurement_notice__description__widget']").text
 	    		#opportunity_hash[hash_counter][:response_due] = response_due
 			end
 			opportunity_row << table_division.text 
@@ -146,6 +149,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 			#opportunity_row[3] submit date
 			#opportunity_link   link to the opportunity
 			#response_due       the day the response is expected
+			#opportunity_description
 			#opportunity_checker output opportunity_row[4] = opportunity title
 			#opportunity_checker output opportunity_row[5] = classification code
 			#full_link   url to opportunity
@@ -154,7 +158,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 		opportunity_checker(opportunity_row, response_due, opportunity_classification, 
 			good_class_codes, procurement_type, bad_set_asides)
 
-		opportunity_database_evaluation(opportunity_row, response_due, opportunity_classification, 
+		opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, opportunity_classification, 
 			full_link)
 	end
 end

@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140307170638) do
 
   create_table "opportunities", force: true do |t|
     t.text     "opportunity"
+    t.text     "opportunity_description"
     t.string   "agency"
     t.string   "opp_type"
     t.date     "post_date"
@@ -32,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140307170638) do
     t.string   "link"
     t.text     "comments"
     t.string   "management_evaluation"
-    t.integer  "like",                  default: 0
+    t.integer  "like",                    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "class_code"

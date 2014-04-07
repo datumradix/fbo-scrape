@@ -1,10 +1,9 @@
 <div class="row">
   <div class="span12">
-    <p align="right">Show: <%= link_to "All", opportunities_path() %> | 
-                           <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> | 
-                           <%= link_to "Red Team Escalate", opportunities_path(:set_filter =>"Red Team Escalate") %> | 
-                           <%= link_to "Management Escalate", opportunities_path(:set_filter =>"Management Escalate") %> | 
-                           <%= link_to "Reject", opportunities_path(:set_filter =>"Reject Opportunity") %> </p>
+    <p align="right"> <%= link_to "Not Evaluated", opportunities_path() %> | 
+                      <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> | 
+                      <%= link_to "Pursue Opportunity", opportunities_path(:set_filter =>"Pursue Opportunity") %> | 
+                      <%= link_to "Reject Opportunity", opportunities_path(:set_filter =>"Reject Opportunity") %> | 
   </div>
 </div>
 
@@ -22,7 +21,7 @@
             <th><%= sortable "post_date", "Posted" %></th>
             <th><%= sortable "response_date", "Deadline" %></th>
           </tr> -->
-            <th>Rating</th>
+            <th></th>
             <th>Opportunity</th>
             <th>Classification</th>
             <th>Agency</th>
@@ -34,36 +33,22 @@
         <tbody>
           <% @opportunities.each do |opportunity| %>
             <tr>
-              <div>
-                <td>
-                <h4><%= link_to render(opportunity), opportunity %> </h4>
-                <%= link_to glyph(:thumbs_up), increment_opportunity_path(opportunity), :alt =>"hello", remote: true, :class=>"green_href"  %>
-                <%#= link_to glyph(:thumbs_down), decrement_opportunity_path(opportunity), remote: true, :class =>"red_href" %> 
-                 </td>
-               </div>
-              <td><%= link_to opportunity.opportunity, opportunity %></td>
+              <td>
+                <% if opportunity.management_evaluation %>
+                  <%= opportunity.management_evaluation %>
+                  <% if opportunity.comments.length > 0 %>
+                    <p><%= pluralize(opportunity.comments.count, "msg") %> </p>
+                    
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= link_to opportunity.opportunity, opportunity, :target=>"_blank" %></td>
               <td><%= opportunity.class_code %> </td> 
               <td><%= opportunity.agency %></td>
               <td><%= opportunity.opp_type %></td>
               <td><%= opportunity.post_date.strftime("%b %d") %></td>
               <td><%= "#{(opportunity.response_date - Date.today).to_i } days" if opportunity.response_date %></td>
             </tr>
-
-              <% if opportunity.comments.length > 0 || opportunity.management_evaluation %>
-                <td></td>
-                <td>
-                  <table>
-                    <tr>
-                      <td><strong>Evaluation:</strong></td>
-                      <td> <%= opportunity.management_evaluation %></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Comments:</strong></td>
-                      <td><%=link_to opportunity.comments.count, opportunity %></td>
-                    </tr>
-                  </table>
-                </td>
-              <% end %>
           <% end %>
         </tbody>
       </table>
