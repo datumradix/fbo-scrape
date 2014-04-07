@@ -27,7 +27,6 @@
             <th>Agency</th>
             <th>Type</th>
             <th>Posted</th>
-            <th>Deadline</th>
         </thead>
 
         <tbody>
@@ -47,7 +46,6 @@
               <td><%= opportunity.agency %></td>
               <td><%= opportunity.opp_type %></td>
               <td><%= opportunity.post_date.strftime("%b %d") %></td>
-              <td><%= "#{(opportunity.response_date - Date.today).to_i } days" if opportunity.response_date %></td>
             </tr>
           <% end %>
         </tbody>
