@@ -22,8 +22,8 @@
           </tr> -->
             <th></th>
             <th>Opportunity</th>
-            <th>Classification</th>
             <th>Agency</th>
+            <th>Classification</th>
             <th>Type</th>
             <th>Posted</th>
         </thead>
@@ -41,8 +41,8 @@
                 <% end %>
               </td>
               <td><%= link_to opportunity.opportunity, opportunity, :target=>"_blank" %></td>
-              <td><%= opportunity.class_code %> </td> 
               <td><%= opportunity.agency %></td>
+              <td><%= opportunity.class_code %> </td> 
               <td><%= opportunity.opp_type %></td>
               <td><%= opportunity.post_date.strftime("%b %d") %></td>
             </tr>
