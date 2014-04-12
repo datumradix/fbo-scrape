@@ -52,12 +52,13 @@
           <div class="container nav-collapse">
             <ul class="nav">
               <li><%= link_to "About", static_pages_about_path %></li>
+              <li><%= link_to "Criteria", static_pages_criteria_path %></li>
               <% if current_user %>
                 <li><%= link_to "Edit Profile", edit_user_path(:current) %></li>
                 <li><%= link_to "Logout", logout_path %></li>
               <% else %>
-                <li><%= link_to "New User", new_user_path %></li>
-                <li><%= link_to "Login", new_user_session_path %></li>
+                <li><%#= link_to "New User", new_user_path %></li>
+                <li><%#= link_to "Login", new_user_session_path %></li>
               <% end %>
             </ul>
             <form class="navbar-form pull-right" role="search">

@@ -13,6 +13,8 @@ Fbo::Application.routes.draw do
 
   resources :comments
 
+  get "static_pages/criteria"
+
   get "static_pages/about"
   resources :opportunities do
     member do
@@ -39,6 +41,7 @@ Fbo::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   match '/about',   to: 'static_pages#about',   via: 'get'
+  match '/criteria',   to: 'statuc_pages#criteria',   via: 'get'
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

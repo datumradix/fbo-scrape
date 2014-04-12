@@ -89,10 +89,8 @@
       <div class="radio">
         <%= f.radio_button(:management_evaluation, "Watchlist") %>
         <%= f.label :management_evaluation, "Watchlist" %>
-        <%= f.radio_button(:management_evaluation, "Pursue Opportunity") %>
-        <%= f.label :management_evaluation, "Pursue Opportunity" %>
-        <%= f.radio_button(:management_evaluation, "Reject Opportunity") %>
-        <%= f.label :management_evaluation, "Reject Opportunity" %>
+        <%= f.radio_button(:management_evaluation, "Reject") %>
+        <%= f.label :management_evaluation, "Reject" %>
       </div>
       <%= f.submit  "Submit", :class => "btn btn-default" %>
     <% end %>
