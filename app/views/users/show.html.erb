@@ -10,5 +10,48 @@
   <%= @user.email %>
 </p>
 
+<h3>Set Filters</h3>
+
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="checkbox">
+  <% an_array = ["cat", "dog", "fat"] %>
+  <% an_array.each do |item| %>
+    <%= check_box_tag(item.to_s) %>
+    <%= label_tag(item.to_s, item) %>
+   <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit", :class => "btn btn-default" %>
+  </div>
+<% end %>
+
+
+
+
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
