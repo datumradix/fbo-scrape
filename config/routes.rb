@@ -22,11 +22,17 @@ Fbo::Application.routes.draw do
       get 'decrement'
     end
   end
+  
   resources :opportunity do
     member do
       get 'increment'
       get 'decrement'
       get 'manager'
+    end
+  end
+
+  resources :plain_views do
+    member do
     end
   end
 

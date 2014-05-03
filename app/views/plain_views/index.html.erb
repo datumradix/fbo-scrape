@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="span12">
+    <h4 align="center"> Watchlist Plain View</h4> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+      <%= will_paginate @opportunities %>
+      <% @opportunities.each do |opportunity| %>
+          <p><%= link_to opportunity.opportunity, opportunity %></p>
+          <p><%= opportunity.link %></p>
+          <p><strong>Agency: </strong> <%= opportunity.agency %></p>
+          <p><strong>Classification Code: </strong> <%= opportunity.class_code %> </p> 
+          <p><strong>Opportunity Type: </strong> <%= opportunity.opp_type %></p>
+          <p><strong>Post Date: </strong><%= opportunity.post_date.strftime("%b %d") %></p>
+          <p><strong>Comment: </strong><%= opportunity.comments.last.comment %> 
+          <br><br>
+      <% end %>
+      <%= will_paginate @opportunities %>
+  </div>
+</div>
