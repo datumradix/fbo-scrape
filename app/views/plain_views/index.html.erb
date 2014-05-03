@@ -14,7 +14,11 @@
           <p><strong>Classification Code: </strong> <%= opportunity.class_code %> </p> 
           <p><strong>Opportunity Type: </strong> <%= opportunity.opp_type %></p>
           <p><strong>Post Date: </strong><%= opportunity.post_date.strftime("%b %d") %></p>
-          <p><strong>Comment: </strong><%= opportunity.comments.last.comment %> 
+          <% if opportunity.comments.last %>
+            <% last_comment = opportunity.comments.last.comment %>
+          <% else last_comment = "none" %> 
+          <% end %>
+          <p><strong>Comment: </strong><%=  last_comment %> 
           <br><br>
       <% end %>
       <%= will_paginate @opportunities %>
