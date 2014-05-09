@@ -37,8 +37,8 @@ class OpportunitiesController < ApplicationController
 
 
   def show
-    @comments = @opportunity.comments
-    @comment = Comment.new
+    #@comments = @opportunity.comments
+    #@comment = Comment.new
   end
 
   # GET /opportunities/new
@@ -99,5 +99,6 @@ class OpportunitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
       params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like, :management_evaluation)
+      #params.require(:comment).permit(:comment, :name, :opportunity_id)
     end
 end

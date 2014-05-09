@@ -7,6 +7,7 @@ class Opportunity < ActiveRecord::Base
 			scoped
 		end
 	end
-	has_many :comments
+	
+	has_many :comments, :dependent => :destroy
 	accepts_nested_attributes_for :comments
 end
