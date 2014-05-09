@@ -27,7 +27,6 @@
 
 <div class="row">
   <div class="span12">
-
     <h4><%= link_to @opportunity.opportunity, @opportunity.link, :target=>"_blank", :title =>"View Opportunity on FBO.gov", data: {tooltip: true} %></h4>
     <table class="table table-bordered">
       <tr>
@@ -52,41 +51,34 @@
     <p><%= @opportunity.opportunity_description %></p>
   </div>
   <div class="span4">
-    <div class="span4">
-    
-
-    <div>
-      <strong>Evaluate Opportunity</strong><br>
-      <%= form_for @opportunity do |f| %>
-        <% if @opportunity.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this management_evaluation from being saved:</h2>
-            <ul>
+    <strong>Evaluate Opportunity</strong><br>
+    <%= form_for @opportunity do |f| %>
+      <% if @opportunity.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this management_evaluation from being saved:</h2>
+          <ul>
             <% @opportunity.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
             <% end %>
-            </ul>
-          </div>
-        <% end %>
-        <div class="radio">
-          <%= f.radio_button(:management_evaluation, "Watchlist") %>
-          <%= f.label :management_evaluation, "Watchlist" %>
-          <%= f.radio_button(:management_evaluation, "Reject") %>
-          <%= f.label :management_evaluation, "Reject" %>
-        <br>
-        <div>
-        <div class="form">
-          <strong>Comment on Opportunity </strong><br>
-          
-          <%= f.fields_for :comments do |builder| %>
-            <%= builder.text_field :name, placeholder: current_user.username %> 
-            <%= builder.text_area :comment, placeholder: "Comment", rows: "4" %> 
-            <%= builder.hidden_field :opportunity_id, value: @opportunity.id %>
-          <% end %>
-
+          </ul>
         </div>
-        <%= f.submit  "Submit", :class => "btn btn-default" %>
       <% end %>
-    </div>
+      <div class="radio">
+        <%= f.radio_button(:management_evaluation, "Watchlist") %>
+        <%= f.label :management_evaluation, "Watchlist" %>
+        <%= f.radio_button(:management_evaluation, "Reject") %>
+        <%= f.label :management_evaluation, "Reject" %>
+        <br>
+      </div>
+      <div class="form">
+        <strong>Comment on Opportunity </strong><br>    
+        <%= f.fields_for :comments do |builder| %>
+          <%= builder.text_field :name, placeholder: current_user.username %> 
+          <%= builder.text_area :comment, placeholder: "Comment", rows: "4" %> 
+          <%= builder.hidden_field :opportunity_id, value: @opportunity.id %>
+        <% end %>
+      </div>
+      <%= f.submit  "Submit", :class => "btn btn-default" %>
+    <% end %>
   </div>
 </div>
