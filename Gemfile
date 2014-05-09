@@ -53,6 +53,7 @@ gem "twitter-bootstrap-rails"
 #Authentication & Authorization
 gem "authlogic", '3.4.0'
 #gem "cancan"
+gem 'declarative_authorization', '0.5.7'
 
 #Rake gems
 gem 'nokogiri'

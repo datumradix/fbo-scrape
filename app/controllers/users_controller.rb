@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  #filter_resource_access
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -71,6 +72,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :role_id)
     end
 end

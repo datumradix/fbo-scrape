@@ -1,5 +1,7 @@
 Fbo::Application.routes.draw do
   
+  resources :roles
+
   resources :management_evaluations
 
   #match '/new_user' to "login", :controller => "user_sessions", :action => "new"

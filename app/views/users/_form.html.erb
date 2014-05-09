@@ -12,21 +12,40 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :username %><br>
+    <%= f.label :username %>
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
+    <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
   <div>
-    <%= f.label :password_confirmation %><br>
+    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
+
+  <div>
+    <strong>Account Role: </strong> <%= @user.role.name %> 
+  </div>
+
+  <br>
+
+  <div class="radio">
+    <%= f.radio_button(:role_id, 1) %>
+    <%= f.label :role_id, Role.find(1).name %>
+    <%= f.radio_button(:role_id, 2) %>
+    <%= f.label :role_id, Role.find(2).name %>
+    <%= f.radio_button(:role_id, 3) %>
+    <%= f.label :role_id, Role.find(3).name %>
+  </div>
+
+  <br>
+
+
   <div class="actions">
     <%= f.submit "Submit", :class => "btn btn-default" %>
   </div>

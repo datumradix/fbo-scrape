@@ -66,34 +66,44 @@
           </ul>
         </div>
       <% end %>
-      <p><%= f.text_field :name, placeholder: "Name"%></p> 
+      <p><%= f.text_field :name, placeholder: current_user.username %></p> 
       <p><%= f.text_area :comment, placeholder: "Comment", rows: "4" %></p> 
       <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
       <%= f.submit "Submit", :class => "btn btn-default" %>
     <% end %>
     </div>
 
-    <div class="radio">
-    <strong>Evaluate Opportunity</strong><br>
-    <%= form_for(@opportunity) do |f| %>
-      <% if @opportunity.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this management_evaluation from being saved:</h2>
-          <ul>
-          <% @opportunity.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
+    <div>
+      <strong>Evaluate Opportunity</strong><br>
+      <%= form_for(@opportunity) do |f| %>
+        <% if @opportunity.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this management_evaluation from being saved:</h2>
+            <ul>
+            <% @opportunity.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="radio">
+          <%= f.radio_button(:management_evaluation, "Watchlist") %>
+          <%= f.label :management_evaluation, "Watchlist" %>
+          <%= f.radio_button(:management_evaluation, "Reject") %>
+          <%= f.label :management_evaluation, "Reject" %>
         </div>
+        <br>
+          <strong>Comment on Opportunity</strong><br>
+          
+          <% f.fields_for :comments do |comment_form| %>
+            <p><%= comment_form.text_field :name, placeholder: current_user.username %></p> 
+            <p><%= comment_form.text_area :comment, placeholder: "Comment", rows: "4" %></p> 
+            <%= comment_form.hidden_field :opportunity_id, value: @opportunity.id %><br>
+          <% end %>
+
+        </div>
+        <%= f.submit  "Submit", :class => "btn btn-default" %>
       <% end %>
-      <div class="radio">
-        <%= f.radio_button(:management_evaluation, "Watchlist") %>
-        <%= f.label :management_evaluation, "Watchlist" %>
-        <%= f.radio_button(:management_evaluation, "Reject") %>
-        <%= f.label :management_evaluation, "Reject" %>
-      </div>
-      <%= f.submit  "Submit", :class => "btn btn-default" %>
-    <% end %>
     </div>
   </div>
 </div>

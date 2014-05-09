@@ -1,4 +1,5 @@
 class UserSessionsController < ApplicationController
+  #filter_resource_access
   before_action :set_user_session, only: [:show, :edit, :update, :destroy]
 
   # GET /user_sessions/new
@@ -14,7 +15,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to root_path, notice: 'Successfully logged in.' }
+        format.html { redirect_to root_path, notice: 'Welcome to the team.' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
         format.html { render action: 'new' }

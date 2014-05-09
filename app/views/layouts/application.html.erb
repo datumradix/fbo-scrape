@@ -58,21 +58,31 @@
                 <li><%= link_to "Logout", logout_path %></li>
               <% else %>
                 <li><%#= link_to "New User", new_user_path %></li>
-                <li><%#= link_to "Login", new_user_session_path %></li>
+                <li><%= link_to "Login", new_user_session_path %></li>
               <% end %>
             </ul>
-            <form class="navbar-form pull-right" role="search">
-              <div class="form-group">
-                <%= form_tag opportunities_path, :method => :get do %>
-                  <%= hidden_field_tag :direction, params[:direction] %>
-                  <%= hidden_field_tag :sort, params[:sort] %>
-                  <p>
-                    <%= text_field_tag :search, params[:search], :class => "form-control" %>
-                    <%= submit_tag "Search", :name => nil, :class => "btn btn-default" %>
-                  </p>
+
+            <% if permitted_to? :show, :opportunities %>
+              <ul class="nav nav-pills pull-right">
+                <% if params[:set_filter] == nil %>
+                  <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
+                <% else %>
+                  <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
                 <% end %>
-              </div>
-            </form>
+                <% if params[:set_filter] == "Watchlist" %>
+                  <li class="active"><%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
+                <% else %>
+                  <li><%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
+                <% end %>
+                <% if params[:set_filter] == "Reject" %>
+                  <li class="active"><%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
+                <% else %>
+                  <li><%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
+                <% end %>
+              </ul>
+            <% end %> 
+
+
           </div><!--/.nav-collapse -->
         </div>
       </div>
