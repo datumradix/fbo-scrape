@@ -64,17 +64,17 @@
 
             <% if permitted_to? :show, :opportunities %>
               <ul class="nav nav-pills pull-right">
-                <% if params[:set_filter] == nil %>
-                  <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
-                <% else %>
+                <% if params[:set_filter] == "Watchlist" || params[:set_filter] ==  "Reject" %>
                   <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
+                <% else %>
+                  <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
                 <% end %>
-                <% if params[:set_filter] == "Watchlist" %>
+                <% if params[:set_filter] == "Watchlist" || @opportunity && @opportunity.management_evaluation == "Watchlist" %>
                   <li class="active"><%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
                 <% else %>
                   <li><%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
                 <% end %>
-                <% if params[:set_filter] == "Reject" %>
+                <% if params[:set_filter] == "Reject" || @opportunity && @opportunity.management_evaluation == "Reject" %>
                   <li class="active"><%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
                 <% else %>
                   <li><%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>

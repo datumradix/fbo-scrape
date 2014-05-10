@@ -28,23 +28,25 @@
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <div>
-    <strong>Account Role: </strong> <%= @user.role.name %> 
-  </div>
+  <% if @user.role %>
+    <div>
+      <h4>Account Role: <%= @user.role.name %></h4> 
+    </div>
 
+    <% if @user.role.name == "Admin" %>
+      <br>
+      <h4>Administer User Sessings</h4>
+      <div class="radio">
+        <%= f.radio_button(:role_id, 1) %>
+        <%= f.label :role_id, Role.find(1).name %>
+        <%= f.radio_button(:role_id, 2) %>
+        <%= f.label :role_id, Role.find(2).name %>
+        <%= f.radio_button(:role_id, 3) %>
+        <%= f.label :role_id, Role.find(3).name %>
+      </div>
+    <% end %>
+  <% end %>
   <br>
-
-  <div class="radio">
-    <%= f.radio_button(:role_id, 1) %>
-    <%= f.label :role_id, Role.find(1).name %>
-    <%= f.radio_button(:role_id, 2) %>
-    <%= f.label :role_id, Role.find(2).name %>
-    <%= f.radio_button(:role_id, 3) %>
-    <%= f.label :role_id, Role.find(3).name %>
-  </div>
-
-  <br>
-
 
   <div class="actions">
     <%= f.submit "Submit", :class => "btn btn-default" %>

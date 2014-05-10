@@ -24,14 +24,6 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="checkbox">
-  <% an_array = ["cat", "dog", "fat"] %>
-  <% an_array.each do |item| %>
-    <%= check_box_tag(item.to_s) %>
-    <%= label_tag(item.to_s, item) %>
-   <% end %>
-  </div>
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>

@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="span8">
+  <div class="span12">
     <% unless @opportunity.comments.count == 0 %>  
       <h4>Comments</h4>
-      <table class="table">   
+      <table class="table table-hover">   
         <tr>
           <th>Date</th>
           <th>Name</th>
@@ -16,11 +16,6 @@
           </tr>
         <% end %>
       </table>
-    <% end %>
-  </div>
-  <div class="span4">
-    <%if @opportunity.management_evaluation %>
-      <blockquote><h4>Evaluation: <%= @opportunity.management_evaluation %></h4></blockquote>
     <% end %>
   </div>
 </div>
@@ -50,35 +45,28 @@
   <div class="span8">
     <p><%= @opportunity.opportunity_description %></p>
   </div>
-  <div class="span4">
-    <strong>Evaluate Opportunity</strong><br>
-    <%= form_for @opportunity do |f| %>
-      <% if @opportunity.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this management_evaluation from being saved:</h2>
-          <ul>
-            <% @opportunity.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <div class="radio">
-        <%= f.radio_button(:management_evaluation, "Watchlist") %>
-        <%= f.label :management_evaluation, "Watchlist" %>
-        <%= f.radio_button(:management_evaluation, "Reject") %>
-        <%= f.label :management_evaluation, "Reject" %>
-        <br>
-      </div>
-      <div class="form">
-        <strong>Comment on Opportunity </strong><br>    
-        <%= f.fields_for :comments do |builder| %>
-          <%= builder.text_field :name, placeholder: current_user.username %> 
-          <%= builder.text_area :comment, placeholder: "Comment", rows: "4" %> 
-          <%= builder.hidden_field :opportunity_id, value: @opportunity.id %>
+  <div class="span4">   
+    <form class="evaluate_form">
+      <h4>Evaluate Opportunity</h4>
+      <%= form_for @opportunity do |f| %>
+          <div class="radio">
+            <%= f.radio_button(:management_evaluation, "Watchlist") %>
+            <%= f.label :management_evaluation, "Watchlist" %>
+            <%= f.radio_button(:management_evaluation, "Reject") %>
+            <%= f.label :management_evaluation, "Reject" %>
+          </div>
+            <%= f.submit  "Submit", :class => "btn btn-default" %>
         <% end %>
-      </div>
-      <%= f.submit  "Submit", :class => "btn btn-default" %>
-    <% end %>
+    </form>
+    <form class="comment_form">
+      <h4>Comment on Opportunity </h4>    
+      <%= form_for Comment.new do |f| %>
+        <%= f.text_field :name, value: current_user.username %> 
+        <%= f.text_area :comment, placeholder: "Comment", :rows => 5 %> 
+        <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
+        <%= f.submit  "Submit", :class => "btn btn-default" %>
+      <% end %>
+    </form>
+    <br>
   </div>
 </div>
