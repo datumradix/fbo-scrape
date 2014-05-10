@@ -38,18 +38,18 @@
 }
 
 /* Comment form style */
-form.comment_form {
+div.comment_form {
     padding-top: 20px;
-    padding-left: 25px;
+    padding-left: 20px;
     padding-bottom: 10px;
     text-indent: 10px; 
     background-color: #67EBF5;
 }
 
 /* Comment form style */
-form.evaluate_form {
+div.evaluate_form {
     padding-top: 20px;
-    padding-left: 25px;
+    padding-left: 20px;
     padding-bottom: 10px;
     text-indent: 10px;
     background-color: #9DF567;
