@@ -56,7 +56,7 @@ gem "authlogic", '3.4.0'
 gem 'declarative_authorization', '0.5.7'
 
 #Rake gems
-gem 'nokogiri'
+gem 'nokogiri', '1.6.2.1'
 
 gem 'newrelic_rpm'
 
