@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to root_path, notice: 'Welcome to the team.' }
+        format.html { redirect_to user_path(:current), notice: 'Welcome to the team.' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
         format.html { render action: 'new' }
@@ -31,7 +31,7 @@ class UserSessionsController < ApplicationController
   def destroy
     @user_session.destroy
     respond_to do |format|
-      format.html { redirect_to root_path }
+      format.html { redirect_to root_path , notice: 'You are logged out.' }
       format.json { head :no_content }
     end
   end

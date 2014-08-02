@@ -1,59 +1,55 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Username:</strong>
-  <%= @user.username %>
+  Username:
+  <%= link_to @user.username, edit_user_path(:current) %>
 </p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @user.email %>
+  Team Lead:
+  <%= link_to "Scott Lamb", static_pages_criteria_path %>
 </p>
+<hr>
 
-<h3>Set Filters</h3>
-
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+<h3>Status</h3>
+<p>Seven day history based on your team's <%= link_to "search criteria", static_pages_criteria_path %> and evaluation activity.</p>
+<div class="row">
+  <div class="span2 offset0">
+    <table class="table table-bordered">
+      <tr><td>Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => nil) %></td></tr>
+      <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "Watchlist") %></td></tr>
+      <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "Reject") %></td></tr>
+    </table>
   </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-  <div>
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <h4>Administer User Sessings</h4>
-  <div class="radio">
-    <%= f.radio_button(:role_id, 1) %>
-    <%= f.label :role_id, Role.find(1).name %>
-    <%= f.radio_button(:role_id, 2) %>
-    <%= f.label :role_id, Role.find(2).name %>
-    <%= f.radio_button(:role_id, 3) %>
-    <%= f.label :role_id, Role.find(3).name %>
-  </div>
+</div>
+<hr>
 
-  <div class="actions">
-    <%= f.submit "Submit", :class => "btn btn-default" %>
-  </div>
-<% end %>
+<h3>Comments</h3>
+<%= will_paginate @comments %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Post Date</th>
+      <th>Opportunity</th>
+      <th>Evaluation</th>
+      <th>Name</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td> <%= comment.opportunity.post_date.strftime("%b %d") %> </td>
+        <td> <%= link_to comment.opportunity.opportunity, opportunity_path(comment.opportunity) %></td>
+        <td> <%= comment.opportunity.management_evaluation %> </td>
+        <td><%= comment.name %></td>
+        <td><%= comment.comment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @comments %>
 
 
 
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
