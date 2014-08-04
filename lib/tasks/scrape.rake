@@ -5,9 +5,16 @@ end
 task :clean => :environment do  #heroku scheduler run this every 1 days
     @opportunities = Opportunity.all 
     @opportunities.each do |opportunity| 
-    	if opportunity.management_evaluation == "Reject Opportunity"
+    	if opportunity.management_evaluation == "Not Evaluated" && (Date.today - opportunity.post_date).to_i > 8
     		opportunity.destroy
     	end
+    	if opportunity.management_evaluation == "Watchlist" && (Date.today - opportunity.post_date).to_i > 365
+    		opportunity.destroy
+    	end
+    	if opportunity.management_evaluation == "Reject" && (Date.today - opportunity.post_date).to_i > 30
+    		opportunity.destroy
+    	end
+    	#this clean task can be removed soon. Opportunities never are imported with nil.
     	if (Date.today - opportunity.post_date).to_i > 8
     		unless opportunity.management_evaluation && opportunity.management_evaluation.length > 1 
     			opportunity.destroy  

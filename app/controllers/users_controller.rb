@@ -15,8 +15,8 @@ class UsersController < ApplicationController
 
     #@comments = Comment.all   #sort newest to oldest, show last 10 comments. or paginate.
     @not_evaluated_count = Opportunity.where(management_evaluation: "Not Evaluated").count
-    @watchlist_count = Opportunity.where(management_evaluation: "Watchlist").count
-    @reject_count = Opportunity.where(management_evaluation: "Reject").count
+    @watchlist_count = Opportunity.where(management_evaluation: "Watchlist").where('created_at >= ?', 1.week.ago).count
+    @reject_count = Opportunity.where(management_evaluation: "Reject").where('created_at >= ?', 1.week.ago).count
   end
 
   # GET /users/new
