@@ -14,7 +14,7 @@
 <div class="row">
   <div class="span2 offset0">
     <table class="table table-bordered">
-      <tr><td>Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => nil) %></td></tr>
+      <tr><td>Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "Not Evaluated") %></td></tr>
       <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "Watchlist") %></td></tr>
       <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "Reject") %></td></tr>
     </table>

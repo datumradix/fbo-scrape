@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @comments = Comment.order("id DESC").paginate(:per_page => 10, :page => params[:page])
 
     #@comments = Comment.all   #sort newest to oldest, show last 10 comments. or paginate.
-    @not_evaluated_count = Opportunity.where(management_evaluation: nil).count
+    @not_evaluated_count = Opportunity.where(management_evaluation: "Not Evaluated").count
     @watchlist_count = Opportunity.where(management_evaluation: "Watchlist").count
     @reject_count = Opportunity.where(management_evaluation: "Reject").count
   end

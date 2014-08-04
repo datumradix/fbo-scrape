@@ -31,7 +31,7 @@ class UserSessionsController < ApplicationController
   def destroy
     @user_session.destroy
     respond_to do |format|
-      format.html { redirect_to root_path , notice: 'You are logged out.' }
+      format.html { redirect_to static_pages_about_path , notice: 'You are logged out.' }
       format.json { head :no_content }
     end
   end

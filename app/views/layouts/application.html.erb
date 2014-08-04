@@ -48,7 +48,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" <%= link_to "teamFBO", opportunities_path %></a>
+          <a class="brand" <%= link_to "teamFBO", opportunities_path(:set_filter => "Not Evaluated") %></a>
           <div class="container nav-collapse">
             <ul class="nav">
               <li><%= link_to "About", static_pages_about_path %></li>
@@ -63,25 +63,26 @@
 
             <% if permitted_to? :show, :opportunities %>
               <ul class="nav nav-pills pull-right">
-                <% if params[:set_filter] == "Watchlist" || params[:set_filter] ==  "Reject" %>
-                  <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
-                <% else %>
-                  <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => nil) %> </li>
-                <% end %>
-                <% if params[:set_filter] == "Watchlist" || @opportunity && @opportunity.management_evaluation == "Watchlist" %>
-                  <li class="active"><%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
-                <% else %>
-                  <li><%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
-                <% end %>
-                <% if params[:set_filter] == "Reject" || @opportunity && @opportunity.management_evaluation == "Reject" %>
-                  <li class="active"><%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
-                <% else %>
-                  <li><%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
+                <% case params[:set_filter] %>
+                  <% when "Not Evaluated" %>
+                    <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => "Not Evaluated") %> </li>
+                    <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
+                    <li> <%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
+                  <% when "Watchlist" %>
+                    <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => "Not Evaluated") %> </li>
+                    <li class="active"> <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
+                    <li> <%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
+                  <% when "Reject" %>
+                    <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => "Not Evaluated") %> </li>
+                    <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
+                    <li class="active"> <%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
+                  <% else %>
+                    <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => "Not Evaluated") %> </li>
+                    <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
+                    <li> <%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>
                 <% end %>
               </ul>
             <% end %> 
-
-
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -90,7 +91,7 @@
       <%= bootstrap_flash %>
       <%= yield %>
       <footer>
-        Alone we go fast. Together we go far.
+        teamFBO: Together we win!
       </footer>
     </div> <!-- /container -->
 
