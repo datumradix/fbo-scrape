@@ -9,15 +9,19 @@
 </p>
 <hr>
 
-<h3>Status</h3>
-<p>Seven day history based on your team's <%= link_to "search criteria", static_pages_criteria_path %> and evaluation activity.</p>
 <div class="row">
-  <div class="span2 offset0">
+  <div class="span3 offset0">
+    <h3>Status</h3>
+    <p>Seven day history based on your team's <%= link_to "search criteria", static_pages_criteria_path %> and evaluation activity.</p>
     <table class="table table-bordered">
       <tr><td>Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "Not Evaluated") %></td></tr>
       <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "Watchlist") %></td></tr>
       <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "Reject") %></td></tr>
     </table>
+  </div>
+  <div class="span6 offset2">
+    <h3>Reporting</h3>
+    <p>Display watchlist in <%= link_to "plain view", plain_views_path %>.</p>
   </div>
 </div>
 <hr>

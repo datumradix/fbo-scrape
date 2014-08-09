@@ -42,7 +42,7 @@
             <tr>
               <td>
                 <% if opportunity.management_evaluation %>
-                  <%= opportunity.management_evaluation %>
+                  <%#= opportunity.management_evaluation %>
                   <% if opportunity.comments.length > 0 %>
                     <p><%= pluralize(opportunity.comments.count, "msg") %> </p>
                     
