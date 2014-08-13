@@ -1,0 +1,2 @@
+module ProcurementTypesHelper
+end

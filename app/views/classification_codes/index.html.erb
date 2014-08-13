@@ -1,0 +1,27 @@
+<h1>Listing classification_codes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @classification_codes.each do |classification_code| %>
+      <tr>
+        <td><%= classification_code.name %></td>
+        <td><%= link_to 'Show', classification_code %></td>
+        <td><%= link_to 'Edit', edit_classification_code_path(classification_code) %></td>
+        <td><%= link_to 'Destroy', classification_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Classification code', new_classification_code_path %>

@@ -1,0 +1,27 @@
+<h1>Listing procurement_types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @procurement_types.each do |procurement_type| %>
+      <tr>
+        <td><%= procurement_type.name %></td>
+        <td><%= link_to 'Show', procurement_type %></td>
+        <td><%= link_to 'Edit', edit_procurement_type_path(procurement_type) %></td>
+        <td><%= link_to 'Destroy', procurement_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Procurement type', new_procurement_type_path %>

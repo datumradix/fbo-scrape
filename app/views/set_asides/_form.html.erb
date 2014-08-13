@@ -1,0 +1,21 @@
+<%= form_for(@set_aside) do |f| %>
+  <% if @set_aside.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@set_aside.errors.count, "error") %> prohibited this set_aside from being saved:</h2>
+
+      <ul>
+      <% @set_aside.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

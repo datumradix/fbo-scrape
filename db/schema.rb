@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506123928) do
+ActiveRecord::Schema.define(version: 20140810173057) do
+
+  create_table "classification_codes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "classification_codes_selection_criteria", id: false, force: true do |t|
+    t.integer "classification_code_id"
+    t.integer "selection_criterium_id"
+  end
 
   create_table "comments", force: true do |t|
     t.text     "comment"
@@ -39,8 +50,44 @@ ActiveRecord::Schema.define(version: 20140506123928) do
     t.string   "class_code"
   end
 
+  create_table "procurement_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "procurement_types_selection_criteria", id: false, force: true do |t|
+    t.integer "procurement_type_id"
+    t.integer "selection_criterium_id"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "selection_criteria", force: true do |t|
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "selection_criteria_set_asides", id: false, force: true do |t|
+    t.integer "set_aside_id"
+    t.integer "selection_criterium_id"
+  end
+
+  create_table "set_asides", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "team_lead_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,6 +100,7 @@ ActiveRecord::Schema.define(version: 20140506123928) do
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "email"
+    t.integer  "team_id"
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"

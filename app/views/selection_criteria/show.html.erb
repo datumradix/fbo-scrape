@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="span4">
+    <h3>Classification Codes</h3>
+    <% @selection_criterium.classification_codes.each do |cc| %>
+      <p><%= cc.name %> </p>
+    <% end %>
+  </div>
+  <div class="span4">
+    <h3>Set Asides</h3>
+    <% @selection_criterium.set_asides.each do |sa| %>
+      <p><%= sa.name %> </p>
+    <% end %>
+  </div>
+  <div class="span4">
+    <h3>Procurement Types</h3>
+    <% @selection_criterium.procurement_types.each do |pt| %>
+      <p><%= pt.name %> </p>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_selection_criterium_path(@selection_criterium) %> |
+<%= link_to 'Back', selection_criteria_path %>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  #filter_resource_access
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  #filter_resource_access
 
   # GET /users
   # GET /users.json
@@ -8,12 +8,15 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def team_index
+    @user = current_user
+    @team_members = User.where(team_id:current_user.team_id)
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
     @comments = Comment.order("id DESC").paginate(:per_page => 10, :page => params[:page])
-
-    #@comments = Comment.all   #sort newest to oldest, show last 10 comments. or paginate.
     @not_evaluated_count = Opportunity.where(management_evaluation: "Not Evaluated").count
     @watchlist_count = Opportunity.where(management_evaluation: "Watchlist").where('created_at >= ?', 1.week.ago).count
     @reject_count = Opportunity.where(management_evaluation: "Reject").where('created_at >= ?', 1.week.ago).count
@@ -51,7 +54,7 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to root_path, notice: 'Successfully updated profile.' }
+        format.html { redirect_to user_path(current_user), notice: 'Successfully updated profile.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

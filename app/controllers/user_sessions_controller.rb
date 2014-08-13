@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
-  #filter_resource_access
   before_action :set_user_session, only: [:show, :edit, :update, :destroy]
+  #filter_resource_access
 
   # GET /user_sessions/new
   def new
@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to user_path(:current), notice: 'Welcome to the team.' }
+        format.html { redirect_to user_path(:current_user), notice: 'Welcome to the team.' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
         format.html { render action: 'new' }
@@ -31,7 +31,7 @@ class UserSessionsController < ApplicationController
   def destroy
     @user_session.destroy
     respond_to do |format|
-      format.html { redirect_to static_pages_about_path , notice: 'You are logged out.' }
+      format.html { redirect_to about_path , notice: 'You are logged out.' }
       format.json { head :no_content }
     end
   end

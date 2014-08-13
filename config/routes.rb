@@ -1,5 +1,15 @@
 Fbo::Application.routes.draw do
   
+  resources :teams 
+
+  resources :selection_criteria
+
+  resources :classification_codes
+
+  resources :set_asides
+
+  resources :procurement_types
+
   resources :roles
 
   resources :management_evaluations
@@ -11,7 +21,9 @@ Fbo::Application.routes.draw do
 
   get 'logout' => 'user_sessions#destroy', :as => :logout
 
-  resources :users
+  resources :users do 
+    get 'team_index', :on => :collection
+  end
 
   resources :comments
 
@@ -49,7 +61,8 @@ Fbo::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   match '/about',   to: 'static_pages#about',   via: 'get'
-  match '/criteria',   to: 'statuc_pages#criteria',   via: 'get'
+  match '/criteria',   to: 'static_pages#criteria',   via: 'get'
+  match '/team_members', to: 'users#team_index', via: 'get'
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

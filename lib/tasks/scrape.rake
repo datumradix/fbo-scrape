@@ -24,6 +24,81 @@ task :clean => :environment do  #heroku scheduler run this every 1 days
     end
 end
 
+task :setup_roles => :environment do 
+	Role.delete_all
+	roles = ["Administrator", "Team Lead", "Evaluator"]
+	roles.each do |role| 
+		Role.create(name: role)
+	end
+end
+
+
+task :setup_codes => :environment do 
+	classification_codes = ["10 -- Weapons", "11 -- Nuclear ordnance", "12 -- Fire control equipment", "13 -- Ammunition & explosives", "14 -- Guided missiles", 
+					"15 -- Aircraft & airframe structural components", "16 -- Aircraft components & accessories", 
+	        "17 -- Aircraft launching, landing & ground handling equipment", "18 -- Space vehicles", 
+					"19 -- Ships, small craft, pontoons & floating docks", "20 -- Ship and marine equipment", "22 -- Railway equipment", 
+					"23 -- Ground effects vehicles, motor vehicles, trailers & cycles", "24 -- Tractors", "25 -- Vehicular equipment components", 
+					"26 -- Tires and tubes", "28 -- Engines, turbines & components", "29 -- Engine accessories", 
+					"30 -- Mechanical power transmission equipment", "31 -- Bearings", "32 -- Woodworking machinery and equipment", 
+					"34 -- Metalworking machinery", "35 -- Service and trade equipment", "36 -- Special industry machinery", 
+					"37 -- Agricultural machinery & equipment", "38 -- Construction, mining, excavating & highway maintenance equipment", 
+					"39 -- Materials handling equipment", "40 -- Rope, cable, chain & fittings", 
+					"41 -- Refrigeration, air-conditioning & air circulating equipment", "42 -- Fire fighting, rescue & safety equipment", 
+					"43 -- Pumps &  compressors", "44 -- Furnace, steam plant & drying equipment; & nuclear reactors", 
+					"45 -- Plumbing, heating, & sanitation equipment", "46 -- Water purification & sewage treatment equipment",
+					"47 -- Pipe, tubing, hose & fittings", "48 -- Valves", "49 -- Maintenance & repair shop equipment", 
+					"51 -- Hand tools", "52 -- Measuring tools", "53 -- Hardware & abrasives", "54 -- Prefabricated structures and scaffolding",
+					"55 -- Lumber, millwork, plywood & veneer", "56 -- Construction & building materials", "58 -- Communication, detection, & coherent radiation equipment", 
+					"59 -- Electrical and electronic equipment components", "60 -- Fiber optics materials, components, assemblies & accessories",
+					"61 -- Electric wire &  power &  distribution equipment", "62 -- Lighting fixtures & lamps", "63 -- Alarm, signal & security detection equipment",
+					"65 -- Medical, dental & veterinary equipment &  supplies", "66 -- Instruments & laboratory equipment", "67 -- Photographic equipment",
+					"68 -- Chemicals & chemical products", "69 -- Training aids & devices", "70 -- General purpose information technology equipment", 
+					"71 -- Furniture", "72 -- Household & commercial furnishings & appliances", "73 -- Food preparation and serving equipment",
+					"74 -- Office machines, text processing systems & visible record equipment", "75 -- Office supplies and devices", "76 -- Books, maps & other publications",
+					"77 -- Musical instruments, phonographs & home-type radios", "78 -- Recreational & athletic equipment", "79 -- Cleaning equipment and supplies",
+					"80 -- Brushes, paints, sealers & adhesives", "81 -- Containers, packaging, & packing supplies", "83 -- Textiles, leather, furs, apparel & shoe findings, tents & flags",
+					"84 -- Clothing, individual equipment & insignia", "85 -- Toiletries", "87 -- Agricultural supplies", "88 -- Live animals", "89 -- Subsistence",
+					"91 -- Fuels, lubricants, oils & waxes", "93 -- Nonmetallic fabricated materials", "94 -- Nonmetallic crude materials", "95 -- Metal bars, sheets & shapes",
+					"96 -- Ores, minerals & their primary products", "E -- Purchase of structures & facilities", "F -- Natural resources & conservation services",
+					"G -- Social services", "H -- Quality control, testing & inspection services", "J -- Maintenance, repair & rebuilding of equipment", 
+					"K -- Modification of equipment", "L -- Technical representative services", "M -- Operation of Government-owned facilities", "N -- Installation of equipment", "P -- Salvage services", 
+					"Q -- Medical services", "R -- Professional, administrative, and management support services", "S -- Utilities and housekeeping services", 
+					"T -- Photographic, mapping, printing, & publication services", "U -- Education & training services", "V -- Transportation, travel, & relocation services",
+					"W -- Lease or Rental of equipment", "X -- Lease or rental of facilities", "Y -- Construction of structures and facilities",
+					"Z -- Maintenance, repair, and alteration of real property" 
+					 ]
+
+	set_asides = ["Total Small Business", "Award", "Justification and Approval", "J&A", "Fair Opportunity / Limited Sources Justification", 
+	              "Cancelled", "Competitive 8(a)", "Emerging Small Business", "HUBZone", "Woman Owned Small Business",
+	              "Partial HBCU / MI", "Partial Small Business", "Service-Disabled Veteran-Owned Small Business", 
+	              "Economically Disadvantaged Woman Owned Small Business", "Total HBCU / MI", "Veteran-Owned Small Business",
+	              "Very Small Business"]
+
+	procurement_types = ["Presolicitation", "Combined Synopsis/Solicitation", "Sources Sought"]
+
+	ClassificationCode.delete_all
+	SetAside.delete_all
+	ProcurementType.delete_all
+	
+	classification_codes.each do |cc|
+	 ClassificationCode.create(name: cc)
+	end
+
+	set_asides.each do |sa| 
+		SetAside.create(name: sa)
+	end
+
+	procurement_types.each do |pt| 
+		ProcurementType.create(name: pt)
+	end
+end
+
+
+
+
+
+
 task :scrape => :environment do  #heroku scheduler run every hour with list of 400
     require 'open-uri'
     todays_date = Date.today.strftime('%m/%d/%Y')
@@ -53,7 +128,10 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 					"80 -- Brushes, paints, sealers & adhesives", "81 -- Containers, packaging, & packing supplies", "83 -- Textiles, leather, furs, apparel & shoe findings, tents & flags",
 					"84 -- Clothing, individual equipment & insignia", "85 -- Toiletries", "87 -- Agricultural supplies", "88 -- Live animals", "89 -- Subsistence",
 					"91 -- Fuels, lubricants, oils & waxes", "93 -- Nonmetallic fabricated materials", "94 -- Nonmetallic crude materials", "95 -- Metal bars, sheets & shapes",
-					"96 -- Ores, minerals & their primary products", "E -- Purchase of structures & facilities", "F -- Natural resources & conservation services",
+					"96 -- Ores, minerals & their primary products", "99 -- Miscellaneous", 
+					"A -- Research & Development", "B -- Special studies and analysis - not R&D", "C -- Architect and engineering services", 
+					"D -- Information technology services, including telecommunications services", "E -- Purchase of structures & facilities", 
+					"F -- Natural resources & conservation services",
 					"G -- Social services", "M -- Operation of Government-owned facilities", "N -- Installation of equipment", "P -- Salvage services", "Q -- Medical services", "S -- Utilities and housekeeping services", 
 					"T -- Photographic, mapping, printing, & publication services", "V -- Transportation, travel, & relocation services",
 					"W -- Lease or Rental of equipment", "X -- Lease or rental of facilities", "Y -- Construction of structures and facilities",
@@ -110,7 +188,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 	   		puts "THE GOOD CLASSIFICATION IS #{opportunity_classification[1]}"
 		   	if Opportunity.where(opportunity: opportunity_row[4]).none? #|| opportunity_row[3].to_date != Date.today
 		   		puts "Adding new record to Opportunity table"
-		 		Opportunity.create(opportunity: opportunity_row[4],
+		 			Opportunity.create(opportunity: opportunity_row[4],
 					               class_code: opportunity_row[5],
 					               agency: opportunity_row[1],
 			        	         opp_type: opportunity_row[2],

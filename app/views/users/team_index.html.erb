@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="span9">
+    <h4><%= @user.team.name %> </h4>
+    <p><%= @user.team.description %> </p>
+  </div>
+  <div class="span3">
+    <p>
+      Username: <%= link_to current_user.username, edit_user_path(:current) %> 
+    </p>
+    <p>
+      Role: <%= current_user.role.name %> 
+    </p>
+    <h4>Team Lead Functions</h4>
+    <%= link_to "Edit Team Members", "#" %> 
+  </div>
+</div>
+<br>
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "Home", user_path(:current) %>
+  </li>
+  <li class="active">
+    <%= link_to "Team", "#" %>
+  </li>
+  <li>
+    <%= link_to "Selection Criteria", team_path(@user.team_id) %>
+  </li>
+</ul>
+
+
+<div class="row">
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @team_members.each do |user| %>
+        <%# @users.each do |user| %>
+          <tr>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

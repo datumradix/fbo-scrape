@@ -1,5 +1,5 @@
 class OpportunitiesController < ApplicationController
-  filter_resource_access #railscast episode 188 declarative authorization
+  filter_resource_access
 
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
   #load_and_autohrize_resource #cancan method

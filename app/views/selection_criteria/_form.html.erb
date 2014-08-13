@@ -1,0 +1,48 @@
+<%= form_for(@selection_criterium) do |f| %>
+  <% if @selection_criterium.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@selection_criterium.errors.count, "error") %> prohibited this selection_criterium from being saved:</h2>
+
+      <ul>
+      <% @selection_criterium.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p>Select checkboxes to tailor your team's FBO feed. When done, click the "Update Selection Criteria" button.</p>
+  <div class="row">
+    <div class="span4">
+      <div class="actions">
+        <%= f.submit "Update Selection Criteria" %>
+      </div>
+      <div class="form">
+        <%= f.label :team_id %>
+        <%= f.number_field :team_id %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
+      <h3>Classification Codes </h3>
+      <div class="checkbox">
+        <%= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>
+      </div>
+    </div>
+    <div class="span4">
+    <h3>Set Asides </h3>
+    <div class="checkbox">
+      <%= collection_check_boxes(:selection_criterium, :set_aside_ids, @set_asides, :id, :name) %>
+    </div>
+  </div>
+  <div class="span4">
+    <h3>Procurement Types </h3>
+    <div class="checkbox">
+      <%= collection_check_boxes(:selection_criterium, :procurement_type_ids, @procurement_types, :id, :name) %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+</div>

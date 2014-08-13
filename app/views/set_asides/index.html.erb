@@ -1,0 +1,27 @@
+<h1>Listing set_asides</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @set_asides.each do |set_aside| %>
+      <tr>
+        <td><%= set_aside.name %></td>
+        <td><%= link_to 'Show', set_aside %></td>
+        <td><%= link_to 'Edit', edit_set_aside_path(set_aside) %></td>
+        <td><%= link_to 'Destroy', set_aside, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Set aside', new_set_aside_path %>

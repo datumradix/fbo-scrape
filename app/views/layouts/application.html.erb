@@ -48,10 +48,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" <%= link_to "teamFBO", opportunities_path(:set_filter => "Not Evaluated") %></a>
+          <a class="brand" <%= link_to "teamFBO", opportunities_path %></a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "About", static_pages_about_path %></li>
               <% if current_user %>
                 <li><%= link_to "My Team", user_path(:current) %></li>
                 <li><%= link_to "Logout", logout_path %></li>

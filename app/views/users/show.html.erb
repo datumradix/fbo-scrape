@@ -1,32 +1,54 @@
-<p>
-  Username:
-  <%= link_to @user.username, edit_user_path(:current) %>
-</p>
+<div class="row">
+  <div class="span9">
+    <h4><%= @user.team.name %> </h4>
+    <p><%= @user.team.description %> </p>
+  </div>
+  <div class="span3">
+    <p>
+      Username: <%= link_to @user.username, edit_user_path(:current) %> 
+    </p>
+    <p>
+      Role: <%= @user.role.name %> 
+    </p>
+  </div>
+  <div class="span3">
+    <h4>Team Lead Functions</h4>
+    <%= link_to 'Edit Team Name & Description', edit_team_path(@user.team) %> <br>
+  </div>
 
-<p>
-  Team Lead:
-  <%= link_to "Scott Lamb", static_pages_criteria_path %>
-</p>
-<hr>
+
+</div>
+<br>
+<ul class="nav nav-tabs">
+  <li class="active">
+    <%= link_to "Home", user_path(:current) %>
+  </li>
+  <li>
+    <%= link_to "Team", team_members_path %>
+  </li>
+  <li>
+    <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+  </li>
+</ul>
 
 <div class="row">
   <div class="span3 offset0">
-    <h3>Status</h3>
-    <p>Seven day history based on your team's <%= link_to "search criteria", static_pages_criteria_path %> and evaluation activity.</p>
+    <h4>Opportunity Status</h4>
     <table class="table table-bordered">
-      <tr><td>Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "Not Evaluated") %></td></tr>
+      <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "Not Evaluated") %></td></tr>
       <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "Watchlist") %></td></tr>
       <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "Reject") %></td></tr>
     </table>
   </div>
-  <div class="span6 offset2">
-    <h3>Reporting</h3>
+  <div class="span4 offset3">
+    <h4>Reporting</h4>
     <p>Display watchlist in <%= link_to "plain view", plain_views_path %>.</p>
   </div>
 </div>
+<small>Opportunity Status is a seven day history based on your selection criteria and evaluation activity.</small>
 <hr>
 
-<h3>Comments</h3>
+<h4>Comments</h4>
 <%= will_paginate @comments %>
 <table class="table table-hover">
   <thead>

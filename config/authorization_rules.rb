@@ -1,23 +1,27 @@
 authorization do
-  role :admin do
-    has_permission_on [:opportunities], :to => [:index, :show, :new, :create, :edit, :update, :destroy]
-    has_permission_on [:users, :user_sessions], :to => [:index, :show, :new, :create, :edit, :update, :destroy]
+  role :administrator do
+    has_permission_on [:opportunities, :teams, :users, :user_sessions, :roles, :selection_criteria], :to => [:manage]
   end
-  
-  role :guest do
+    
+  role :team_lead do
+    has_permission_on [:opportunities, :teams, :users, :user_sessions], :to => [:read, :update]
+    has_permission_on :user_sessions, :to => :manage
+    #has_permission_on :comments, :to => [:create, :read] 
+  end
+
+  role :evaluator do
+    has_permission_on [:opportunities, :teams, :users, :user_sessions], :to => [:read]
+  end
+
+  role :guest do 
     has_permission_on :opportunities, :to => [:index]
-    has_permission_on :users, :to => [:index]
-    has_permission_on :user_sessions, :to => [:new, :create, :index]
   end
-  
-  role :user do
-    #includes :guest
-    has_permission_on :opportunities, :to => [:index, :show]
-  end
-  
-  role :manager do
-    #includes :user
-    has_permission_on [:opportunities], :to => [:index, :show, :new, :create, :edit, :update, :destroy]
-    has_permission_on :comments, :to => [:new, :create, :show] 
-  end
+end
+
+privileges do 
+  privilege :manage, :includes => [:create, :read, :update, :delete]
+  privilege :create, :includes => :new 
+  privilege :read,   :includes => [:index, :show]
+  privilege :update, :includes => :edit
+  privilege :delete, :includes => :destroy 
 end

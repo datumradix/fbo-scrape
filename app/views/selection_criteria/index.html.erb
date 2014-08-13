@@ -1,0 +1,27 @@
+<h1>Listing selection_criteria</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @selection_criteria.each do |selection_criterium| %>
+      <tr>
+        <td><%= selection_criterium.id %></td>
+        <td><%= link_to 'Show', selection_criterium %></td>
+        <td><%= link_to 'Edit', edit_selection_criterium_path(selection_criterium) %></td>
+        <td><%= link_to 'Destroy', selection_criterium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Selection criterium', new_selection_criterium_path %>
