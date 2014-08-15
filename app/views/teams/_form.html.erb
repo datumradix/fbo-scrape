@@ -10,22 +10,39 @@
       </ul>
     </div>
   <% end %>
+  <div class="row">
+    <div class="span9">
+      <h4>Edit Team</h4>
+      <p>Update team name name and charter.</p>
+      <p>
+         
+      </p>
+    </div>
+    <div class="span3">
+      <p>
+        Username: <%= link_to current_user.username, current_user %> 
+      </p>
+      <p>
+        Role: <%= link_to current_user.role.name, roles_path %>
+      </p>    
+    </div>
+  </div>  
+  <br>
+  <hr>
+  <div class="row">
+    <div class="span10">
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_field :description %>
+      </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :team_lead_id %><br>
-    <%= f.number_field :team_lead_id %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

@@ -1,6 +1,5 @@
 class UserSessionsController < ApplicationController
   before_action :set_user_session, only: [:show, :edit, :update, :destroy]
-  #filter_resource_access
 
   # GET /user_sessions/new
   def new
@@ -15,7 +14,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to user_path(:current_user), notice: 'Welcome to the team.' }
+        format.html { redirect_to opportunities_path, notice: 'Welcome to the team.' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
         format.html { render action: 'new' }

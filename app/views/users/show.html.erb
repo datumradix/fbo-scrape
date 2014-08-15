@@ -1,27 +1,22 @@
 <div class="row">
   <div class="span9">
     <h4><%= @user.team.name %> </h4>
+  
     <p><%= @user.team.description %> </p>
   </div>
   <div class="span3">
     <p>
-      Username: <%= link_to @user.username, edit_user_path(:current) %> 
+      Username: <%= link_to @user.username, edit_user_path(@user) %>  
     </p>
     <p>
-      Role: <%= @user.role.name %> 
+      Role: <%= link_to @user.role.name, roles_path %> 
     </p>
   </div>
-  <div class="span3">
-    <h4>Team Lead Functions</h4>
-    <%= link_to 'Edit Team Name & Description', edit_team_path(@user.team) %> <br>
-  </div>
-
-
 </div>
 <br>
 <ul class="nav nav-tabs">
   <li class="active">
-    <%= link_to "Home", user_path(:current) %>
+    <%= link_to "Home", user_path(@user) %>
   </li>
   <li>
     <%= link_to "Team", team_members_path %>
@@ -40,9 +35,9 @@
       <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "Reject") %></td></tr>
     </table>
   </div>
-  <div class="span4 offset3">
+  <div class="span3 offset6">
     <h4>Reporting</h4>
-    <p>Display watchlist in <%= link_to "plain view", plain_views_path %>.</p>
+    <p>Show watchlist in <%= link_to "plain view", plain_views_path %>.</p>
   </div>
 </div>
 <small>Opportunity Status is a seven day history based on your selection criteria and evaluation activity.</small>

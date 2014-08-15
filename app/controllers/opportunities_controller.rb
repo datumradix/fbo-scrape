@@ -7,7 +7,12 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
+    #@opportunities = Opportunity.all.paginate(:per_page => 30, :page => params[:page])
+    if current_user
+      @opportunities = current_user.team.opportunities.paginate(:per_page => 30, :page => params[:page]) 
+    else
+      @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
+    end
   end
   
   # GET /opportunities/1
@@ -43,10 +48,12 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/new
   def new
     @opportunity = Opportunity.new
+    @teams = Team.all 
   end
 
   # GET /opportunities/1/edit
   def edit
+    @teams = Team.all
   end
 
   # POST /opportunities
@@ -97,7 +104,7 @@ class OpportunitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
-      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like, :management_evaluation)
+      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like, :management_evaluation, :team_ids =>[])
       #params.require(:comment).permit(:comment, :name, :opportunity_id)
     end
 end

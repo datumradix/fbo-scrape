@@ -33,6 +33,8 @@ end
 group :development do
   gem 'sqlite3'
   gem 'pry'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :production do 
@@ -59,6 +61,12 @@ gem 'declarative_authorization', '0.5.7'
 gem 'nokogiri', '1.6.2.1'
 
 gem 'newrelic_rpm'
+
+
+
+
+
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

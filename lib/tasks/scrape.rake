@@ -34,8 +34,8 @@ end
 
 
 task :setup_codes => :environment do 
-	classification_codes = ["10 -- Weapons", "11 -- Nuclear ordnance", "12 -- Fire control equipment", "13 -- Ammunition & explosives", "14 -- Guided missiles", 
-					"15 -- Aircraft & airframe structural components", "16 -- Aircraft components & accessories", 
+	classification_codes = ["10 -- Weapons", "11 -- Nuclear ordnance", "12 -- Fire control equipment", "13 -- Ammunition & explosives", 
+		      "14 -- Guided missiles", "15 -- Aircraft & airframe structural components", "16 -- Aircraft components & accessories", 
 	        "17 -- Aircraft launching, landing & ground handling equipment", "18 -- Space vehicles", 
 					"19 -- Ships, small craft, pontoons & floating docks", "20 -- Ship and marine equipment", "22 -- Railway equipment", 
 					"23 -- Ground effects vehicles, motor vehicles, trailers & cycles", "24 -- Tractors", "25 -- Vehicular equipment components", 
@@ -69,13 +69,15 @@ task :setup_codes => :environment do
 					"Z -- Maintenance, repair, and alteration of real property" 
 					 ]
 
-	set_asides = ["Total Small Business", "Award", "Justification and Approval", "J&A", "Fair Opportunity / Limited Sources Justification", 
-	              "Cancelled", "Competitive 8(a)", "Emerging Small Business", "HUBZone", "Woman Owned Small Business",
+	set_asides = ["Competitive 8(a)", "Emerging Small Business", "HUBZone", "Woman Owned Small Business",
 	              "Partial HBCU / MI", "Partial Small Business", "Service-Disabled Veteran-Owned Small Business", 
-	              "Economically Disadvantaged Woman Owned Small Business", "Total HBCU / MI", "Veteran-Owned Small Business",
-	              "Very Small Business"]
+	              "Economically Disadvantaged Woman Owned Small Business", "Total HBCU / MI", "Total Small Business", 
+	              "Veteran-Owned Small Business", "Very Small Business"]
 
-	procurement_types = ["Presolicitation", "Combined Synopsis/Solicitation", "Sources Sought"]
+	procurement_types = ["Presolicitation", "Modification/Amendment/Cancel", "Foreign Government Standard", 
+											 "Intent to Bundle Requirements (DoD-Funded)", "Combined Synopsis/Solicitation", "Sale of Surplus Property", 
+											 "Award Notice", "Fair Opportunity / Limited Sources Justification", "Sources Sought", "Special Notice",
+											 "Justification and Approval (J&A)", "Award"]
 
 	ClassificationCode.delete_all
 	SetAside.delete_all

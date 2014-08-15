@@ -1,24 +1,22 @@
 <div class="row">
   <div class="span9">
-    <h4><%= @team.name %> </h4>
-    <p><%= @team.description %> </p>
+    <h4><%= current_user.team.name %> </h4>
+    <p><%= current_user.team.description %> </p>
   </div>
   <div class="span3">
     <p>
-      Username: <%= link_to current_user.username, edit_user_path(:current) %> 
+      Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
     </p>
     <p>
-      Role: <%= current_user.role.name %> 
-    </p>
-    <h4>Team Lead Functions</h4>
-    <%= link_to "Edit Team Selection Criteria", edit_selection_criterium_path(@team.selection_criterium) %> 
+      Role: <%= link_to current_user.role.name, roles_path %> 
+    </p>    
   </div>
 </div>  
 <br>
 <% if @team.selection_criterium != nil %>
   <ul class="nav nav-tabs">
     <li>
-      <%= link_to "Home", user_path(:current) %>
+      <%= link_to "Home", user_path(current_user) %>
     </li>
     <li>
       <%= link_to "Team", team_members_path %>
@@ -29,19 +27,19 @@
   </ul>
   <div class="row">
     <div class="span4">
-      <h4>Classification Codes</h4>
+      <p><strong>Classification Codes</p></strong>
       <% @team.selection_criterium.classification_codes.each do |cc| %>
         <p><%= cc.name %> </p>
       <% end %>
     </div>
     <div class="span4">
-      <h4>Set Asides</h4>
+      <p><strong>Set Asides</p></strong>
       <% @team.selection_criterium.set_asides.each do |sa| %>
         <p><%= sa.name %> </p>
       <% end %>
     </div>
     <div class="span4">
-      <h4>Procurement Types</h4>
+      <p><strong>Procurement Types</p></strong>
       <% @team.selection_criterium.procurement_types.each do |pt| %>
         <p><%= pt.name %> </p>
       <% end %>

@@ -14,6 +14,8 @@ Fbo::Application.routes.draw do
 
   resources :management_evaluations
 
+  resources :team_members, only: [:index]
+
   #match '/new_user' to "login", :controller => "user_sessions", :action => "new"
   #login "logout", :controller => "user_sessions", :action => "destroy"
 
@@ -23,6 +25,7 @@ Fbo::Application.routes.draw do
 
   resources :users do 
     get 'team_index', :on => :collection
+    resources :team_members, only: [:index]
   end
 
   resources :comments
@@ -55,8 +58,8 @@ Fbo::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  #root 'opportunities#index'
-  root 'static_pages#about'
+  root 'opportunities#index'
+  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

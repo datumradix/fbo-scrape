@@ -52,10 +52,10 @@
           <div class="container nav-collapse">
             <ul class="nav">
               <% if current_user %>
-                <li><%= link_to "My Team", user_path(:current) %></li>
+                <li><%= link_to "My Team", user_path(current_user) %></li>
                 <li><%= link_to "Logout", logout_path %></li>
               <% else %>
-                <li><%#= link_to "New User", new_user_path %></li>
+                <li><%= link_to "About", about_path %></li>
                 <li><%= link_to "Login", new_user_session_path %></li>
               <% end %>
             </ul>
@@ -63,7 +63,7 @@
             <% if permitted_to? :show, :opportunities %>
               <ul class="nav nav-pills pull-right">
                 <% case params[:set_filter] %>
-                  <% when "Not Evaluated" %>
+                  <% when nil %>
                     <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => "Not Evaluated") %> </li>
                     <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>"Watchlist") %> </li>
                     <li> <%= link_to "Reject", opportunities_path(:set_filter =>"Reject") %> </li>

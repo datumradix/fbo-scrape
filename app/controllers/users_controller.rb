@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  #filter_resource_access
+  filter_resource_access
 
   # GET /users
   # GET /users.json
@@ -8,10 +8,10 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def team_index
-    @user = current_user
-    @team_members = User.where(team_id:current_user.team_id)
-  end
+  #def team_index
+  #  @team_members = User.where(team_id:current_user.team_id)
+  #end
+#make a new team_members controller
 
   # GET /users/1
   # GET /users/1.json
