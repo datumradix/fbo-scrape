@@ -1,5 +1,6 @@
 class SelectionCriteriaController < ApplicationController
   before_action :set_selection_criterium, only: [:show, :edit, :update, :destroy]
+  filter_resource_access
 
   # GET /selection_criteria
   # GET /selection_criteria.json
@@ -25,6 +26,7 @@ class SelectionCriteriaController < ApplicationController
     @classification_codes = ClassificationCode.all
     @procurement_types = ProcurementType.all 
     @set_asides = SetAside.all 
+    @set_aside_radios = SetAsideRadio.all
   end
 
   # POST /selection_criteria
@@ -76,6 +78,6 @@ class SelectionCriteriaController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def selection_criterium_params
       #params.require(:selection_criterium).permit()
-      params.require(:selection_criterium).permit(:name, :team_id, :classification_code_ids => [], :procurement_type_ids => [], :set_aside_ids => [])
+      params.require(:selection_criterium).permit(:name, :team_id, :set_aside_radio_id, :classification_code_ids => [], :procurement_type_ids => [], :set_aside_ids => [] )
     end
 end

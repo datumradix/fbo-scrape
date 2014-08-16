@@ -1,0 +1,27 @@
+<h1>Listing set_aside_radios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @set_aside_radios.each do |set_aside_radio| %>
+      <tr>
+        <td><%= set_aside_radio.name %></td>
+        <td><%= link_to 'Show', set_aside_radio %></td>
+        <td><%= link_to 'Edit', edit_set_aside_radio_path(set_aside_radio) %></td>
+        <td><%= link_to 'Destroy', set_aside_radio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Set aside radio', new_set_aside_radio_path %>

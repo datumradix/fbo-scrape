@@ -12,7 +12,7 @@
   <% end %>
   <div class="row">
     <div class="span9">
-      <h4> Edit Opportunity Selection Criteria </h4>
+      <h4> Edit Selection Criteria </h4>
       <p>Select checkboxes to tailor your team's FBO feed. When done, click the "Update Selection Criteria" button.</p>
     </div>
     <div class="span3">
@@ -23,9 +23,22 @@
         Role: <%= link_to current_user.role.name, roles_path %>
       </p>    
     </div>
-  </div>  
-  <br>
-  <hr>
+  </div> 
+<br>
+  <% if current_user.team.selection_criterium != nil %>
+    <ul class="nav nav-tabs">
+      <li>
+        <%= link_to "Home", user_path(current_user) %>
+      </li>
+      <li>
+        <%= link_to "Team", team_members_path %>
+      </li>
+      <li class="active">
+        <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+      </li>
+    </ul>
+  <% end %>
+
   <div class="row">
     <div class="span12">
     <div class="row">
@@ -37,28 +50,38 @@
     </div>
     <div class="row">
       <div class="span4">
-        <h3>Classification Codes </h3>
+        <h4>Classification Codes </h4>
+        <p><%= link_to glyph(:info_sign), "#", :class=>"black_icon" %><em> Select <u>at least</u> one classification code.</em></p>
         <div class="checkbox">
           <%= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>
         </div>
       </div>
-      <div class="span4">
-      <h3>Set Asides </h3>
+    <div class="span4">
+      <h4>Procurement Types </h4>
+      <p><%= link_to glyph(:info_sign), "#", :class=>"black_icon" %><em> Select <u>at least</u> one procurement type.</em></p>
       <div class="checkbox">
-        <%= collection_check_boxes(:selection_criterium, :set_aside_ids, @set_asides, :id, :name) %>
+        <%= collection_check_boxes(:selection_criterium, :procurement_type_ids, @procurement_types, :id, :name) %>
       </div>
     </div>
     <div class="span4">
-      <h3>Procurement Types </h3>
+      <h4>Set Asides </h4>
+      <p><%= link_to glyph(:info_sign), "#", :class=>"black_icon" %>
+        <em> Beginner: start with 'Ignore all set asides' and <u>do not</u> select any checkboxes. 
+        </em>
+      </p>
+      <div class="radio">
+        <%= collection_radio_buttons(:selection_criterium, :set_aside_radio_id, @set_aside_radios, :id, :name) %>
+      </div>
+      <hr>
+      <p><%= link_to glyph(:info_sign), "#", :class=>"black_icon" %>
+        <em> Pro: These checkboxes only work if you select 'Ignore selected' or 'Include selected' from the above menu".
+        </em>
+      </p>
       <div class="checkbox">
-        <%= collection_check_boxes(:selection_criterium, :procurement_type_ids, @procurement_types, :id, :name) %>
+        <%= collection_check_boxes(:selection_criterium, :set_aside_ids, @set_asides, :id, :name) %>
       </div>
     </div>
   </div>
 
   <hr>
-  <div class="form">
-    <%= f.label :team_id %>
-    <%= f.number_field :team_id %>
-  </div>
 <% end %>

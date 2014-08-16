@@ -2,6 +2,7 @@ class CreateSelectionCriteria < ActiveRecord::Migration
   def change
     create_table :selection_criteria do |t|
       t.integer :team_id
+      t.integer :set_aside_radio_id
       t.timestamps
     end
 

@@ -24,30 +24,34 @@
     <li class="active">
       <%= link_to "Selection Criteria", "#" %>
     </li>
+    <li><%= link_to "(edit)", edit_selection_criterium_path(current_user.team.selection_criterium) %></li>
   </ul>
   <div class="row">
     <div class="span4">
       <p><strong>Classification Codes</p></strong>
       <% @team.selection_criterium.classification_codes.each do |cc| %>
-        <p><%= cc.name %> </p>
-      <% end %>
-    </div>
-    <div class="span4">
-      <p><strong>Set Asides</p></strong>
-      <% @team.selection_criterium.set_asides.each do |sa| %>
-        <p><%= sa.name %> </p>
+        <li><%= cc.name %> </li>
       <% end %>
     </div>
     <div class="span4">
       <p><strong>Procurement Types</p></strong>
       <% @team.selection_criterium.procurement_types.each do |pt| %>
-        <p><%= pt.name %> </p>
+        <li><%= pt.name %> </li>
+      <% end %>
+    </div>
+    <div class="span4">
+      <p><strong>Set Asides</p></strong>
+      <p><%= @team.selection_criterium.set_aside_radio.name %></p>
+      <% unless @team.selection_criterium.set_aside_radio_id == 1 %>
+        <% @team.selection_criterium.set_asides.each do |sa| %>
+          <li><em><%= sa.name %> </em></li>
+        <% end %>
       <% end %>
     </div>
   </div>
 <% else %>
   <%= link_to 'Create Selection Criteria', new_selection_criterium_path(team_id: @team.id) %>
   <br>
-
 <% end %>
+<br>
 

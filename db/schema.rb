@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813193834) do
+ActiveRecord::Schema.define(version: 20140816143150) do
 
   create_table "classification_codes", force: true do |t|
     t.string   "name"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140813193834) do
 
   create_table "selection_criteria", force: true do |t|
     t.integer  "team_id"
+    t.integer  "set_aside_radio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -81,6 +82,12 @@ ActiveRecord::Schema.define(version: 20140813193834) do
   create_table "selection_criteria_set_asides", id: false, force: true do |t|
     t.integer "set_aside_id"
     t.integer "selection_criterium_id"
+  end
+
+  create_table "set_aside_radios", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "set_asides", force: true do |t|
@@ -92,7 +99,6 @@ ActiveRecord::Schema.define(version: 20140813193834) do
   create_table "teams", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "team_lead_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

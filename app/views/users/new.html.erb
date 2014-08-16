@@ -42,9 +42,12 @@
     <%= f.radio_button(:role_id, 3) %>
     <%= f.label :role_id, Role.find(3).name %>
   </div>
+  <br>
 
-
-
+  <h4>User Team</h4>
+  <div class="radio">
+    <%= f.collection_radio_buttons(:team_id, Team.all, :id, :name) %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Submit", :class => "btn btn-default" %>

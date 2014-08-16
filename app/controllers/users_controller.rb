@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   filter_resource_access
+  #this has to be turned off when creating initial user
+
 
   # GET /users
   # GET /users.json
@@ -81,6 +83,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :role_id)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :team_id, :role_id)
     end
 end

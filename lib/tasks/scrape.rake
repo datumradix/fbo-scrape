@@ -32,6 +32,14 @@ task :setup_roles => :environment do
 	end
 end
 
+task :setup_set_aside_radio => :environment do 
+	SetAsideRadio.delete_all
+	radio_values = ["Ignore all set asides", "Ignore opportunities with selected set asides", "Include only opportunities with selected set asides"]
+	radio_values.each do |radio_value|
+		SetAsideRadio.create(name: radio_value)
+	end
+end
+
 
 task :setup_codes => :environment do 
 	classification_codes = ["10 -- Weapons", "11 -- Nuclear ordnance", "12 -- Fire control equipment", "13 -- Ammunition & explosives", 
@@ -76,7 +84,7 @@ task :setup_codes => :environment do
 
 	procurement_types = ["Presolicitation", "Modification/Amendment/Cancel", "Foreign Government Standard", 
 											 "Intent to Bundle Requirements (DoD-Funded)", "Combined Synopsis/Solicitation", "Sale of Surplus Property", 
-											 "Award Notice", "Fair Opportunity / Limited Sources Justification", "Sources Sought", "Special Notice",
+											 "Fair Opportunity / Limited Sources Justification", "Sources Sought", "Special Notice",
 											 "Justification and Approval (J&A)", "Award"]
 
 	ClassificationCode.delete_all
@@ -96,7 +104,67 @@ task :setup_codes => :environment do
 	end
 end
 
+task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity|
 
+	teams =Team.all 
+	teams.each do |team|
+		team.opportunities = []
+		team_criterium_classification_codes = []
+		team_procurement_types = []
+		team_criterium_set_asides = []
+
+		team.selection_criterium.classification_codes.each do |cc|
+			team_criterium_classification_codes << cc.name 
+		end
+
+		team.selection_criterium.set_asides.each do |sa|
+			team_criterium_set_asides << sa.name 
+		end
+
+		team.selection_criterium.procurement_types.each do |pt|
+			team_procurement_types << pt.name 
+		end
+
+		opportunities = Opportunity.all 
+		opportunities.each do |opportunity|
+			team_class_code = false 
+			team_procurement_type = false
+			team_set_aside = false
+
+			if team_criterium_classification_codes.include?(opportunity.class_code)
+				team_class_code = true 
+			end
+
+			team_procurement_types.each do |criterium_type|
+				if /#{criterium_type}/.match opportunity.opp_type 
+					team_procurement_type = true
+				end
+			end
+
+			case team.selection_criterium.set_aside_radio_id 
+			when 1
+				team_set_aside = true 
+			when 2
+				team_set_aside = true
+				team_criterium_set_asides.each do |set_aside|
+					if /#{set_aside}/.match opportunity.opp_type
+						team_set_aside = false
+					end
+				end
+			when 3
+				team_criterium_set_asides.each do |set_aside|
+					if /#{set_aside}/.match opportunity.opp_type
+						team_set_aside = true 
+					end
+				end
+			end
+
+			if team_class_code && team_procurement_type &&  team_set_aside  
+		  	team.opportunities << opportunity
+			end
+		end
+	end
+end
 
 
 

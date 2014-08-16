@@ -1,5 +1,7 @@
 Fbo::Application.routes.draw do
   
+  resources :set_aside_radios
+
   resources :teams 
 
   resources :selection_criteria
