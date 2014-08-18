@@ -1,5 +1,9 @@
 Fbo::Application.routes.draw do
   
+  resources :evaluation_codes
+
+  resources :evaluations
+
   resources :set_aside_radios
 
   resources :teams 

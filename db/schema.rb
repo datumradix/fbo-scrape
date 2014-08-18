@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816143150) do
+ActiveRecord::Schema.define(version: 20140816181620) do
 
   create_table "classification_codes", force: true do |t|
     t.string   "name"
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(version: 20140816143150) do
 
   add_index "comments", ["opportunity_id"], name: "index_comments_on_opportunity_id"
 
+  create_table "evaluation_codes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "evaluations", force: true do |t|
+    t.integer  "evaluation_code_id"
+    t.integer  "opportunity_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "opportunities", force: true do |t|
     t.text     "opportunity"
     t.text     "opportunity_description"
@@ -48,11 +62,6 @@ ActiveRecord::Schema.define(version: 20140816143150) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "class_code"
-  end
-
-  create_table "opportunities_teams", id: false, force: true do |t|
-    t.integer "opportunity_id"
-    t.integer "team_id"
   end
 
   create_table "procurement_types", force: true do |t|

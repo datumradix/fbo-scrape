@@ -9,7 +9,7 @@
       Username: <%= link_to @user.username, edit_user_path(@user) %>  
     </p>
     <p>
-      Role: <%= link_to @user.role.name, roles_path %> 
+      Role: <%= link_to current_user.role.name, roles_path %> 
     </p>
   </div>
 </div>

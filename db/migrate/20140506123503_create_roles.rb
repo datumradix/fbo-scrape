@@ -7,3 +7,13 @@ class CreateRoles < ActiveRecord::Migration
     end
   end
 end
+
+=begin
+  def change
+    create_table :roles do |t|
+      t.string :title
+      t.references :user 
+    end
+  end
+end
+=end

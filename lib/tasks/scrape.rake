@@ -24,19 +24,40 @@ task :clean => :environment do  #heroku scheduler run this every 1 days
     end
 end
 
+task :setup_sandbox_team => :environment do 
+	Team.delete_all 
+	Team.create(id: 1, name: "Sandbox Team", description: "A place to get started.")
+	SelectionCriterium.delete_all 
+	SelectionCriterium.create(id: 1, team_id: 1, set_aside_radio_id: 1)
+end
+
 task :setup_roles => :environment do 
 	Role.delete_all
 	roles = ["Administrator", "Team Lead", "Evaluator"]
+	rid=1
 	roles.each do |role| 
-		Role.create(name: role)
+		Role.create(name: role, id: rid)
+		rid += 1
+	end
+end
+
+task :setup_evaluation_codes => :environment do 
+	EvaluationCode.delete_all
+	evaluation_codes = ["Not Evaluated", "Watchlist", "Reject"]
+	rid=1
+	evaluation_codes.each do |evaluation_code| 
+		EvaluationCode.create(name: evaluation_code, id: rid)
+		rid += 1
 	end
 end
 
 task :setup_set_aside_radio => :environment do 
 	SetAsideRadio.delete_all
 	radio_values = ["Ignore all set asides", "Ignore opportunities with selected set asides", "Include only opportunities with selected set asides"]
+	rid=1
 	radio_values.each do |radio_value|
-		SetAsideRadio.create(name: radio_value)
+		SetAsideRadio.create(id: rid, name: radio_value)
+		rid += 1
 	end
 end
 
@@ -90,17 +111,23 @@ task :setup_codes => :environment do
 	ClassificationCode.delete_all
 	SetAside.delete_all
 	ProcurementType.delete_all
+	cc_id = 1
+	sa_id = 1
+	pt_id = 1
 	
 	classification_codes.each do |cc|
-	 ClassificationCode.create(name: cc)
+	 ClassificationCode.create(id: cc_id, name: cc)
+	 cc_id += 1
 	end
 
 	set_asides.each do |sa| 
-		SetAside.create(name: sa)
+		SetAside.create(id: sa_id, name: sa)
+		sa_id += 1
 	end
 
 	procurement_types.each do |pt| 
-		ProcurementType.create(name: pt)
+		ProcurementType.create(id: pt_id, name: pt)
+		pt_id += 1
 	end
 end
 

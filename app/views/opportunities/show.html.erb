@@ -47,7 +47,23 @@
   </div>
   <div class="span4">   
     <div class="evaluate_form">
-      <h4>Evaluate Opportunity</h4>
+      <h4>New Evaluation</h4>
+        <div class="radio">
+          <%= form_for(@opportunity) do |f| %> 
+            <%= f.collection_radio_buttons(:id, EvaluationCode.all, :id, :name) %>
+            <%= f.submit  "Submit", :class => "btn btn-default" %>
+          <% end %>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="evaluate_form">
+      <h4>Evaluate Opportunity (old version, not through team.evaluations)</h4>
       <%= form_for(@opportunity) do |f| %>    
       <div class="radio">
         <%= f.radio_button(:management_evaluation, "Watchlist") %>
@@ -59,7 +75,7 @@
     <% end %>
     </div>
     <div class="comment_form">
-      <h4>Comment on Opportunity </h4>    
+      <h4>Comment on Opportunity (not team specific yet) </h4>    
       <%= form_for Comment.new do |f| %>
         <p></p>
         <%= f.text_field :name, value: current_user.username %> 

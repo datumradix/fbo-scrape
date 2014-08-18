@@ -1,0 +1,31 @@
+<h1>Listing evaluations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Evaluation code</th>
+      <th>Opportunity</th>
+      <th>Team</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @evaluations.each do |evaluation| %>
+      <tr>
+        <td><%= evaluation.evaluation_code_id %></td>
+        <td><%= evaluation.opportunity_id %></td>
+        <td><%= evaluation.team_id %></td>
+        <td><%= link_to 'Show', evaluation %></td>
+        <td><%= link_to 'Edit', edit_evaluation_path(evaluation) %></td>
+        <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Evaluation', new_evaluation_path %>

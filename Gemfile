@@ -44,17 +44,12 @@ end
 
 gem 'will_paginate'
 
-#gem 'sunspot_rails'
-#gem 'sunspot_solr'
-#gem 'progress_bar'
-
 gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
 
 #Authentication & Authorization
 gem "authlogic", '3.4.0'
-#gem "cancan"
 gem 'declarative_authorization', '0.5.7'
 
 #Rake gems

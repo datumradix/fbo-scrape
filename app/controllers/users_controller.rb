@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   filter_resource_access
-  #this has to be turned off when creating initial user
-
+  
 
   # GET /users
   # GET /users.json

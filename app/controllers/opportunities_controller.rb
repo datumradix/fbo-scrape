@@ -1,15 +1,15 @@
 class OpportunitiesController < ApplicationController
-  filter_resource_access
+  filter_resource_access :to => :index
 
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
-  #load_and_autohrize_resource #cancan method
 
   # GET /opportunities
   # GET /opportunities.json
   def index
-    #@opportunities = Opportunity.all.paginate(:per_page => 30, :page => params[:page])
     if current_user
-      @opportunities = current_user.team.opportunities.paginate(:per_page => 30, :page => params[:page]) 
+      #@opportunities = current_user.team.opportunities.paginate(:per_page => 30, :page => params[:page]) 
+      #evaluated_opportunities hard codes to "not evaluated". ideal is to pass this value via params
+      @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).paginate(:per_page => 30, :page => params[:page]) 
     else
       @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
     end
@@ -104,7 +104,7 @@ class OpportunitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
-      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like, :management_evaluation, :team_ids =>[])
+      params.require(:opportunity).permit(:opportunity, :class_code, :agency, :opp_type, :post_date, :response_date, :link, :comments, :like, :management_evaluation, :team_ids =>[], :opportunity_ids=>[])
       #params.require(:comment).permit(:comment, :name, :opportunity_id)
     end
 end

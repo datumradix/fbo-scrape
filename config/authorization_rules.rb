@@ -7,9 +7,17 @@ authorization do
     has_permission_on [:opportunities, :teams], :to => [:read, :update]
   end
 
-  role :evaluator do
-    has_permission_on [:opportunities, :teams, :users, :user_sessions], :to => [:read]
-    has_permission_on [:selection_criteria], :to => [:read]
+  # user.title
+
+  role :Evaluator do
+    #has_permission_on [:opportunities, :teams, :users, :user_sessions], :to => [:read]
+    #has_permission_on :selection_criteria, :to => :read
+    # has_permission_on :opportunities, :to => [:index]
+    has_permission_on :opportunities do
+      to :index
+
+      if_attribute :role_id => is { raise }
+    end
   end
 
   role :guest do 

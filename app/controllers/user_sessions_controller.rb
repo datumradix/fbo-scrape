@@ -14,7 +14,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to opportunities_path, notice: 'Welcome to the team.' }
+        format.html { redirect_to opportunities_path(:set_filter => 1), notice: 'Welcome to the team. Here are your latest opportunities.' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
         format.html { render action: 'new' }
