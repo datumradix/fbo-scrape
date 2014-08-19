@@ -22,7 +22,7 @@
       Username: <%= current_user.username %> 
     </p>
     <p>
-      Role: <%= link_to current_user.role.name, roles_path %>
+      Role: <%= link_to current_user.roles.first.title, roles_path %>
     </p>    
   </div>
 </div>  

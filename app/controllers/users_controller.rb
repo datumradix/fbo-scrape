@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  filter_resource_access
+  #filter_resource_access
   
 
   # GET /users
@@ -36,6 +36,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    #raise
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -82,6 +83,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :team_id, :role_id)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :team_id, :role_ids => [])
     end
 end

@@ -2,6 +2,20 @@ task :greet do
 	puts "hello world"
 end
 
+task :reset_everything do 
+	reset_files = ["db:drop", "db:migrate", "db:seed", "build_all"]
+	reset_files.each do |t|
+	Rake::Task[t].invoke
+	end
+end
+
+task :build_all do
+	setup_files = ["setup_sandbox_team", "setup_roles", "setup_evaluation_codes", "setup_set_aside_radio", "setup_codes", "setup_users"]
+	setup_files.each do |t|
+		Rake::Task[t].invoke
+	end
+end
+
 task :clean => :environment do  #heroku scheduler run this every 1 days
     @opportunities = Opportunity.all 
     @opportunities.each do |opportunity| 
@@ -36,7 +50,7 @@ task :setup_roles => :environment do
 	roles = ["Administrator", "Team Lead", "Evaluator"]
 	rid=1
 	roles.each do |role| 
-		Role.create(name: role, id: rid)
+		Role.create(title: role, id: rid)
 		rid += 1
 	end
 end
@@ -131,8 +145,18 @@ task :setup_codes => :environment do
 	end
 end
 
-task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity|
+task :setup_users => :environment do 
+	User.delete_all
+	User.create(id: 1, username: "Admin", email: "test@test.com", team_id: 1, password: "test", password_confirmation: "test")
+	User.create(id: 2, username: "Alpha", email: "alpha@test.com", team_id: 1, password: "test", password_confirmation: "test")
+	User.create(id: 3, username: "Beta", email: "beta@test.com", team_id: 1, password: "test", password_confirmation: "test")
+	Role.delete_all
+	Role.create(id: 1, title: "Administrator", user_id: 1)
+	Role.create(id: 2, title: "Team Lead", user_id: 2)
+	Role.create(id: 3, title: "Evaluator", user_id: 3)
+end
 
+task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity|
 	teams =Team.all 
 	teams.each do |team|
 		team.opportunities = []

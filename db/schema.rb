@@ -76,7 +76,8 @@ ActiveRecord::Schema.define(version: 20140816181620) do
   end
 
   create_table "roles", force: true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -126,7 +127,6 @@ ActiveRecord::Schema.define(version: 20140816181620) do
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role_id"
   end
 
 end
