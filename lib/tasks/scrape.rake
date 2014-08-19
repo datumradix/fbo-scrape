@@ -152,10 +152,12 @@ task :setup_users => :environment do
 	User.create(id: 1, username: "Admin", email: "test@test.com", team_id: 1, password: "test", password_confirmation: "test")
 	User.create(id: 2, username: "Alpha", email: "alpha@test.com", team_id: 1, password: "test", password_confirmation: "test")
 	User.create(id: 3, username: "Beta", email: "beta@test.com", team_id: 1, password: "test", password_confirmation: "test")
+	User.create(id: 4, username: "Scott", email: "scott@test.com", team_id: 2, password: "test", password_confirmation: "test")
 	Role.delete_all
 	Role.create(id: 1, title: "Administrator", user_id: 1)
 	Role.create(id: 2, title: "Team Lead", user_id: 2)
 	Role.create(id: 3, title: "Evaluator", user_id: 3)
+	Role.create(id: 4, title: "Team Lead", user_id: 4)
 end
 
 task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity|
