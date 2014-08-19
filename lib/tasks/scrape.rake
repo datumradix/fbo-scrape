@@ -2,7 +2,7 @@ task :greet do
 	puts "hello world"
 end
 
-task :reset_everything do 
+task :reset_all do 
 	reset_files = ["db:drop", "db:migrate", "db:seed", "build_all"]
 	reset_files.each do |t|
 	Rake::Task[t].invoke
@@ -40,9 +40,11 @@ end
 
 task :setup_sandbox_team => :environment do 
 	Team.delete_all 
-	Team.create(id: 1, name: "Sandbox Team", description: "A place to get started.")
 	SelectionCriterium.delete_all 
+	Team.create(id: 1, name: "Sandbox Team", description: "A place to get started.")
 	SelectionCriterium.create(id: 1, team_id: 1, set_aside_radio_id: 1)
+	Team.create(id: 2, name: "Indy", description: "We look for complex jobs that no one else can do.")
+	SelectionCriterium.create(id: 2, team_id: 2, set_aside_radio_id: 1)
 end
 
 task :setup_roles => :environment do 

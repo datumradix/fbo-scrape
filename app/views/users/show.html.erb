@@ -57,14 +57,16 @@
   </thead>
 
   <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td> <%= comment.opportunity.post_date.strftime("%b %d") %> </td>
-        <td> <%= link_to comment.opportunity.opportunity, opportunity_path(comment.opportunity) %></td>
-        <td> <%= comment.opportunity.management_evaluation %> </td>
-        <td><%= comment.name %></td>
-        <td><%= comment.comment %></td>
-      </tr>
+    <% current_user.team.evaluations.each do |evaluation| %>
+      <% evaluation.comments.each do |comment| %>
+        <tr>
+          <td> <%= evaluation.opportunity.post_date.strftime("%b %d") %> </td>
+          <td> <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity) %></td>
+          <td> <%= evaluation.evaluation_code.name %> </td>
+          <td><%= comment.name %></td>
+          <td><%= comment.comment %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

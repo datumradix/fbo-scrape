@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span12">
-    <% unless @opportunity.comments.count == 0 %>  
+    <% unless @opportunity_evaluation.comments.count == 0 %>  
       <h4>Comments</h4>
       <table class="table table-hover">   
         <tr>
@@ -8,7 +8,7 @@
           <th>Name</th>
           <th>Comment</th>
         </tr>
-        <% @opportunity.comments.each do |comment| %>
+        <% @opportunity_evaluation.comments.each do |comment| %>
           <tr>
             <td><%= comment.created_at.strftime("%b %d") %></td>
             <td><%= comment.name %></td>
@@ -52,7 +52,7 @@
     <div class="evaluate_form">
       <h4>New Evaluation</h4>
         <div class="radio">
-          <%= form_for(@x) do |f| %> 
+          <%= form_for(@opportunity_evaluation) do |f| %> 
             <%= f.collection_radio_buttons(:evaluation_code_id, EvaluationCode.find(2,3), :id, :name) %>
             <%= f.submit  "Submit", :class => "btn btn-default" %>
           <% end %>
@@ -65,7 +65,7 @@
         <p></p>
         <%= f.text_field :name, value: current_user.username %> 
         <%= f.text_area :comment, placeholder: "Comment", :rows => 5 %> 
-        <%= f.hidden_field :opportunity_id, value: @opportunity.id %><br>
+        <%= f.hidden_field :evaluation_id, value: @opportunity_evaluation.id %><br>
         <%= f.submit  "Submit", :class => "btn btn-default" %>
       <% end %>
     </div>

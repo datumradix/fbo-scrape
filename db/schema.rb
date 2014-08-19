@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 20140816181620) do
   create_table "comments", force: true do |t|
     t.text     "comment"
     t.string   "name"
-    t.integer  "opportunity_id"
+    t.integer  "evaluation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["opportunity_id"], name: "index_comments_on_opportunity_id"
+  add_index "comments", ["evaluation_id"], name: "index_comments_on_evaluation_id"
 
   create_table "evaluation_codes", force: true do |t|
     t.string   "name"
