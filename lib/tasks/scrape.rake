@@ -2,8 +2,15 @@ task :greet do
 	puts "hello world"
 end
 
-task :reset_all do 
-	reset_files = ["db:drop", "db:migrate", "db:seed", "build_all"]
+task :reset_production do 
+	reset_files = ["pg:reset DATABASE", "db:migrate", "db:seed", "build_all"] 
+	reset_files.each do |t|
+	Rake::Task[t].invoke
+	end
+end
+
+task :reset_local do 
+	reset_files = ["db:drop", "db:migrate", "db:seed", "build_all"] 
 	reset_files.each do |t|
 	Rake::Task[t].invoke
 	end
