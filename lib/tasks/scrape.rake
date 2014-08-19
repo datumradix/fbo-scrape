@@ -212,6 +212,10 @@ task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity
 
 			if team_class_code && team_procurement_type &&  team_set_aside  
 		  	team.opportunities << opportunity
+		  	
+		  	evaluation = team.evaluations.last
+		  	evaluation .evaluation_code_id = 1
+		  	evaluation .save
 			end
 		end
 	end

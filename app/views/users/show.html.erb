@@ -30,9 +30,9 @@
   <div class="span3 offset0">
     <h4>Opportunity Status</h4>
     <table class="table table-bordered">
-      <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "Not Evaluated") %></td></tr>
-      <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "Watchlist") %></td></tr>
-      <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "Reject") %></td></tr>
+      <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %></td></tr>
+      <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %></td></tr>
+      <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "3") %></td></tr>
     </table>
   </div>
   <div class="span3 offset6">

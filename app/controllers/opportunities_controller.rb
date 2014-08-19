@@ -41,8 +41,7 @@ class OpportunitiesController < ApplicationController
 
 
   def show
-    #@comments = @opportunity.comments
-    #@comment = Comment.new
+    @x = current_user.team.evaluations.where(opportunity_id: @opportunity.id).first 
   end
 
   # GET /opportunities/new
