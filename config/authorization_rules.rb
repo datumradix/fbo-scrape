@@ -21,7 +21,7 @@ authorization do
   end
 
   role :guest do 
-    has_permission_on :opportunities, :to => [:index]
+    #has_permission_on :opportunities, :to => [:index]
   end
 end
 
