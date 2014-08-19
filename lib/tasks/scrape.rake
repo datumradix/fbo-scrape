@@ -36,7 +36,7 @@ task :setup_roles => :environment do
 	roles = ["Administrator", "Team Lead", "Evaluator"]
 	rid=1
 	roles.each do |role| 
-		Role.create(name: role, id: rid)
+		Role.create(title: role, id: rid)
 		rid += 1
 	end
 end

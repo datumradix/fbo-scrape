@@ -33,16 +33,13 @@
   </div>
 
   <br>
-  <h4>User Roles</h4>
-  <div class="radio">
-    <%= f.radio_button(:role_id, 1) %>
-    <%= f.label :role_id, Role.find(1).name %>
-    <%= f.radio_button(:role_id, 2) %>
-    <%= f.label :role_id, Role.find(2).name %>
-    <%= f.radio_button(:role_id, 3) %>
-    <%= f.label :role_id, Role.find(3).name %>
+
+  <h4>New User Roles</h4>
+  <div class="checkbox">
+    <%= f.collection_check_boxes(:role_ids, Role.all.uniq_by(&:title), :id, :title) %>
   </div>
-  <br>
+
+<%#= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>
 
   <h4>User Team</h4>
   <div class="radio">

@@ -9,15 +9,12 @@ authorization do
 
   # user.title
 
-  role :Evaluator do
-    #has_permission_on [:opportunities, :teams, :users, :user_sessions], :to => [:read]
-    #has_permission_on :selection_criteria, :to => :read
-    # has_permission_on :opportunities, :to => [:index]
-    has_permission_on :opportunities do
-      to :index
-
-      if_attribute :role_id => is { raise }
-    end
+  role :evaluator do
+    has_permission_on [:opportunities], :to => [:read]
+    has_permission_on :selection_criteria, :to => :read
+    has_permission_on :teams, :to => [:read]
+    has_permission_on :selection_criteria, :to => :read
+    has_permission_on :classification_codes, :to => :read
   end
 
   role :guest do 

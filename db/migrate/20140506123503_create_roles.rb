@@ -1,4 +1,5 @@
 class CreateRoles < ActiveRecord::Migration
+=begin
   def change
     create_table :roles do |t|
       t.string :name
@@ -7,13 +8,15 @@ class CreateRoles < ActiveRecord::Migration
     end
   end
 end
+=end
 
-=begin
   def change
     create_table :roles do |t|
       t.string :title
       t.references :user 
+
+      t.timestamps
     end
   end
 end
-=end
+

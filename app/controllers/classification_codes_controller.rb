@@ -1,5 +1,6 @@
 class ClassificationCodesController < ApplicationController
   before_action :set_classification_code, only: [:show, :edit, :update, :destroy]
+  filter_resource_access
 
   # GET /classification_codes
   # GET /classification_codes.json
