@@ -1,5 +1,5 @@
 class OpportunitiesController < ApplicationController
-  filter_resource_access :to => :index
+  #filter_resource_access :to => :index
 
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
 
