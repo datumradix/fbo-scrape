@@ -57,7 +57,8 @@
   </thead>
 
   <tbody>
-    <% current_user.team.evaluations.each do |evaluation| %>
+    <% team_comments_sorted_by_date = 1 %>
+    <% current_user.team.evaluations.order("id DESC").each do |evaluation| %>
       <% evaluation.comments.each do |comment| %>
         <tr>
           <td> <%= evaluation.opportunity.post_date.strftime("%b %d") %> </td>

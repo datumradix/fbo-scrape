@@ -9,7 +9,7 @@ task :reset_production do
 	end
 end
 
-task :reset_local do 
+task :reset_development do 
 	reset_files = ["db:drop", "db:migrate", "db:seed", "build_all"] 
 	reset_files.each do |t|
 	Rake::Task[t].invoke
@@ -24,25 +24,23 @@ task :build_all do
 end
 
 task :clean => :environment do  #heroku scheduler run this every 1 days
-    @opportunities = Opportunity.all 
-    @opportunities.each do |opportunity| 
-    	if opportunity.management_evaluation == "Not Evaluated" && (Date.today - opportunity.post_date).to_i > 8
-    		opportunity.destroy
-    	end
-    	if opportunity.management_evaluation == "Watchlist" && (Date.today - opportunity.post_date).to_i > 365
-    		opportunity.destroy
-    	end
-    	if opportunity.management_evaluation == "Reject" && (Date.today - opportunity.post_date).to_i > 30
-    		opportunity.destroy
-    	end
-    	#this clean task can be removed soon. Opportunities never are imported with nil.
-    	if (Date.today - opportunity.post_date).to_i > 8
-    		unless opportunity.management_evaluation && opportunity.management_evaluation.length > 1 
-    			opportunity.destroy  
-    			puts "destroy record"
-    		end
-    	end
-    end
+  @opportunities = Opportunity.all 
+  @opportunities.each do |opportunity| 
+  	if (Date.today - opportunity.post_date).to_i > 8
+  		purge_opportunity = true
+  		if Evaluation.where(opportunity_id: opportunity.id).first
+  			evaluations = Evaluation.where(opportunity_id: opportunity.id)
+  			evaluations.each do |evaluation|
+  				#puts evaluation.evaluation_code_id.class
+  				if evaluation.evaluation_code_id == 1
+  					evaluation.destroy
+  				end
+  			end
+  		else
+  			opportunity.destroy
+  		end
+  	end
+  end
 end
 
 task :setup_sandbox_team => :environment do 
@@ -170,7 +168,7 @@ end
 task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity|
 	teams =Team.all 
 	teams.each do |team|
-		team.opportunities = []
+		#team.opportunities = []
 		team_criterium_classification_codes = []
 		team_procurement_types = []
 		team_criterium_set_asides = []
@@ -189,44 +187,46 @@ task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity
 
 		opportunities = Opportunity.all 
 		opportunities.each do |opportunity|
-			team_class_code = false 
-			team_procurement_type = false
-			team_set_aside = false
+			unless team.opportunities.where(id: opportunity.id).first
+				team_class_code = false 
+				team_procurement_type = false
+				team_set_aside = false
 
-			if team_criterium_classification_codes.include?(opportunity.class_code)
-				team_class_code = true 
-			end
-
-			team_procurement_types.each do |criterium_type|
-				if /#{criterium_type}/.match opportunity.opp_type 
-					team_procurement_type = true
+				if team_criterium_classification_codes.include?(opportunity.class_code)
+					team_class_code = true 
 				end
-			end
 
-			case team.selection_criterium.set_aside_radio_id 
-			when 1
-				team_set_aside = true 
-			when 2
-				team_set_aside = true
-				team_criterium_set_asides.each do |set_aside|
-					if /#{set_aside}/.match opportunity.opp_type
-						team_set_aside = false
+				team_procurement_types.each do |criterium_type|
+					if /#{criterium_type}/.match opportunity.opp_type 
+						team_procurement_type = true
 					end
 				end
-			when 3
-				team_criterium_set_asides.each do |set_aside|
-					if /#{set_aside}/.match opportunity.opp_type
-						team_set_aside = true 
+
+				case team.selection_criterium.set_aside_radio_id 
+				when 1
+					team_set_aside = true 
+				when 2
+					team_set_aside = true
+					team_criterium_set_asides.each do |set_aside|
+						if /#{set_aside}/.match opportunity.opp_type
+							team_set_aside = false
+						end
+					end
+				when 3
+					team_criterium_set_asides.each do |set_aside|
+						if /#{set_aside}/.match opportunity.opp_type
+							team_set_aside = true 
+						end
 					end
 				end
-			end
 
-			if team_class_code && team_procurement_type &&  team_set_aside  
-		  	team.opportunities << opportunity
-		  	
-		  	evaluation = team.evaluations.last
-		  	evaluation .evaluation_code_id = 1
-		  	evaluation .save
+				if team_class_code && team_procurement_type &&  team_set_aside  
+			  	team.opportunities << opportunity
+			  	
+			  	evaluation = team.evaluations.last
+			  	evaluation .evaluation_code_id = 1
+			  	evaluation .save
+				end
 			end
 		end
 	end

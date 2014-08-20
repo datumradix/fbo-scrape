@@ -43,7 +43,14 @@
 </div>
 <div class="row">
   <div class="span8">
-    <p><%= @opportunity.opportunity_description %></p>
+    <% keywords = ["sole source", "aircraft"] %>
+    <% highlighted_string = @opportunity.opportunity_description ||= "nothing" %>
+    <% keywords.each do |keyword| %>
+      <% if @opportunity.opportunity_description.include?(keyword) %>
+        <% highlighted_string = @opportunity.opportunity_description.gsub(/#{keyword}/, "<em class='text-error'>#{keyword}</em>") %>
+      <% end %>
+    <% end %>
+    <p><%= render :inline => highlighted_string %></p>
   </div>
 
 
@@ -60,7 +67,7 @@
     </div>
 
     <div class="comment_form">
-      <h4>Comment on Opportunity (not team specific yet) </h4>    
+      <h4>Comment on Opportunity</h4>    
       <%= form_for Comment.new do |f| %>
         <p></p>
         <%= f.text_field :name, value: current_user.username %> 

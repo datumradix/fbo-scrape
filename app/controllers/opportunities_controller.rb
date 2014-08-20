@@ -1,5 +1,5 @@
 class OpportunitiesController < ApplicationController
-  #filter_resource_access :to => :index
+  filter_resource_access :to => :index
 
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
 
@@ -7,11 +7,11 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     if current_user
-      #@opportunities = current_user.team.opportunities.paginate(:per_page => 30, :page => params[:page]) 
-      #evaluated_opportunities hard codes to "not evaluated". ideal is to pass this value via params
       @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).paginate(:per_page => 30, :page => params[:page]) 
     else
-      @opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
+      #rails find all records where post date is < 8
+      #@opportunities = Opportunity.where((Date.today - opportunity.post_date).to_i > 8)
+      @opportunities = Opportunity.where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
     end
   end
   
