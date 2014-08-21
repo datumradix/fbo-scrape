@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
 	  roles.map do |role|
 	    role.title.underscore.to_sym
+      #role.title.downcase.gsub(/ /, "_").to_s.to_sym
 	  end
 	end
 end

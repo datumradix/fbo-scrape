@@ -35,7 +35,7 @@
   <div class="row">
     <div class="span12">
         <div class="alert alert-warning" role="alert">
-          Latest Unfiltered Opportunities from <%= link_to "FBO.gov", "www.fbo.gov" %>. You are not logged in. 
+          Here are the Latest <%= link_to "Unfiltered", about_path %> Opportunities from <%= link_to "FBO.gov", "http://www.fbo.gov" %>. You are not logged in. 
         </div>
         <%= will_paginate @opportunities %>
         <table class="table table-hover">
@@ -51,13 +51,6 @@
             <% @opportunities.each do |opportunity| %>
               <tr>
                 <td>
-                  <%# if opportunity.management_evaluation %>
-                    <%#= opportunity.management_evaluation %>
-                    <%# if opportunity.comments.length > 0 %>
-                      <p><%#= pluralize(opportunity.comments.count, "msg") %> </p>
-                      
-                    <%# end %>
-                  <%# end %>
                 </td>
                 <td><%= link_to opportunity.opportunity, opportunity, :target=>"_blank" %></td>
                 <td><%= opportunity.agency %></td>

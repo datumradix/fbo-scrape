@@ -40,11 +40,9 @@
   <strong>Team:</strong> <%= @user.team.name %> 
   </p>
 
-  <% if @user.role_id %>
-    <div>
-      <p><strong>Role:</strong> <%= current_user.role.name %></p> 
-    </div>
-  <% end %>
+  <div>
+    <p><strong>Role:</strong> <%= current_user.roles.first.title %></p> 
+  </div>
 
   <br>
   <h5>Change Password</h5>
