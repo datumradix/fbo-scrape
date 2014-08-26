@@ -16,6 +16,7 @@ authorization do
   role :evaluator do
     #has_permission_on [:opportunities, :users, :team_members, :teams], :to => [:read]
     #has_permission_on [:users], :to => [:edit, :update]
+    has_permission_on :opportunities, :to => [:index]
   end
 
   role :guest do 
