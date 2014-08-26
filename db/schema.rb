@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816181620) do
+ActiveRecord::Schema.define(version: 20140821001901) do
 
   create_table "classification_codes", force: true do |t|
     t.string   "name"
@@ -127,6 +127,9 @@ ActiveRecord::Schema.define(version: 20140816181620) do
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "perishable_token",  default: "", null: false
   end
+
+  add_index "users", ["perishable_token"], name: "index_users_on_perishable_token"
 
 end
