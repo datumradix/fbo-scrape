@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  def require_no_user
+    if current_user
+      flash[:notice] = "You must be logged out to access the password reset page"
+      redirect_to root_path
+      return false
+    end
+  end
+
   protected
   def set_current_user
     Authorization.current_user = current_user 

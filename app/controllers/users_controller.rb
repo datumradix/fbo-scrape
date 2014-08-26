@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   filter_resource_access
-  
 
   # GET /users
   # GET /users.json
@@ -43,6 +42,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to root_path, notice: 'Registration successful.' }
         format.json { render action: 'show', status: :created, location: @user }
+        #Notifier.welcome.deliver
       else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    
+    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_path(current_user), notice: 'Successfully updated profile.' }
@@ -83,6 +83,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :team_id, :role_ids => [])
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :perishable_token, :team_id, :role_ids => [])
     end
 end

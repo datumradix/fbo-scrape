@@ -32,6 +32,7 @@ end
 # Use sqlite3 as the database for Active Record
 group :development do
   gem 'sqlite3'
+  gem 'letter_opener'
   gem 'pry'
   gem 'better_errors'
   gem 'binding_of_caller'
