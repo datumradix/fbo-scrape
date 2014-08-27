@@ -35,8 +35,8 @@
   <br>
 
   <h4>New User Roles</h4>
-  <div class="checkbox">
-    <%= f.collection_check_boxes(:role_ids, Role.all.uniq_by(&:title), :id, :title) %>
+  <div class="radio">
+    <%= f.collection_radio_buttons(:role_id, Role.all, :id, :title) %>
   </div>
 
 <%#= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>

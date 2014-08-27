@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20140821001901) do
     t.string   "username"
     t.string   "email"
     t.integer  "team_id"
+    t.integer  "role_id"
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"

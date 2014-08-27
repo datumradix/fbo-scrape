@@ -8,7 +8,7 @@
       Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
     </p>
     <p>
-      Role: <%= link_to current_user.roles.first.title, roles_path %> 
+      Role: <%= link_to current_user.role.title, roles_path %> 
     </p>
   </div>
 </div>
@@ -32,7 +32,6 @@
       <thead>
         <tr>
           <th>Username</th>
-          <th>Email</th>
           <th>Role</th>
         </tr>
       </thead>
@@ -42,8 +41,7 @@
         
           <tr>
             <td><%= user.username %></td>
-            <td><%= user.email %></td>
-            <td><%= user.roles.first.title %></td>
+            <td><%= user.role.title %></td>
           </tr>
         <% end %>
       </tbody>
