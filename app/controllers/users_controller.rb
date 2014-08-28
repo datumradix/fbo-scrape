@@ -37,10 +37,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     #raise
-    
-
     @user = User.new(user_params)
-    #@user = @new_user_params
 
     respond_to do |format|
       if @user.save
