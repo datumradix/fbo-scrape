@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :team
+
+  validates_presence_of :role_id, :team_id
+
   acts_as_authentic do |c|
   	c.crypto_provider = Authlogic::CryptoProviders::Sha512  #BCrypt  
   end

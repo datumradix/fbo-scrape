@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    #@user = @new_user_params
   end
 
   # GET /users/1/edit
@@ -36,7 +37,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     #raise
+    
+
     @user = User.new(user_params)
+    #@user = @new_user_params
 
     respond_to do |format|
       if @user.save
@@ -81,8 +85,12 @@ class UsersController < ApplicationController
       @user = current_user
     end
 
+    def new_user_from_params 
+      @user = User.new(user_params)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :perishable_token, :team_id, :role_id )
+    def user_params  #replaced require with fetch
+      params.fetch(:user, {}).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :perishable_token, :team_id, :role_id )
     end
 end

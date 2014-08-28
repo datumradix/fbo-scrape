@@ -15,6 +15,7 @@ authorization do
 
   role :guest do 
     has_permission_on :opportunities, :to => [:index]
+    #has_permission_on :users, :to => [:new, :create]
   end
 end
 
