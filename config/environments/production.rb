@@ -91,4 +91,6 @@ Fbo::Application.configure do
     :enable_starttls_auto => true
   }
   
+  NEWRELIC_ENABLE=false
+
 end
