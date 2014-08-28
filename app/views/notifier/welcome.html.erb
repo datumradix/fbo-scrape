@@ -1,8 +1,8 @@
 <h2>Welcome to teamFBO.</h2>
 
-<p>Username:</p>
+<p>Username: <%= @user.username %></p>
 
-<p>Team Name:</p>
+<p>Team Name:<%= @user.team.name %></p>
 
 
-<%= link_to "Login now", @new_sessions_path %>
+<%= link_to "Login now", @new_session_url %>

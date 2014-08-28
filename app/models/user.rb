@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
     Notifier.deliver_password_reset_instructions(self)
   end
 
+  def welcome_new_user
+    Notifier.welcome(self)
+  end
+
 end

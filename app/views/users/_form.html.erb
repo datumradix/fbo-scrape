@@ -24,6 +24,12 @@
     <p>
       Role: <%= link_to current_user.role.title, roles_path %>
     </p>    
+    <% if current_user.role_id == 1 %>
+      <br>
+      <h4>Administrator Functions</h4>
+      <p><%= link_to 'New User', new_user_path %></p>
+      <p><%= link_to "Manage Users", users_path %></p>
+    <% end %>
   </div>
 </div>  
 <br>

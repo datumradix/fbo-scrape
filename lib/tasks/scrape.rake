@@ -26,7 +26,7 @@ end
 task :clean => :environment do  #heroku scheduler run this every 1 days
   @opportunities = Opportunity.all 
   @opportunities.each do |opportunity| 
-  	if (Date.today - opportunity.post_date).to_i > 8
+  	if (Date.today - opportunity.post_date).to_i > 6
   		purge_opportunity = true
   		if Evaluation.where(opportunity_id: opportunity.id).first
   			evaluations = Evaluation.where(opportunity_id: opportunity.id)
@@ -154,7 +154,7 @@ end
 
 task :setup_users => :environment do 
 	User.delete_all
-	User.create(id: 1, username: "Admin", email: "test@test.com", team_id: 1, role_id: 1, password: "test", password_confirmation: "test")
+	User.create(id: 1, username: "Admin", email: "matthew.r.newell@gmail.com", team_id: 1, role_id: 1, password: "test", password_confirmation: "test")
 	User.create(id: 2, username: "Alpha", email: "alpha@test.com", team_id: 1, role_id: 2, password: "test", password_confirmation: "test")
 	User.create(id: 3, username: "Beta", email: "beta@test.com", team_id: 1, role_id: 3, password: "test", password_confirmation: "test")
 	User.create(id: 4, username: "Scott", email: "scott@test.com", team_id: 2, role_id: 1, password: "test", password_confirmation: "test")
@@ -218,9 +218,9 @@ task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity
 				if team_class_code && team_procurement_type &&  team_set_aside  
 			  	team.opportunities << opportunity
 			  	
-			  	evaluation = team.evaluations.last
-			  	evaluation .evaluation_code_id = 1
-			  	evaluation .save
+			  	evaluation = team.evaluations.last 
+			  	evaluation.evaluation_code_id = 1
+			  	evaluation.save
 				end
 			end
 		end

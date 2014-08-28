@@ -46,7 +46,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to root_path, notice: 'Registration successful.' }
         format.json { render action: 'show', status: :created, location: @user }
-        #Notifier.welcome.deliver
+        @user.welcome_new_user.deliver
       else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }

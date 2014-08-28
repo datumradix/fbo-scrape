@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 20140821001901) do
 
   create_table "roles", force: true do |t|
     t.string   "title"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
