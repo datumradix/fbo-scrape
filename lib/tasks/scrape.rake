@@ -110,7 +110,9 @@ task :setup_codes => :environment do
 					"80 -- Brushes, paints, sealers & adhesives", "81 -- Containers, packaging, & packing supplies", "83 -- Textiles, leather, furs, apparel & shoe findings, tents & flags",
 					"84 -- Clothing, individual equipment & insignia", "85 -- Toiletries", "87 -- Agricultural supplies", "88 -- Live animals", "89 -- Subsistence",
 					"91 -- Fuels, lubricants, oils & waxes", "93 -- Nonmetallic fabricated materials", "94 -- Nonmetallic crude materials", "95 -- Metal bars, sheets & shapes",
-					"96 -- Ores, minerals & their primary products", "E -- Purchase of structures & facilities", "F -- Natural resources & conservation services",
+					"96 -- Ores, minerals & their primary products", "99 -- Miscellaneous", "A -- Research & Development", "B -- Special studies and analysis - not R&D",
+					"C -- Architect and engineering services", "D -- Information technology services, including telecommunications services", 
+					"E -- Purchase of structures & facilities", "F -- Natural resources & conservation services",
 					"G -- Social services", "H -- Quality control, testing & inspection services", "J -- Maintenance, repair & rebuilding of equipment", 
 					"K -- Modification of equipment", "L -- Technical representative services", "M -- Operation of Government-owned facilities", "N -- Installation of equipment", "P -- Salvage services", 
 					"Q -- Medical services", "R -- Professional, administrative, and management support services", "S -- Utilities and housekeeping services", 
@@ -157,7 +159,7 @@ task :setup_users => :environment do
 	User.create(id: 1, username: "Admin", email: "matthew.r.newell@gmail.com", team_id: 1, role_id: 1, password: "test", password_confirmation: "test")
 	User.create(id: 2, username: "Alpha", email: "alpha@test.com", team_id: 1, role_id: 2, password: "test", password_confirmation: "test")
 	User.create(id: 3, username: "Beta", email: "beta@test.com", team_id: 1, role_id: 3, password: "test", password_confirmation: "test")
-	User.create(id: 4, username: "Scott", email: "scott@test.com", team_id: 2, role_id: 1, password: "test", password_confirmation: "test")
+	User.create(id: 4, username: "Scott", email: "scott@test.com", team_id: 2, role_id: 2, password: "test", password_confirmation: "test")
 end
 
 task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity|
