@@ -50,7 +50,7 @@ class SelectionCriteriaController < ApplicationController
   def update
     respond_to do |format|
       if @selection_criterium.update(selection_criterium_params)
-        format.html { redirect_to team_path(@selection_criterium.team_id), notice: 'Selection criteria was successfully updated.' }
+        format.html { redirect_to team_path(@selection_criterium.team_id), notice: 'Selection criteria updated and will be applied to future opportunities.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

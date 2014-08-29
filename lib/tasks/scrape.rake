@@ -3,14 +3,14 @@ task :greet do
 end
 
 task :reset_production do 
-	reset_files = ["pg:reset DATABASE", "db:migrate", "db:seed", "build_all"] 
+	reset_files = ["pg:reset DATABASE", "db:migrate", "build_all"] 
 	reset_files.each do |t|
 	Rake::Task[t].invoke
 	end
 end
 
 task :reset_development do 
-	reset_files = ["db:drop", "db:migrate", "db:seed", "build_all"] 
+	reset_files = ["db:drop", "db:migrate", "build_all"] 
 	reset_files.each do |t|
 	Rake::Task[t].invoke
 	end
@@ -292,25 +292,23 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 		good_class_codes, procurement_type, bad_set_asides)
 	    unless response_due == "none"
 		  	good_class_codes.each do |c_code|
-				if opportunity_row[0] && opportunity_row[0].include?(c_code)
+				if opportunity_row[0] #&& opportunity_row[0].include?(c_code)
 			 		opportunity_classification[0] = "Good Classification"
 			 		opportunity_row << opportunity_row[0].split(c_code)[0]
 			 		opportunity_row << c_code
 				end
 			end
 			procurement_type.each do |p_type|
-				if opportunity_row[2].include?(p_type)
+				if opportunity_row[2] #.include?(p_type)
 					opportunity_classification[1] = "Good Procurement"
 				end
 			end
-			bad_set_asides.each do |bad_set_aside|
-				if opportunity_row[2].include?(bad_set_aside)
-					opportunity_classification[1] = "Bad Procurement"
-				end
-			end
+			#bad_set_asides.each do |bad_set_aside|
+			#	if opportunity_row[2].include?(bad_set_aside)
+			#		opportunity_classification[1] = "Bad Procurement"
+			#	end
+			#end
 		end
-		#puts "#{opportunity_row[5]} is a #{opportunity_classification[0]} and #{opportunity_classification[1]}"
-		#puts ""
 	end
 
 	def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, opportunity_classification, full_link)
