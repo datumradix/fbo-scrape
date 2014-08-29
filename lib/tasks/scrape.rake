@@ -1,3 +1,20 @@
+task :seed_users => :environment do   #will still need to either rake db:seed or rake scrape and rake teams_evaluate_opportunities
+	#Indy Team
+	User.create(username: "Matt", email: "matthew.newell@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
+	User.create(username: "Scott", email: "scott.lamb@ngc.com", team_id: 2, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
+	User.create(username: "Marc", email: "marc.brickley@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
+	User.create(username: "Bryan", email: "bryan.liss@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
+	User.create(username: "Dave", email: "david.collier@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
+	User.create(username: "Steve", email: "steven.d.brown@ngc.com", team_id: 2, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
+
+	#Sandbox Team
+	User.create(username: "Mike.Rivers", email: "michael.rivers@ngc.com", team_id: 1, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
+	User.create(username: "Mike.Nelson", email: "mf.nelson@ngc.com", team_id: 1, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
+end
+
+
+
+
 task :reset_development do   #will still need to either rake db:seed or rake scrape and rake teams_evaluate_opportunities
 	reset_files = ["db:drop", "db:migrate", "build_all"] 
 	reset_files.each do |t|
