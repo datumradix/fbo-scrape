@@ -17,9 +17,9 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @comments = Comment.order("id DESC").paginate(:per_page => 10, :page => params[:page])
-    @not_evaluated_count = Opportunity.where(management_evaluation: "Not Evaluated").count
-    @watchlist_count = Opportunity.where(management_evaluation: "Watchlist").where('created_at >= ?', 1.week.ago).count
-    @reject_count = Opportunity.where(management_evaluation: "Reject").where('created_at >= ?', 1.week.ago).count
+    @not_evaluated_count = current_user.team.evaluations.where(evaluation_code_id: 1).count
+    @watchlist_count = current_user.team.evaluations.where(evaluation_code_id: 2).count
+    @reject_count = current_user.team.evaluations.where(evaluation_code_id: 3).count
   end
 
   # GET /users/new

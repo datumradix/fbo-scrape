@@ -327,7 +327,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 				            	   response_date: response_due,
 				            	   opportunity_description: opportunity_description,
 					               link: full_link,
-					               management_evaluation: "Not Evaluated")
+					               management_evaluation: nil)
 			else
 				puts opportunity_row[4]
 				raise "Killing the script! We have been here before!. See Opportunity "
