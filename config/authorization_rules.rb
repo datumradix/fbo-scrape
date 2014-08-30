@@ -4,8 +4,9 @@ authorization do
   end
     
   role :team_lead do
-    has_permission_on [:opportunities, :users, :team_members], :to => [:read]
-    has_permission_on [:users, :teams, :selection_criteria], :to => [:manage]
+    has_permission_on [:opportunities, :users, :team_members, :teams], :to => [:read]
+    has_permission_on [:users, :selection_criteria], :to => [:manage]
+    has_permission_on [:teams], :to => [:update]
   end
 
   role :evaluator do

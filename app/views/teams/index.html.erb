@@ -1,31 +1,74 @@
-<h1>Listing teams</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Team lead</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td><%= team.name %></td>
-        <td><%= team.description %></td>
-        <td><%= '#' %></td>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="row">
+  <div class="span9">
+    <h4><%= current_user.team.name %> </h4>
+    <p><%= current_user.team.description %> </p>
+  </div>
+  <div class="span3">
+    <p>
+      Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
+    </p>
+    <p>
+      Role: <%= link_to current_user.role.title, roles_path %> 
+    </p>
+  </div>
+</div>
 <br>
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "Home", user_path(current_user) %>
+  </li>
+  <li class="active">
+    <%= link_to "Team", "#" %>
+  </li>
+  <li>
+    <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+  </li>
+</ul>
 
-<%= link_to 'New Team', new_team_path %>
+
+
+<div class="row">
+  <div class="span12">
+    <h4>Teams</h4>
+
+    <% if permitted_to? :manage, :teams %>
+      <%= link_to 'New Team', new_team_path %>
+    <% end %>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Charter</th>
+          <th>Team Lead</th>
+          <th>Team Members</th>
+          <th>Not Evaluated</th>
+          <th>Watchlist</th>
+          <th>Reject</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @teams.each do |team| %>
+          <tr>
+            <% if current_user.team.name == team.name %> 
+              <td><%= link_to team.name, team_members_path %></td>
+            <% else %>
+              <td> <%= team.name %> </td>
+            <% end %>
+            <td><%= team.description %></td>
+            <td><%= team.users.find_by(role_id: 2).username %></td>
+            <td><%= team.users.count %></td>
+            <% if permitted_to? :manage, :teams %>
+              <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+            <td><%= team.evaluations.where(evaluation_code_id: 1).count %></td>
+            <td><%= team.evaluations.where(evaluation_code_id: 2).count %></td>
+            <td><%= team.evaluations.where(evaluation_code_id: 3).count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

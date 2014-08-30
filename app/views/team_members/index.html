@@ -25,27 +25,29 @@
   </li>
 </ul>
 
-
+<p><%= link_to "Show all teams", teams_path %></p>
 <div class="row">
-  <div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @team_members.each do |user| %>
-        
+  <div class="span12">
+    <div>
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td><%= user.username %></td>
-            <td><%= user.role.title %></td>
+            <th>Username</th>
+            <th>Role</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @team_members.each do |user| %>
+          
+            <tr>
+              <td><%= user.username %></td>
+              <td><%= user.role.title %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
