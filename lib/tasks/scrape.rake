@@ -1,20 +1,3 @@
-task :seed_users => :environment do   #will still need to either rake db:seed or rake scrape and rake teams_evaluate_opportunities
-	#Indy Team
-	User.create(username: "Matt", email: "matthew.newell@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
-	User.create(username: "Scott", email: "scott.lamb@ngc.com", team_id: 2, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
-	User.create(username: "Marc", email: "marc.brickley@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
-	User.create(username: "Bryan", email: "bryan.liss@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
-	User.create(username: "Dave", email: "david.collier@ngc.com", team_id: 2, role_id: 3, password: "GoTeam!", password_confirmation: "GoTeam!")
-	User.create(username: "Steve", email: "steven.d.brown@ngc.com", team_id: 2, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
-
-	#Sandbox Team
-	User.create(username: "Mike.Rivers", email: "michael.rivers@ngc.com", team_id: 1, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
-	User.create(username: "Mike.Nelson", email: "mf.nelson@ngc.com", team_id: 1, role_id: 2, password: "GoTeam!", password_confirmation: "GoTeam!")
-end
-
-
-
-
 task :reset_development do   #will still need to either rake db:seed or rake scrape and rake teams_evaluate_opportunities
 	reset_files = ["db:drop", "db:migrate", "build_all"] 
 	reset_files.each do |t|
@@ -281,6 +264,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 			end
 
 			def title_and_classification_code_splitter(opportunity_row, classification_codes)
+				#puts opportunity_row
 	    	#unless response_due == "none" #none means the table row is not valid
 		  		classification_codes.each do |classification_code|
 						if opportunity_row[0] && opportunity_row[0].include?(classification_code)
@@ -292,7 +276,8 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 			end
 
 			def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, full_link)
-		   	if Opportunity.find_by(opportunity: opportunity_row[4]) #|| opportunity_row[3].to_date != Date.today
+				
+		   	if opportunity_row.length > 1 && Opportunity.find_by(opportunity: opportunity_row[4]) #|| opportunity_row[3].to_date != Date.today
 		   		puts opportunity_row[4]
 					raise "Killing the script! We have been here before!. See Opportunity "
 				else
