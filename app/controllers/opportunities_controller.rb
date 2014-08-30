@@ -9,7 +9,7 @@ class OpportunitiesController < ApplicationController
     if current_user
       @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).order("id DESC").paginate(:per_page => 50, :page => params[:page]) 
     else
-      @opportunities = Opportunity.where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 50, :page => params[:page])
+      @opportunities = Opportunity.all.order("id DESC").paginate(:per_page => 50, :page => params[:page])
     end
   end
   
