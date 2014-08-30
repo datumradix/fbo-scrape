@@ -35,7 +35,7 @@
   <div class="row">
     <div class="span12">
         <div class="alert alert-warning" role="alert">
-          Here are the latest opportunities from <%= link_to "FBO.gov", "http://www.fbo.gov" %>. You are not logged in. 
+          Here are the latest opportunities from FBO.gov. You are not <%= link_to "logged in", new_user_session_path %>. 
         </div>
         <%= will_paginate @opportunities %>
         <table class="table table-hover">

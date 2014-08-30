@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def permission_denied
-    flash[:error] = "Access restricted. Please log in."
+    flash[:error] = "You do not have permissions to go here."
     redirect_to new_user_session_path
   end
 

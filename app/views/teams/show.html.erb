@@ -24,7 +24,9 @@
     <li class="active">
       <%= link_to "Selection Criteria", "#" %>
     </li>
-    <li><%= link_to "(edit)", edit_selection_criterium_path(current_user.team.selection_criterium) %></li>
+    <% if permitted_to? :show, :selection_criteria %>
+      <li><%= link_to "(edit)", edit_selection_criterium_path(current_user.team.selection_criterium) %></li>
+    <% end %>
   </ul>
   <div class="row">
     <div class="span4">
