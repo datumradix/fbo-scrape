@@ -275,23 +275,34 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 				#end
 			end
 
-			def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, full_link)
-				
-		   	if opportunity_row.length > 1 && Opportunity.find_by(opportunity: opportunity_row[4]) #|| opportunity_row[3].to_date != Date.today
-		   		puts opportunity_row[4]
-					raise "Killing the script! We have been here before!. See Opportunity "
-				else
-					puts "Adding new record to Opportunity table"
-		 			Opportunity.create(opportunity: opportunity_row[4],
-					               		 class_code: opportunity_row[5],
-					               		 agency: opportunity_row[1],
-			        	         		 opp_type: opportunity_row[2],
-			            	     		 post_date: opportunity_row[3],
-				            	   		 response_date: response_due,
-				            	   		 opportunity_description: opportunity_description,
-					               		 link: full_link,
-					               		 management_evaluation: nil)
-					
+			def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, full_link)		
+		   	if opportunity_row.length > 1 
+		   		puts "now evaluating #{opportunity_row[5]}"
+		   		duplicate_title = false 
+		   		duplicate_procurement_type = false
+	   			if Opportunity.find_by(opportunity: opportunity_row[4]) 
+	   				potential_duplicate = Opportunity.find_by(opportunity: opportunity_row[4]) 
+	   				duplicate_title = true    
+						if potential_duplicate.opp_type == opportunity_row[2]
+	   					duplicate_procurement_type = true
+	   				end
+	   			end 
+
+	   			if duplicate_title && duplicate_procurement_type
+	   				puts opportunity_row[4]
+	   				puts opportunity_row[2]
+						raise "Killing the script! We have been here before!. See Opportunity "
+					else
+						Opportunity.create(opportunity: opportunity_row[4],
+														   class_code: opportunity_row[5],
+															 agency: opportunity_row[1],
+														   opp_type: opportunity_row[2],
+												  	   post_date: opportunity_row[3],
+														   response_date: response_due,
+														   opportunity_description: opportunity_description,
+														   link: full_link,
+														   management_evaluation: nil) 
+					end
 				end
 			end
 
