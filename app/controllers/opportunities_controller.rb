@@ -7,11 +7,9 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     if current_user
-      @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).paginate(:per_page => 30, :page => params[:page]) 
+      @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).order("id DESC").paginate(:per_page => 50, :page => params[:page]) 
     else
-      #rails find all records where post date is < 8
-      #@opportunities = Opportunity.where((Date.today - opportunity.post_date).to_i > 8)
-      @opportunities = Opportunity.where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 30, :page => params[:page])
+      @opportunities = Opportunity.where(management_evaluation:params[:set_filter]).order("id DESC").paginate(:per_page => 50, :page => params[:page])
     end
   end
   

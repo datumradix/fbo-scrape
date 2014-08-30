@@ -292,8 +292,11 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 			end
 
 			def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, full_link)
-		   	if Opportunity.where(opportunity: opportunity_row[4]).none? #|| opportunity_row[3].to_date != Date.today
-		   		puts "Adding new record to Opportunity table"
+		   	if Opportunity.find_by(opportunity: opportunity_row[4]) #|| opportunity_row[3].to_date != Date.today
+		   		puts opportunity_row[4]
+					raise "Killing the script! We have been here before!. See Opportunity "
+				else
+					puts "Adding new record to Opportunity table"
 		 			Opportunity.create(opportunity: opportunity_row[4],
 					               		 class_code: opportunity_row[5],
 					               		 agency: opportunity_row[1],
@@ -303,9 +306,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 				            	   		 opportunity_description: opportunity_description,
 					               		 link: full_link,
 					               		 management_evaluation: nil)
-				else
-					puts opportunity_row[4]
-					raise "Killing the script! We have been here before!. See Opportunity "
+					
 				end
 			end
 
