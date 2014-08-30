@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
    [role.title.gsub(/ /, "_").downcase.to_sym]
 	end
 
+  def self.find_by_username_or_email(login)
+    User.find_by_username(login.downcase) || User.find_by_email(login.downcase)
+  end
+
   def deliver_password_reset_instructions
     reset_perishable_token!
     Notifier.deliver_password_reset_instructions(self)

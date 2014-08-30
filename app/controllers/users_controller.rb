@@ -38,8 +38,11 @@ class UsersController < ApplicationController
   def create
     #raise
     @user = User.new(user_params)
-
+    #before save data sanitazation
+    @user.username = @user.username.downcase 
+    @user.email = @user.email.downcase
     respond_to do |format|
+
       if @user.save
         format.html { redirect_to root_path, notice: 'Registration successful.' }
         format.json { render action: 'show', status: :created, location: @user }
