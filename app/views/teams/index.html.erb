@@ -25,11 +25,21 @@
   </li>
 </ul>
 
-
+<div class="row">
+  <div class="span9">
+    <div class="btn-group">
+      <button class="btn"><%= link_to "Your Team", team_members_path %></button>
+      <button class="btn">All Teams</button>
+      <% if current_user.role_id < 3 %>
+        <button class="btn"><%= link_to "Build Your Team", new_user_path %></button>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="span12">
-    <h4>Teams</h4>
+    <h4>All Teams</h4>
 
     <% if permitted_to? :manage, :teams %>
       <%= link_to 'New Team', new_team_path %>
