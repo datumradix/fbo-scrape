@@ -9,4 +9,9 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Fbo::Application.config.secret_key_base = '3cf814117d9cf7bef1441d1ae0ec79b947276b2b2efdd5d10795d75ab86beb51f7e2674912c96d70876c26ddbb613e86e79a012cb684f6e55b65fd3c005e0524'
+
+Fbo::Application.config.secret_token = if Rails.env.development? or Rails.env.test?
+  ('x' * 30) # meets minimum requirement of 30 chars long
+else
+  ENV['SECRET_TOKEN']
+end
