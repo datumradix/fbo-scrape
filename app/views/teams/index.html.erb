@@ -68,7 +68,11 @@
               <td> <%= team.name %> </td>
             <% end %>
             <td><%= team.description %></td>
-            <td><%= team.users.find_by(role_id: 2).username %></td>
+            <% if team.users.find_by(role_id: 22) %>
+              <td><%= team.users.find_by(role_id: 22).username %>
+            <% else %>
+              <td><%= User.find_by(role_id: 1).username %></td>
+            <% end %>
             <td><%= team.users.count %></td>
             <% if permitted_to? :manage, :teams %>
               <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
