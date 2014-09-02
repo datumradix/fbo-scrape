@@ -1,6 +1,10 @@
 <div class="navbar navbar-fixed-bottom">
   <div class="navbar-inner">
     <div class="container">
+      <ul class="nav nav-pills pull-left">
+        <li><h3><%= link_to "Help Menu", help_path(:anchor => "about") %></h3></li>
+      </ul>
+
       <ul class="nav nav-pills pull-right">
         <li><%= link_to "About teamFBO", help_path(:anchor => "about") %></li>
         <li><%= link_to "About FBO.gov", help_path(:anchor => "fbogov") %></li>
@@ -12,16 +16,9 @@
         <li><%= link_to "Metrics", help_path(:anchor => "metrics") %></li>
       </div>
     </ul>
+    <hr>
   </div>
 </div>
-
-
-
-
-
-
-
-
 
 
 <p><a name="about"></a></p><br><br>
