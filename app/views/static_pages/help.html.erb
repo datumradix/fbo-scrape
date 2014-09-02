@@ -14,6 +14,7 @@
     </div>
   </div>
 </div>
+
 <p><a name="about"></a></p><br><br>
 <h4>About</h4>
 <div class="row">
@@ -119,15 +120,15 @@
     <br><br>
     <hr>
     <h4>Teams</h4>
-    <p>A team is a private entity on teamFBO where team members can evaluate opportunities that match the team's opportunity evaluation criteria. The evaluation criteria is defined by the Team Lead.</p>
+    <p>A team is a private entity where members can evaluate opportunities that match the team's opportunity evaluation criteria. The evaluation criteria is defined by the Team Lead.</p>
 
-    <p>On the <%= link_to "Team", team_members_path %> tab, you can see who is on your team. You may also view high level information about <%= link_to "other teams", teams_path %>, but cannot access detailed information. </p>
+    <p>On the <%= link_to "Team", team_members_path %> tab, you can view other team members. You may also view high level information about <%= link_to "other teams", teams_path %>, but cannot access detailed information. </p>
 
     <p><a name="roles"></a></p>
     <br><br>
     <hr>
     <h4>Roles</h4>
-    <p>All users on teamFBO have roles. Roles determine what you are allowed to do on the site. Team Leads can set selection criteria, define a team's charter, and add new people to the team. Evaluators can put opportunities on the "Watchlist" and comment on why a particular lead seems compelling.</p>
+    <p>Roles determine what you are allowed to do on teamFBO. Team Leads can set selection criteria, define a team's charter, and add new people to the team. Evaluators can put opportunities on the "Watchlist" and comment on why a particular lead seems compelling.</p>
 
     <table class="table table-bordered">
       <thead>
@@ -180,7 +181,7 @@
     <h4>Evaluate Opportunities</h4>
     <p>Opportunities are classified by <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %>, <%= link_to "Watchlist", opportunities_path(:set_filter => 2) %>, and <%= link_to "Reject", opportunities_path(:set_filter => 3) %>. </p>
 
-    <p>New FBO.gov opportunities that match your team's criteria are placed in the "Not Evaluated" state.  If a team member thinks the opportunity may be a fit, (s)he may add the opportunity to the watchlist.  Comments may also be added as to why the opportunity is a good one.</p>
+    <p>New opportunities that match your team's criteria are placed in the "Not Evaluated" state.  If a team member thinks the opportunity may be a fit, s/he may add the opportunity to the watchlist.  Comments may also be added as to why the opportunity is a good one.</p>
 
     <p>Other team members may comment on the opportunity. Or, if the opportunity is not a match, it may be rejected. It is best practice to add a comment when rejecting an opportunity. </p>
 
