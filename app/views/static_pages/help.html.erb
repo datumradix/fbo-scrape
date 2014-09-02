@@ -1,19 +1,28 @@
 <div class="navbar navbar-fixed-bottom">
   <div class="navbar-inner">
     <div class="container">
-      <div class="btn-group pull-right">
-        <button class="btn"><%= link_to "About teamFBO", help_path(:anchor => "about") %></button>
-        <button class="btn"><%= link_to "About FBO.gov", help_path(:anchor => "fbogov") %></button>
-        <button class="btn"><%= link_to "Teams", help_path(:anchor => "teams") %></button>
-        <button class="btn"><%= link_to "Roles", help_path(:anchor => "roles") %></button>
-        <button class="btn"><%= link_to "Selection Criteria", help_path(:anchor => "criteria") %></button>
-        <button class="btn"><%= link_to "Evaluate Opportunities", help_path(:anchor => "evaluate") %></button>
-        <button class="btn"><%= link_to "Manage Profile", help_path(:anchor => "profile") %></button>
-        <button class="btn"><%= link_to "Metrics", help_path(:anchor => "metrics") %></button>
+      <ul class="nav nav-pills pull-right">
+        <li><%= link_to "About teamFBO", help_path(:anchor => "about") %></li>
+        <li><%= link_to "About FBO.gov", help_path(:anchor => "fbogov") %></li>
+        <li><%= link_to "Teams", help_path(:anchor => "teams") %></li>
+        <li><%= link_to "Roles", help_path(:anchor => "roles") %></li>
+        <li><%= link_to "Selection Criteria", help_path(:anchor => "criteria") %></li>
+        <li><%= link_to "Evaluate Opportunities", help_path(:anchor => "evaluate") %></li>
+        <li><%= link_to "Manage Profile", help_path(:anchor => "profile") %></li>
+        <li><%= link_to "Metrics", help_path(:anchor => "metrics") %></li>
       </div>
-    </div>
+    </ul>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 <p><a name="about"></a></p><br><br>
 <h4>About</h4>
