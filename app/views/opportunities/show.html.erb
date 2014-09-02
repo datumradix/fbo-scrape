@@ -57,7 +57,7 @@
 
   <div class="span4">   
     <div class="evaluate_form">
-      <h4>New Evaluation</h4>
+      <h4>Evaluation</h4>
         <div class="radio">
           <%= form_for(@opportunity_evaluation) do |f| %> 
             <%= f.collection_radio_buttons(:evaluation_code_id, EvaluationCode.find(2,3), :id, :name) %>

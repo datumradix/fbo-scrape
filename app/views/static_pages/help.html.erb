@@ -1,0 +1,206 @@
+<div class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="btn-group pull-right">
+        <button class="btn"><%= link_to "About teamFBO", help_path(:anchor => "about") %></button>
+        <button class="btn"><%= link_to "About FBO.gov", help_path(:anchor => "fbogov") %></button>
+        <button class="btn"><%= link_to "Teams", help_path(:anchor => "teams") %></button>
+        <button class="btn"><%= link_to "Roles", help_path(:anchor => "roles") %></button>
+        <button class="btn"><%= link_to "Selection Criteria", help_path(:anchor => "criteria") %></button>
+        <button class="btn"><%= link_to "Evaluate Opportunities", help_path(:anchor => "evaluate") %></button>
+        <button class="btn"><%= link_to "Manage Profile", help_path(:anchor => "profile") %></button>
+        <button class="btn"><%= link_to "Metrics", help_path(:anchor => "metrics") %></button>
+      </div>
+    </div>
+  </div>
+</div>
+<p><a name="about"></a></p><br><br>
+<h4>About</h4>
+<div class="row">
+  <div class="span9">    
+    <p>teamFBO is a new business evaluation tool.</p>
+    <p>
+      We scan the <%= link_to "Federal Business Opportunities web site", "https://www.fbo.gov" %> 24/7 and return opportunities that match your team's evaluation criteria. Your team works together to evaluate and comment on opportunities that are best fit for your company. 
+    </p>
+    <br>
+  </div>
+</div>
+<div class="row">
+    <div class="span1 offset1">
+      <p><%= link_to glyph(:cloud_download), "#", :class=>"black_icon" %> <br>Automated FBO Scan </p>
+    </div>
+    <div class="span1", align="center">
+      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+    </div>
+    <div class="span1">
+      <p><%= link_to glyph(:tasks), "#", :class=>"black_icon" %> Machine Evaluation</p>
+    </div>
+    <div class="span1", align="center">
+      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+    </div>
+    <div class="span1">
+      <p>
+        <%= link_to glyph(:user), "#", :class=>"black_icon" %>
+        <%= link_to glyph(:user), "#", :class=>"black_icon" %>
+        <%= link_to glyph(:user), "#", :class=>"black_icon" %>
+        Team Evaluation 
+        </p>
+        <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %>
+        <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %>
+    </div>
+    <div class="span1", align="center">
+      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+    </div>
+    <div class="span1">
+      <p><%= link_to glyph(:user), "#", :class=>"black_icon" %> Management Evaluation</p>
+    </div>
+    <div class="span1", align="center">
+      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+    </div>
+    <div class="span1">
+      <p><%= link_to glyph(:road), "#", :class=>"black_icon" %>Opportunity Pursuit</p>
+    </div>
+</div>
+<div class="row">
+  <div class="span9 offset1">
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="span1 offset1">
+    <p>2,000 OPD</p>
+  </div>
+  <div class="span1 offset1">
+    <p>150 OPD</p>
+  </div>
+  <div class="span1 offset1">
+    <p>10 OPD</p>
+  </div>
+  <div class="span1 offset1">
+    <p>5 OPD</p>
+  </div>
+  <div class="span1 offset1">
+    <p>> 1 OPD</p>
+  </div>
+</div>
+<div class="row">
+  <div class="span9 offset1">
+    <div align="left">
+    <em><small>OPD: Opportunites per Day</small></em>
+    </div>
+  </div>
+  <div class="span9">
+    <br>
+    <p>Here are a few ways teamFBO can help streamline your business development efforts:</p>
+      <dl class="dl-horizontal">
+        <dt>Efficient</dt>
+        <dd> Evaluate more qualified opportunities in far less time.</dd>
+        <dt>Collaborative</dt>
+        <dd> Take advantage of your team's unique capabilities by working together.</dd>
+        <dt>Standardized</dt>
+        <dd> Common evaluation criteria for procurement types, setback codes, and selection codes.</dd>
+        <dt>Intelligent</dt>
+        <dd> Use comments and evaluations to train your team on what opportunities to pursue and reject. And why.</dd>
+        <dt>Self Cleaning</dt>
+        <dd> Opportunites not evaluated after 8 days are purged from the site.</dd>
+        <dt>Platform Independent</dt>
+        <dd> teamFBO works great on your smart phone, tablet, laptop, and desktop.</dd>
+      </dl>
+    
+    <p><a name="fbogov"></a></p>
+    <br><br>
+    <hr>
+    <h4>About FBO.gov</h4>
+    <p>FBO.gov or Federal Business Opportunities (FedBizOpps) is where you can find procurement opportunities for the Federal government. Government users post details of opportunities at FBO.gov. Vendors can search for particular opportunities that suit their criteria and then apply for those. Government users can then award an opportunity to a particular vendor at FBO.gov.</p>
+
+    <p>Every business day, over 2,000 opportunities are posted on FBO.gov.  Each of these opportunities contains a Classification Code, Procurement Type, and Set-Aside Code. By down-selecting these values on teamFBO, you will only be presented with leads that match your team's area of expertise.</p>
+
+    <p><a name="teams"></a></p>
+    <br><br>
+    <hr>
+    <h4>Teams</h4>
+    <p>A team is a private entity on teamFBO where team members can evaluate opportunities that match the team's opportunity evaluation criteria. The evaluation criteria is defined by the Team Lead.</p>
+
+    <p>On the <%= link_to "Team", team_members_path %> tab, you can see who is on your team. You may also view high level information about <%= link_to "other teams", teams_path %>, but cannot access detailed information. </p>
+
+    <p><a name="roles"></a></p>
+    <br><br>
+    <hr>
+    <h4>Roles</h4>
+    <p>All users on teamFBO have roles. Roles determine what you are allowed to do on the site. Team Leads can set selection criteria, define a team's charter, and add new people to the team. Evaluators can put opportunities on the "Watchlist" and comment on why a particular lead seems compelling.</p>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Team Charter</th>
+          <th>Search Criteria</th>
+          <th>Members</th>
+          <th>Opportunities</th>
+          <th>Opportunity Evaluation</th>
+          <th>Opportunity Comments</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <th>Team Lead</th>
+          <td><%= link_to 'Edit', edit_team_path(current_user.team) %></td>
+          <td><%= link_to "Edit", edit_selection_criterium_path(current_user.team.selection_criterium) %></td>
+          <td><%= link_to "View", team_members_path %></td>
+          <td><%= link_to "View", opportunities_path %></td>
+          <td>Watchlist<br>Reject</td>
+          <td>View<br>Create</td>
+        </tr>
+        <tr>
+          <th>Evaluator</th>
+          <td><%= link_to 'View', team_path(current_user.team) %></td>
+          <td><%= link_to "View", team_path(current_user.team) %>
+          <td><%= link_to "View", team_members_path %></td>
+          <td><%= link_to "View", opportunities_path %></td>
+          <td>Watchlist</td>
+          <td>View<br>Create</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><a name="criteria"></a></p>
+    <br><br>
+    <hr>
+    <h4>Selection Criteria</h4>
+    <p>Opportunities featured on FBO.gov contain a Classification Code, Procurement Type, and Set-Aside Code. By down-selecting these values on teamFBO, you will only be presented with leads that match your team's area of expertise.</p>
+    <p>Team Leads may define selection criteria. Your team's selection criteria is <%= link_to "here", team_path(current_user.team) %>.</p>
+    <div class="alert">
+      <strong>Warning!</strong> Selection Criteria changes only look forward. If a Team Lead changes criteria, prior opportunities will not be evaluated with the new criteria.
+    </div>
+
+    <p><a name="evaluate"></a></p>
+    <br><br>
+    <hr>
+    <h4>Evaluate Opportunities</h4>
+    <p>Opportunities are classified by <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %>, <%= link_to "Watchlist", opportunities_path(:set_filter => 2) %>, and <%= link_to "Reject", opportunities_path(:set_filter => 3) %>. </p>
+
+    <p>New FBO.gov opportunities that match your team's criteria are placed in the "Not Evaluated" state.  If a team member thinks the opportunity may be a fit, (s)he may add the opportunity to the watchlist.  Comments may also be added as to why the opportunity is a good one.</p>
+
+    <p>Other team members may comment on the opportunity. Or, if the opportunity is not a match, it may be rejected. It is best practice to add a comment when rejecting an opportunity. </p>
+
+    <p>Rejects provide important information for your team. Team members can learn why the lead is not an appropriate match. Leads can use this information to fine tune selection criteria.</p>
+
+    <p><a name="profile"></a></p>
+    <br><br>
+    <hr>
+    <h4>Manage Profile</h4>
+    <p>teamFBO members may manage their profile <%= link_to "here", edit_user_path(current_user) %>.</p>
+
+    <p><a name="metrics"></a></p>
+    <br><br>
+    <hr>
+    <h4>Metrics</h4>
+    <p>Your team's <%= link_to "homepage", user_path(current_user) %> shows seven day averages on new opportunities, watchlist, and rejects.  </p>
+    <p>Over time, data will parse watchlist opportunities' by classification codes. This information can help Team Leads refine their evaluation criteria. For example, if no watchlist opportunites hit on the classification code "S -- Utilities and housekeeping services", perhaps the Lead should de-select the code for their team.</p>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+</div>
+
+

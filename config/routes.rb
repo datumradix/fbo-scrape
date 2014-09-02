@@ -36,7 +36,7 @@ Fbo::Application.routes.draw do
 
   resources :comments
 
-  get "static_pages/criteria"
+  get "static_pages/help"
 
   get "static_pages/about"
   resources :opportunities do
@@ -72,7 +72,7 @@ Fbo::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   match '/about',   to: 'static_pages#about',   via: 'get'
-  match '/criteria',   to: 'static_pages#criteria',   via: 'get'
+  match '/help',   to: 'static_pages#help',   via: 'get'
   match '/team_members', to: 'users#team_index', via: 'get'
 
 

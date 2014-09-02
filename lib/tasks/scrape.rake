@@ -69,7 +69,7 @@ end
 
 task :setup_set_aside_radio => :environment do 
 	SetAsideRadio.delete_all
-	radio_values = ["Ignore all set asides", "Ignore opportunities with selected set asides", "Include only opportunities with selected set asides"]
+	radio_values = ["Include all set asides", "Ignore selected", "Include selected"]
 	rid=1
 	radio_values.each do |radio_value|
 		SetAsideRadio.create(id: rid, name: radio_value)

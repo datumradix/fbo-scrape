@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def about
   end
 
-  def criteria
+  def help
   end
   
 end

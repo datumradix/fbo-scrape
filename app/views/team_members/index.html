@@ -27,7 +27,7 @@
 <div class="row">
   <div class="span9">
     <div class="btn-group">
-      <button class="btn">Your Team</button>
+      <button class="btn">My Team</button>
       <button class="btn"><%= link_to "All Teams", teams_path %></button>
       <% if current_user.role_id < 3 %>
         <button class="btn"><%= link_to "Build Your Team", new_user_path %></button>
