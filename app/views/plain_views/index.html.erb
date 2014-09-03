@@ -8,13 +8,13 @@
   <div class="span12">
       <%= will_paginate @opportunities %>
       <% @opportunities.each do |opportunity| %>
-          <p><%= link_to opportunity.opportunity, opportunity %></p>
-          <p><%= opportunity.link %></p>
-          <p><strong>Agency: </strong> <%= opportunity.agency %></p>
-          <p><strong>Classification Code: </strong> <%= opportunity.class_code %> </p> 
-          <p><strong>Opportunity Type: </strong> <%= opportunity.opp_type %></p>
-          <p><strong>Post Date: </strong><%= opportunity.post_date.strftime("%b %d") %></p>
-          <% if opportunity.comments.last %>
+          <p><%= link_to opportunity.opportunity.opportunity, opportunity.opportunity.link %></p>
+          <p><%= opportunity.opportunity.link %></p>
+          <p><strong>Agency: </strong> <%= opportunity.opportunity.agency %></p>
+          <p><strong>Classification Code: </strong> <%= opportunity.opportunity.class_code %> </p> 
+          <p><strong>Opportunity Type: </strong> <%= opportunity.opportunity.opp_type %></p>
+          <p><strong>Post Date: </strong><%= opportunity.opportunity.post_date.strftime("%b %d") %></p>
+          <% if opportunity.comments.count > 0 %>
             <% last_comment = opportunity.comments.last.comment %>
           <% else last_comment = "none" %> 
           <% end %>

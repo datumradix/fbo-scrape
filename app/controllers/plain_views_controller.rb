@@ -5,34 +5,10 @@ class PlainViewsController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    #@opportunities = Opportunity.search(params[:search]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
-    #@opportunities = Opportunity.search(params[:search]).where(management_evaluation:params[:set_filter]).order("#{params[:sort]} #{params[:direction]}").paginate(:per_page => 30, :page => params[:page])
-    @opportunities = Opportunity.search(params[:search]).where(management_evaluation:"Watchlist").order("id DESC").paginate(:per_page => 30, :page => params[:page])
+    @opportunities = current_user.team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 50, :page => params[:page])
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
-
-  def increment
-    @opportunity = Opportunity.find(params[:id])
-    @opportunity.like += 1
-    @opportunity.management_evaluation = "Watchlist"
-    @opportunity.save
-    @opptag = "#likes-#{@opportunity.id}"
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def decrement
-    @opportunity = Opportunity.find(params[:id])
-    @opportunity.like -= 1
-    @opportunity.save
-    @opptag = "#likes-#{@opportunity.id}"
-    respond_to do |format|
-      format.js
-    end
-  end
-
 
   def show
     @comments = @opportunity.comments
