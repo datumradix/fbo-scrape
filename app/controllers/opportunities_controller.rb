@@ -7,7 +7,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     if current_user
-      @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).order("id DESC").paginate(:per_page => 50, :page => params[:page]) 
+      @evaluated_opportunities = current_user.team.evaluations.where(evaluation_code_id:params[:set_filter]).order("opportunity_id DESC").paginate(:per_page => 50, :page => params[:page]) 
     else
       @opportunities = Opportunity.all.order("id DESC").paginate(:per_page => 50, :page => params[:page])
     end
