@@ -49,12 +49,14 @@ end
 
 task :setup_roles => :environment do 
 	Role.delete_all
-	roles = ["Administrator", "Team Lead", "Evaluator"]
+	roles = ["Administrator", "Team Lead", "Evaluator", "Capture Lead"]
 	rid=1
 	roles.each do |role| 
 		Role.create(title: role, id: rid)
 		rid += 1
 	end
+	role = Role.find(3)
+	role.description ="The Capture Lead oversees opportunities for all teams under their area of responsibility. Teams under the Capture Lead may be organized by geography, area of expertise, or business area.  It is the responsibility of the Capture Lead to organize Teams and provide feedback on a team's charter, selection criteria, and opportunity evaluations."
 end
 
 task :setup_evaluation_codes => :environment do 
