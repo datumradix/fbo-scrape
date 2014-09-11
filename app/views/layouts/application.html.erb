@@ -56,7 +56,16 @@
           <div class="container nav-collapse">
             <ul class="nav">
               <% if current_user %>
-                <li><%= link_to "My Team", user_path(current_user) %></li>
+                <% case current_user.role_id %>
+                  <% when 1 %>
+                  <li><%= link_to "My Team", user_path(current_user) %></li>
+                  <% when 2 %>
+                  <li><%= link_to "My Team", user_path(current_user) %></li>
+                  <% when 3 %>
+                  <li><%= link_to "My Team", user_path(current_user) %></li>
+                  <% when 4 %>
+                    <li><%= link_to "My Teams", user_path(current_user)  %></li>
+                  <% end %>
                 <li><%= link_to "Logout", logout_path %></li>
               <% else %>
                 <li><%= link_to "About", about_path %></li>
@@ -66,24 +75,28 @@
 
             <% if permitted_to? :show, :opportunities %>
               <ul class="nav nav-pills pull-right">
-                <% case params[:set_filter] %>
-                  <% when "1" %>
-                    <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
-                    <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
-                    <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
-                  <% when "2" %>
-                    <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
-                    <li class="active"> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
-                    <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
-                  <% when "3" %>
-                    <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
-                    <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
-                    <li class="active"> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
-                  <% else %>
-                    <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
-                    <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
-                    <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
-                <% end %>
+                <% case current_user.role_id %>
+                  <% when 1 || 2 || 3 %>
+                    <% case params[:set_filter] %>
+                      <% when "1" %>
+                        <li class="active"> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
+                        <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
+                        <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
+                      <% when "2" %>
+                        <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
+                        <li class="active"> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
+                        <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
+                      <% when "3" %>
+                        <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
+                        <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
+                        <li class="active"> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
+                      <% else %>
+                        <li> <%= link_to "Not Evaluated", opportunities_path(:set_filter => 1) %> </li>
+                        <li> <%= link_to "Watchlist", opportunities_path(:set_filter =>2) %> </li>
+                        <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
+                    <% end %>
+                  <% when 4 %>
+                  <% end %> 
                 <li> <%= link_to "Help", help_path %>
               </ul>
             <% end %> 

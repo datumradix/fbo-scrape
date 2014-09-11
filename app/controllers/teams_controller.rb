@@ -5,7 +5,8 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.where(company_id: current_user.team.company_id)
+    #@teams = Team.all
   end
 
   # GET /teams/1
@@ -17,11 +18,13 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
     @opportunities = Opportunity.all
+    @company_radios = Company.all
   end
 
   # GET /teams/1/edit
   def edit
     @opportunities = Opportunity.all
+    @company_radios = Company.all
   end
 
   # POST /teams
@@ -31,7 +34,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Team was successfully created.' }
         format.json { render action: 'show', status: :created, location: @team }
       else
         format.html { render action: 'new' }
@@ -72,6 +75,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :description, :opportunity_ids => [])
+      params.require(:team).permit(:name, :description, :company_id, :opportunity_ids => [])
     end
 end

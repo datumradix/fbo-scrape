@@ -1,77 +1,143 @@
-<div class="row">
-  <div class="span9">
-    <h4><%= @user.team.name %> </h4>
-  
-    <p><%= @user.team.description %> </p>
-  </div>
-  <div class="span3">
-    <p>
-      Username: <%= link_to @user.username, edit_user_path(@user) %>  
-    </p>
-    <p>
-      Role: <%= link_to current_user.role.title, roles_path %> 
-    </p>
-  </div>
-</div>
-<br>
-<ul class="nav nav-tabs">
-  <li class="active">
-    <%= link_to "Home", user_path(@user) %>
-  </li>
-  <li>
-    <%= link_to "Team", team_members_path %>
-  </li>
-  <li>
-    <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
-  </li>
-</ul>
+<% if @user.role_id > 3 %>
+  <div class="row">
+    <div class="span9">
+      <p>
+        <%= current_user.team.company.name %> Company
+      </p>
 
-<div class="row">
-  <div class="span3 offset0">
-    <h4>Opportunity Status</h4>
-    <table class="table table-bordered">
-      <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %></td></tr>
-      <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %></td></tr>
-      <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "3") %></td></tr>
-    </table>
+      <h4><%= @user.role.title %> </h4>
+    
+      <p><%= @user.role.description %> </p>
+    </div>
+    <div class="span3">
+      <p>
+        Username: <%= link_to @user.username, edit_user_path(@user) %>  
+      </p>
+      <p>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </p>
+    </div>
   </div>
-  <div class="span3 offset6">
-    <h4>Reporting</h4>
-    <p>Show watchlist in <%= link_to "plain view", plain_views_path %>.</p>
+  <br>
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <%= link_to "Opportunities", user_path(@user) %>
+    </li>
+    <li>
+      <%= link_to "Teams", teams_path %>
+    </li>
+  </ul>
+  <div class="row">
+    <div class="span12">
+      <h4>Watchlist Opportunities</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Post Date</th>
+            <th>Opportunity</th>
+            <th>Team</th>
+            <th>Lead</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @capture_lead_teams_watchlists.each do |watchlist| %>
+          <tr>
+            <td> <%= watchlist.opportunity.post_date %> </td>
+            <td> <%= link_to watchlist.opportunity.opportunity, watchlist.opportunity %> </td>
+            <td> <%= link_to watchlist.team.name, watchlist.team %> </td>
+            <td> <%= watchlist.team.users.find_by(role_id: 2).username %></td>
+            <% if watchlist.comments.last %>
+              <td> <%= watchlist.comments.last.comment %></td>
+            <% else %>
+              <td>None</td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<small>Opportunity Status is a seven day history based on your selection criteria and evaluation activity.</small>
-<hr>
+<% else %>
 
-<h4>Comments</h4>
-<%= will_paginate @comments %>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Post Date</th>
-      <th>Opportunity</th>
-      <th>Evaluation</th>
-      <th>Name</th>
-      <th>Comment</th>
-    </tr>
-  </thead>
+  <div class="row">
+    <div class="span9">
+      <p>
+        <%= current_user.team.company.name %> Company
+      </p>
+      <h4><%= @user.team.name %> </h4>
+    
+      <p><%= @user.team.description %> </p>
+    </div>
+    <div class="span3">
+      <p>
+        Username: <%= link_to @user.username, edit_user_path(@user) %>  
+      </p>
+      <p>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </p>
+    </div>
+  </div>
+  <br>
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <%= link_to "Home", user_path(@user) %>
+    </li>
+    <li>
+      <%= link_to "Team", team_members_path %>
+    </li>
+    <li>
+      <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+    </li>
+  </ul>
 
-  <tbody>
-    <% team_comments_sorted_by_date = 1 %>
-    <% current_user.team.evaluations.order("id DESC").each do |evaluation| %>
-      <% evaluation.comments.each do |comment| %>
-        <tr>
-          <td> <%= evaluation.opportunity.post_date.strftime("%b %d") %> </td>
-          <td> <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity) %></td>
-          <td> <%= evaluation.evaluation_code.name %> </td>
-          <td><%= comment.name %></td>
-          <td><%= comment.comment %></td>
-        </tr>
+  <div class="row">
+    <div class="span3 offset0">
+      <h4>Opportunity Status</h4>
+      <table class="table table-bordered">
+        <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %></td></tr>
+        <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %></td></tr>
+        <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "3") %></td></tr>
+      </table>
+    </div>
+    <div class="span3 offset6">
+      <h4>Reporting</h4>
+      <p>Show watchlist in <%= link_to "plain view", plain_views_path %>.</p>
+    </div>
+  </div>
+  <small>Opportunity Status is a seven day history based on your selection criteria and evaluation activity.</small>
+  <hr>
+
+  <h4>Comments</h4>
+  <%= will_paginate @comments %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Post Date</th>
+        <th>Opportunity</th>
+        <th>Evaluation</th>
+        <th>Name</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% team_comments_sorted_by_date = 1 %>
+      <% current_user.team.evaluations.order("id DESC").each do |evaluation| %>
+        <% evaluation.comments.each do |comment| %>
+          <tr>
+            <td> <%= evaluation.opportunity.post_date.strftime("%b %d") %> </td>
+            <td> <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity) %></td>
+            <td> <%= evaluation.evaluation_code.name %> </td>
+            <td><%= comment.name %></td>
+            <td><%= comment.comment %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @comments %>
+    </tbody>
+  </table>
+  <%= will_paginate @comments %>
+<% end %>
 
 
 
