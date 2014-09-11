@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @comments = Comment.order("id DESC").paginate(:per_page => 10, :page => params[:page])
+    @evaluations_with_comments = current_user.team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
     @not_evaluated_count = current_user.team.evaluations.where(evaluation_code_id: 1).count
     @watchlist_count = current_user.team.evaluations.where(evaluation_code_id: 2).count
     @reject_count = current_user.team.evaluations.where(evaluation_code_id: 3).count
