@@ -1,6 +1,10 @@
 <% if @user.role_id > 3 %>
   <div class="row">
     <div class="span9">
+      <p>
+        <%= current_user.team.company.name %> Company
+      </p>
+
       <h4><%= @user.role.title %> </h4>
     
       <p><%= @user.role.description %> </p>
@@ -58,6 +62,9 @@
 
   <div class="row">
     <div class="span9">
+      <p>
+        <%= current_user.team.company.name %> Company
+      </p>
       <h4><%= @user.team.name %> </h4>
     
       <p><%= @user.team.description %> </p>

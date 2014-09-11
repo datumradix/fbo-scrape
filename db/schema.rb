@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903162208) do
+ActiveRecord::Schema.define(version: 20140910234017) do
 
   create_table "classification_codes", force: true do |t|
     t.string   "name"
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(version: 20140903162208) do
   end
 
   add_index "comments", ["evaluation_id"], name: "index_comments_on_evaluation_id"
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "evaluation_codes", force: true do |t|
     t.string   "name"
@@ -111,6 +117,7 @@ ActiveRecord::Schema.define(version: 20140903162208) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "company_id"
   end
 
   create_table "user_sessions", force: true do |t|

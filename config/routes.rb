@@ -1,5 +1,7 @@
 Fbo::Application.routes.draw do
   
+  resources :companies
+
   resources :evaluation_codes
 
   resources :evaluations

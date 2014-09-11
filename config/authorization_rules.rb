@@ -1,6 +1,6 @@
 authorization do
   role :administrator do
-    has_permission_on [:opportunities, :users, :team_members, :teams, :selection_criteria], :to => [:manage]
+    has_permission_on [:opportunities, :users, :team_members, :teams, :companies, :selection_criteria], :to => [:manage]
   end
   
   role :capture_lead do

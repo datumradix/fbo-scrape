@@ -13,7 +13,7 @@ task :reset_production do
 end
 
 task :build_all do
-	setup_files = ["setup_sandbox_team", "setup_roles", "setup_evaluation_codes", "setup_set_aside_radio", "setup_codes", "setup_users"]
+	setup_files = ["setup_companies", "setup_sandbox_team", "setup_roles", "setup_evaluation_codes", "setup_set_aside_radio", "setup_codes", "setup_users"]
 	setup_files.each do |t|
 		Rake::Task[t].invoke
 	end
@@ -38,12 +38,18 @@ task :clean => :environment do  #heroku scheduler run this every 1 days
   end
 end
 
+task :setup_companies => :environment do 
+	Company.delete_all
+	Company.create(id: 1, name: "Sandbox")
+	Company.create(id: 2, name: "NGC")
+end
+
 task :setup_sandbox_team => :environment do 
 	Team.delete_all 
 	SelectionCriterium.delete_all 
-	Team.create(id: 1, name: "Sandbox Team", description: "A place to get started. Please click around and get to know the service.  You cannot break anything.")
+	Team.create(id: 1, company_id: 1, name: "Sandbox Team", description: "A place to get started. Please click around and get to know the service.  You cannot break anything.")
 	SelectionCriterium.create(id: 1, team_id: 1, set_aside_radio_id: 1)
-	Team.create(id: 2, name: "Indy", description: "We look for complex jobs that no one else can do.")
+	Team.create(id: 2, company_id: 2, name: "Indy", description: "We look for complex jobs that no one else can do.")
 	SelectionCriterium.create(id: 2, team_id: 2, set_aside_radio_id: 1)
 end
 
@@ -285,8 +291,9 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 	   			if Opportunity.find_by(opportunity: opportunity_row[4]) 
 	   				potential_duplicate = Opportunity.find_by(opportunity: opportunity_row[4]) 
 	   				duplicate_title = true    
-						if potential_duplicate.opp_type == opportunity_row[2]
+						if potential_duplicate.post_date == opportunity_row[3]
 	   					duplicate_procurement_type = true
+	   					puts "dupe record is #{potential_duplicate.id}"
 	   				end
 	   			end 
 

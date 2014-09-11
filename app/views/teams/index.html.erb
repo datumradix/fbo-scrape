@@ -48,24 +48,22 @@
 
         <tbody>
           <% @teams.each do |team| %>
-          <% unless team.id == 1 %>
-              <tr>
-                <td><%= link_to team.name, team_members_path %></td>
-                <td><%= team.description %></td>
-                <% if team.users.find_by(role_id: 2) %>
-                  <td><%= team.users.find_by(role_id: 2).username %>
-                <% else %>
-                  <td><%= User.find_by(role_id: 1).username %></td>
-                <% end %>
-                <td><%= team.users.count %></td>
-                <% if permitted_to? :manage, :teams %>
-                  <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                <% end %>
-                <td><%= team.evaluations.where(evaluation_code_id: 1).count %></td>
-                <td><%= team.evaluations.where(evaluation_code_id: 2).count %></td>
-                <td><%= team.evaluations.where(evaluation_code_id: 3).count %></td>
-              </tr>
-            <% end %>
+            <tr>
+              <td><%= link_to team.name, team_members_path %></td>
+              <td><%= team.description %></td>
+              <% if team.users.find_by(role_id: 2) %>
+                <td><%= team.users.find_by(role_id: 2).username %>
+              <% else %>
+                <td><%= User.find_by(role_id: 1).username %></td>
+              <% end %>
+              <td><%= team.users.count %></td>
+              <% if permitted_to? :manage, :teams %>
+                <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+              <td><%= team.evaluations.where(evaluation_code_id: 1).count %></td>
+              <td><%= team.evaluations.where(evaluation_code_id: 2).count %></td>
+              <td><%= team.evaluations.where(evaluation_code_id: 3).count %></td>
+            </tr>
           <% end %>
         </tbody>
       </table>
