@@ -5,7 +5,7 @@
         <%= current_user.team.company.name %> Company
       </p>
 
-      <h4><%= @user.role.title %> </h4>
+      <h3><%= @user.role.title %> </h3>
     
       <p><%= @user.role.description %> </p>
     </div>
@@ -44,10 +44,10 @@
         <% @capture_lead_teams_watchlists.each do |watchlist| %>
           <% if watchlist.team_id == current_user.team_id %>
             <tr>
-              <td> <%= watchlist.opportunity.post_date %> </td>
+              <td> <%= watchlist.opportunity.post_date.strftime("%b %d") %> </td>
               <td> <%= link_to watchlist.opportunity.opportunity, watchlist.opportunity %> </td>
               <td> <%= link_to watchlist.team.name, watchlist.team %> </td>
-              <td> <%= watchlist.team.users.find_by(role_id: 4).username %></td>
+              <td> <%= watchlist.team.users.find_by(role_id: 2).username %></td>
               <% if watchlist.comments.last %>
                 <td> <%= watchlist.comments.last.comment %></td>
               <% else %>
