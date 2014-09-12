@@ -78,6 +78,7 @@
 <% else %>
   <div class="row">
     <div class="span9">
+      <p><%= current_user.team.company.name %> Company</p>
       <h4><%= current_user.team.name %> </h4>
       <p><%= current_user.team.description %> </p>
     </div>

@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @not_evaluated_count = current_user.team.evaluations.where(evaluation_code_id: 1).count
     @watchlist_count = current_user.team.evaluations.where(evaluation_code_id: 2).count
     @reject_count = current_user.team.evaluations.where(evaluation_code_id: 3).count
-    @capture_lead_teams_watchlists = Evaluation.where(evaluation_code_id:2)
+    @capture_lead_teams_watchlists = Evaluation.where(evaluation_code_id:2).order("id DESC")
   end
 
   # GET /users/new
