@@ -46,7 +46,7 @@
             <td> <%= watchlist.opportunity.post_date %> </td>
             <td> <%= link_to watchlist.opportunity.opportunity, watchlist.opportunity %> </td>
             <td> <%= link_to watchlist.team.name, watchlist.team %> </td>
-            <td> <%= watchlist.team.users.find_by(role_id: 2).username %></td>
+            <td> <%= watchlist.team.users.find_by(role_id: 4).username %></td>
             <% if watchlist.comments.last %>
               <td> <%= watchlist.comments.last.comment %></td>
             <% else %>
