@@ -22,7 +22,7 @@ end
 task :clean => :environment do  #heroku scheduler run this every 1 days
   @opportunities = Opportunity.all 
   @opportunities.each do |opportunity| 
-  	if (Date.today - opportunity.post_date).to_i > 6 #over a week old is a purge opportunity
+  	if (Date.today - opportunity.post_date).to_i > 3 #over a 4 old is a purge opportunity
   		purge_opportunity = true
   		if Evaluation.where(opportunity_id: opportunity.id).first
   			evaluations = Evaluation.where(opportunity_id: opportunity.id)
