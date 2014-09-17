@@ -28,7 +28,8 @@ task :clean => :environment do  #heroku scheduler run this every 1 days
   			evaluations = Evaluation.where(opportunity_id: opportunity.id)
   			evaluations.each do |evaluation|
   				if evaluation.evaluation_code_id == 1 #purge only if team opportunity is not evaluated
-  					evaluation.destroy
+  					evaluation.destroy   #I think the opportunity reevaluates and remakes before it gets cleared. Evaluation.where(opportunity_id:5).last => 6601
+  					#consider making evaluation_code_id = 4   and then purge of old
   				end
   			end
   		else  #the opportunity is not part of any team's evaluation criteria
@@ -184,7 +185,8 @@ task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity
 			team_procurement_types << pt.name 
 		end
 
-		opportunities = Opportunity.all 
+		#opportunities = Opportunity.all 
+		opportunities = Opportunity.where("created_at < ? ", Date.today)
 		opportunities.each do |opportunity|
 			unless team.opportunities.where(id: opportunity.id).first
 				team_class_code = false 
