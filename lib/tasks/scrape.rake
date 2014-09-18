@@ -186,7 +186,7 @@ task :teams_evaluate_opportunities => :environment do |team_evaluate_opportunity
 		end
 
 		#opportunities = Opportunity.all 
-		opportunities = Opportunity.where("created_at =< ? ", Date.today)
+		opportunities = Opportunity.where("created_at <= ? ", Date.today)
 		opportunities.each do |opportunity|
 			unless team.opportunities.where(id: opportunity.id).first
 				team_class_code = false 
