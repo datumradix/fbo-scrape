@@ -3,28 +3,35 @@
 
 class PurgeOpportunities
 
-  def initialize
-    @opportunities = Opportunity.all
+  def purge_old_and_never_evaluated!
+    purge_never_evaluated!
+    purge_never_evaluated_opportunities!
   end
 
-  def purge_old_and_never_evaluated!
-    @opportunities.each do |opportunity| 
-      if old?(opportunity)
-        if has_team_evaluation?(opportunity)
-          opportunity.evaluations.each do |evaluation|
-            if evaluation_is_in_initial_state_of_not_evaluated?(evaluation)
-              evaluation.destroy   #I think the opportunity reevaluates and remakes before it gets cleared. Evaluation.where(opportunity_id:5).last => 6601
-            end
+  # private
+
+  def old_opportunities
+    Opportunity.where('post_date < ?', 5.days.ago)
+  end
+
+  def purge_never_evaluated!
+    old_opportunities.each do |opportunity| 
+      if has_team_evaluation?(opportunity)
+        opportunity.evaluations.each do |evaluation|
+          if evaluation_is_in_initial_state_of_not_evaluated?(evaluation)
+            evaluation.destroy   #I think the opportunity reevaluates and remakes before it gets cleared. Evaluation.where(opportunity_id:5).last => 6601
           end
-        else  #the opportunity is not part of any team's evaluation criteria
-          opportunity.destroy
         end
       end
     end
   end
 
-  def old?(opportunity)
-    (Date.today - opportunity.post_date).to_i > 3 #over a 4 old is a purge opportunity
+  def purge_never_evaluated_opportunities!
+    old_opportunities.each do |opportunity|
+      unless has_team_evaluation?(opportunity)
+        opportunity.destroy
+      end
+    end
   end
 
   def has_team_evaluation?(opportunity)
@@ -37,3 +44,13 @@ class PurgeOpportunities
 
 end
 
+
+#use select
+=begin 
+def old_opportunities
+  @opportunities.select{|opportunity| evaluate_is_in_initial_state_of_not_evaluated?() }
+end
+
+old_opportunities.each(&:destroy)
+old_opportunities.each {|opp| opp.destroy }
+=end 
