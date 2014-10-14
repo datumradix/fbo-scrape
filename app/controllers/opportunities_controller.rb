@@ -39,7 +39,9 @@ class OpportunitiesController < ApplicationController
 
 
   def show
-    @opportunity_evaluation = current_user.team.evaluations.where(opportunity_id: @opportunity.id).first 
+    if current_user
+      @opportunity_evaluation = current_user.team.evaluations.where(opportunity_id: @opportunity.id).first 
+    end
   end
 
   # GET /opportunities/new

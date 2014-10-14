@@ -1,3 +1,8 @@
+<% unless current_user.present? %>
+<h1>hello</h1>
+<% end %>
+
+
 <div class="row">
   <div class="span12">
     <% unless @opportunity_evaluation.comments.count == 0 %>  

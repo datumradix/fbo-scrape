@@ -19,7 +19,7 @@ class PurgeOpportunities
       if has_team_evaluation?(opportunity)
         opportunity.evaluations.each do |evaluation|
           if evaluation_is_in_initial_state_of_not_evaluated?(evaluation)
-            evaluation.destroy   #I think the opportunity reevaluates and remakes before it gets cleared. Evaluation.where(opportunity_id:5).last => 6601
+            evaluation.destroy  
           end
         end
       end
