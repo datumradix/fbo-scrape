@@ -48,6 +48,7 @@ gem 'will_paginate'
 gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails", "2.2.8"
+#gem "twitter-bootstrap-rails", "3.2.0"
 
 #Authentication & Authorization
 gem "authlogic", '3.4.0'
