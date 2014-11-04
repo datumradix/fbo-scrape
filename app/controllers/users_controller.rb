@@ -16,40 +16,49 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @evaluations_with_comments = current_user.team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
-    @not_evaluated_count = current_user.team.evaluations.where(evaluation_code_id: 1).count
-    @watchlist_count = current_user.team.evaluations.where(evaluation_code_id: 2).count
-    @reject_count = current_user.team.evaluations.where(evaluation_code_id: 3).count
+    @evaluations_with_comments = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
+    @not_evaluated_count = current_team.evaluations.where(evaluation_code_id: 1).count
+    @watchlist_count = current_team.evaluations.where(evaluation_code_id: 2).count
+    @reject_count = current_team.evaluations.where(evaluation_code_id: 3).count
     @capture_lead_teams_watchlists = Evaluation.where(evaluation_code_id:2).order("id DESC")
   end
 
   # GET /users/new
   def new
+    @current_team = current_team
     @user = User.new
+    @teams = Team.all
+    @team_to_join = Team.find(params[:team_id])
     #@user = @new_user_params
   end
 
   # GET /users/1/edit
   def edit
     @user = current_user
+    @teams = Team.all
+    @current_team = current_team
   end
 
   # POST /users
   # POST /users.json
   def create
-    #raise
+    # raise params.inspect
     @user = User.new(user_params)
     #before save data sanitazation
+    @current_team = current_team
     @user.username = @user.username.downcase 
     @user.email = @user.email.downcase
+
+    @team_to_join = Team.find(user_params[:team_id])
+
     respond_to do |format|
 
       if @user.save
-        format.html { redirect_to root_path, notice: 'Registration successful.' }
+        format.html { redirect_to user_path(@user.id), notice: 'Registration successful.' }
         format.json { render action: 'show', status: :created, location: @user }
         @user.welcome_new_user.deliver
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', team_id: @current_team }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -92,6 +101,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params  #replaced require with fetch
-      params.fetch(:user, {}).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :perishable_token, :team_id, :role_id )
+      params.fetch(:user, {}).permit(:username, :email, :password, :password_confirmation, :password_salt, :encrypted_password, :perishable_token, :team_id, :role_id, :team_ids => [] )
     end
 end

@@ -1,0 +1,2 @@
+module PublicTeamsHelper
+end

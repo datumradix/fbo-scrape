@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="span9">
+    <p><%= @current_team.company.name %> Company</p>
+    <h4><%= @current_team.name %> </h4>
+    <p><%= @current_team.description %> </p>
+  </div>
+  <div class="span3">
+    <p>
+      Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
+    </p>
+    <p>
+      Role: <%= link_to current_user.role.title, roles_path %> 
+    </p>
+  </div>
+</div>
+<br>
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "Home", user_path(current_user) %>
+  </li>
+  <li class="active">
+    <%= link_to "Team", "#" %>
+  </li>
+  <li>
+    <%= link_to "Selection Criteria", team_path(@current_team.id) %>
+  </li>
+</ul>
+
+<div class="row">
+  <div class="span12">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav nav-pills pull-left">
+            <li><%= link_to "Team Members", team_members_path %></li>
+            <% if current_user.role_id < 3 %>
+              <li><%= link_to "Add Team Members", new_user_path %></li>
+            <% end %>
+            <li class="active"><%= link_to "Change Teams", edit_manage_team_path(@current_user) %> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<h4>Edit Teams</h4>
+<p>Join as many public teams as you want. But you can only evaluate opportunities for one team at a time.</p>
+
+<div class="row">
+  <div class="span4">
+    <h4>Select Active Team</h4>
+
+    <%= form_for(@current_user) do |f| %>
+      <div class="radio">
+        <%= f.collection_radio_buttons(:team_id, @user_teams, :id, :name) %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit("Set Active Team") %>
+      </div>
+    <% end %>
+  </div>
+  <div class="span4">
+
+    <h4>Join Public Teams</h4>
+    <%= form_for(@current_user) do |f| %>
+
+      <div class="checkbox" >
+        <%= f.collection_check_boxes(:team_ids, @public_teams, :id, :name) %>
+        <%= f.hidden_field 'team_ids][', :value => @private_teams.first.id %>
+        <%# TODO: make this able to accept more than one private team. %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit("Select Teams") %>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="span4">
+    <h4>Private Teams</h4> 
+    <% @private_teams.each do |private_team| %> 
+      <p>
+        <%= private_team.name  %>
+      </p>
+    <% end %>
+  </div>
+</div>
+<hr>
+
+
+<h4>Browse Public Teams</h4>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Organization</th>
+    <th>Description</th>
+  </tr>
+  <% @public_teams.each do |public_team| %>
+    <tr>
+      <td><%= link_to public_team.name, manage_team_path(@current_user, team_id: public_team) %> </td>
+      <td><%= public_team.company.name %> </td>
+      <td><%= public_team.description %> </td>
+    </tr>
+  <% end %>
+</table>
+<br>
+

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.6' #4.0.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -47,21 +47,16 @@ gem 'will_paginate'
 
 gem "therubyracer"
 gem "less-rails" 
-gem "twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails", "2.2.8"
 
 #Authentication & Authorization
 gem "authlogic", '3.4.0'
 gem 'declarative_authorization', '0.5.7'
 
 #Rake gems
-gem 'nokogiri', '1.6.2.1'
+gem 'nokogiri', '1.6.3.1' #was 2.2
 
 gem 'newrelic_rpm'
-
-
-
-
-
 
 
 # Use ActiveModel has_secure_password

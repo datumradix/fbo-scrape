@@ -5,24 +5,28 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.where(company_id: current_user.team.company_id)
+    #@teams = Team.where(company_id: current_user.team.company_id)
+    @public_teams = Team.where(private: nil)
     #@teams = Team.all
   end
 
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @current_team = current_team
   end
 
   # GET /teams/new
   def new
     @team = Team.new
+    @users = User.all
     @opportunities = Opportunity.all
     @company_radios = Company.all
   end
 
   # GET /teams/1/edit
   def edit
+    @users = User.all
     @opportunities = Opportunity.all
     @company_radios = Company.all
   end
@@ -75,6 +79,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :description, :company_id, :opportunity_ids => [])
+      params.require(:team).permit(:name, :description, :company_id, :opportunity_ids => [], :team_ids => [])
     end
 end

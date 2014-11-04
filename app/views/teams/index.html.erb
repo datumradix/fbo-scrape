@@ -1,180 +1,32 @@
-<% unless current_user.present? %>
-<h1>hello</h1>h1>
-<% end %>
+<ul class="nav nav-tabs">
+  <li class="active">
+    <%= link_to "Public Teams", teams_path %>
+  </li>
+  <li>
+    <%= link_to "Private Teams", private_team_path %>
+  </li>
+</ul>
 
+<p>Join any and as many teams as you like. Switch teams whenever your want. Always free. </p>
+<p>Click on a team to view selection criteria and opportunities. </p>
 
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Name</th>
+      <th>Charter</th>
+    </tr>
+  </thead>
 
-<% if current_user.role_id > 3 %>
-  <div class="row">
-    <div class="span9">
-      <p>
-        <%= current_user.team.company.name %> Company
-      </p>
-      
-      <h4><%= current_user.role.title %> </h4>
-    
-      <p><%= current_user.role.description %> </p>
-    </div>
-    <div class="span3">
-      <p>
-        Username: <%= link_to current_user.username, edit_user_path(current_user) %>  
-      </p>
-      <p>
-        Role: <%= link_to current_user.role.title, roles_path %> 
-      </p>
-    </div>
-  </div>
-  <br>
-  <ul class="nav nav-tabs">
-    <li>
-      <%= link_to "Opportunities", user_path(current_user) %>
-    </li>
-    <li class="active">
-      <%= link_to "Teams", teams_path %>
-    </li>
-  </ul>
+  <tbody>
+    <% @public_teams.each do |team| %>
+      <tr>
+        <td> <%= link_to team.company.name, company_path(team.company) %></td>
+        <td><%= link_to team.name, public_team_criteria_path(team_id: team.id ) %></td>
+        <td><%= team.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-  <div class="row">
-    <div class="span12">
-      <h4>All Teams belonging to Company: <%= current_user.team.company.name %></h4>
-
-      <% if permitted_to? :manage, :teams %>
-        <%= link_to 'New Team', new_team_path %>
-      <% end %>
-
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Charter</th>
-            <th>Team Lead</th>
-            <th>Team Members</th>
-            <th>Not Evaluated</th>
-            <th>Watchlist</th>
-            <th>Reject</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @teams.each do |team| %>
-            <tr>
-              <td><%= link_to team.name, team_members_path %></td>
-              <td><%= team.description %></td>
-              <% if team.users.find_by(role_id: 2) %>
-                <td><%= team.users.find_by(role_id: 2).username %>
-              <% else %>
-                <td><%= User.find_by(role_id: 1).username %></td>
-              <% end %>
-              <td><%= team.users.count %></td>
-              <td><%= team.evaluations.where(evaluation_code_id: 1).count %></td>
-              <td><%= team.evaluations.where(evaluation_code_id: 2).count %></td>
-              <td><%= team.evaluations.where(evaluation_code_id: 3).count %></td>
-              <% if permitted_to? :manage, :teams %>
-                <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-<% else %>
-  <div class="row">
-    <div class="span9">
-      <p><%= current_user.team.company.name %> Company</p>
-      <h4><%= current_user.team.name %> </h4>
-      <p><%= current_user.team.description %> </p>
-    </div>
-    <div class="span3">
-      <p>
-        Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
-      </p>
-      <p>
-        Role: <%= link_to current_user.role.title, roles_path %> 
-      </p>
-    </div>
-  </div>
-  <br>
-  <ul class="nav nav-tabs">
-    <li>
-      <%= link_to "Home", user_path(current_user) %>
-    </li>
-    <li class="active">
-      <%= link_to "Team", "#" %>
-    </li>
-    <li>
-      <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
-    </li>
-  </ul>
-
-  <div class="row">
-    <div class="span12">
-      <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <ul class="nav nav-pills pull-left">
-            <li><%= link_to "My Team", team_members_path %></li>
-            <li class="active"><%= link_to "All Teams", teams_path %></li>
-            <% if current_user.role_id < 3 %>
-              <li><%= link_to "Build Your Team", new_user_path %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span12">
-      <h4>All Teams belonging to Company: <%= current_user.team.company.name %></h4>
-
-      <% if permitted_to? :manage, :teams %>
-        <%= link_to 'New Team', new_team_path %>
-      <% end %>
-
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Charter</th>
-            <th>Lead</th>
-            <th>Members</th>
-            <th>Not Evaluated</th>
-            <th>Watchlist</th>
-            <th>Reject</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @teams.each do |team| %>
-            <tr>
-              <% if current_user.team.name == team.name %> 
-                <td><%= link_to team.name, team_members_path %></td>
-              <% else %>
-                <td> <%= team.name %> </td>
-              <% end %>
-              <td><%= team.description %></td>
-              <% if team.users.find_by(role_id: 22) %>
-                <td><%= team.users.find_by(role_id: 22).username %>
-              <% else %>
-                <td><%= User.find_by(role_id: 1).username %></td>
-              <% end %>
-              <td><%= team.users.count %></td>
-              <% if permitted_to? :manage, :teams %>
-                <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <% end %>
-              <td><%= team.evaluations.where(evaluation_code_id: 1).count %></td>
-              <td><%= team.evaluations.where(evaluation_code_id: 2).count %></td>
-              <td><%= team.evaluations.where(evaluation_code_id: 3).count %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-<% end %>

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   belongs_to :role
-  belongs_to :team
+  #belongs_to :team
+  has_and_belongs_to_many :teams
 
   validates_presence_of :role_id, :team_id
 

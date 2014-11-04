@@ -1,7 +1,9 @@
+<p id="notice"> <%= notice %></p>
+
 <% if @user.role_id > 3 %>
   <div class="row">
     <div class="span9">
-      <p><%= current_user.team.company.name %> Company</p>
+      <p><%= @current_team.company.name %> Company</p>
 
       <h3><%= @user.role.title %> </h3>
     
@@ -40,7 +42,7 @@
         </thead>
         <tbody>
         <% @capture_lead_teams_watchlists.each do |watchlist| %>
-          <% if watchlist.team_id == current_user.team_id %>
+          <% if watchlist.team_id == @current_team_id %>
             <tr>
               <td> <%= watchlist.opportunity.post_date.strftime("%b %d") %> </td>
               <td> <%= link_to watchlist.opportunity.opportunity, watchlist.opportunity %> </td>
@@ -63,10 +65,9 @@
 
   <div class="row">
     <div class="span9">
-      <p><%= current_user.team.company.name %> Company</p>
-      <h4><%= @user.team.name %> </h4>
-    
-      <p><%= @user.team.description %> </p>
+      <p>Organization: <%= @current_team.company.name %></p>
+      <h4><%= @current_team.name %> </h4>
+      <p><%= @current_team.description %> </p>
     </div>
     <div class="span3">
       <p>
@@ -86,7 +87,7 @@
       <%= link_to "Team", team_members_path %>
     </li>
     <li>
-      <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+      <%= link_to "Selection Criteria", team_path(@current_team.id) %>
     </li>
   </ul>
 
@@ -122,7 +123,7 @@
 
     <tbody>
       <% team_comments_sorted_by_date = 1 %>
-      <% current_user.team.evaluations.order("id DESC").each do |evaluation| %>
+      <% @current_team.evaluations.order("id DESC").each do |evaluation| %>
         <% evaluation.comments.each do |comment| %>
           <tr>
             <td> <%= evaluation.opportunity.post_date.strftime("%b %d") %> </td>

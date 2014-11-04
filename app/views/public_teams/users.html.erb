@@ -1,0 +1,60 @@
+<ul class="nav nav-tabs">
+  <li class="active">
+    <%= link_to "Public Teams", teams_path %>
+  </li>
+  <li>
+    <%= link_to "Private Teams", private_team_path %>
+  </li>
+</ul>
+
+<div class="row">
+  <div class="span9">
+    <h4> <%= @public_team.name %></h4>
+    <p> <%= @public_team.description %></p>
+  </div>
+  <div class="span3">
+  <p>Team Lead:</p>
+  <p>Opportunities:</p>
+  <p>Watchlist:</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav nav-pills pull-left">
+          <li><%= link_to "Selection Criteria", public_team_criteria_path(team_id: @public_team.id)  %></li>
+          <li class="active"><%= link_to "Team Members", public_team_members_path(team_id: @public_team.id)  %></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+  <h4>Team Members</h4>
+	<table class="table">
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Bio
+      </th>
+    </tr>
+    <tr>
+      <td>
+        adsf
+      </td>
+      <td>
+        the cat is good
+      </td>
+    </tr>
+  </table>
+  </div>
+</div>
+<br>

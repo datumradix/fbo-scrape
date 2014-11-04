@@ -68,7 +68,7 @@
                   <% end %>
                 <li><%= link_to "Logout", logout_path %></li>
               <% else %>
-                <li><%= link_to "About", about_path %></li>
+                <li><%= link_to "Teams", teams_path %>
                 <li><%= link_to "Login", new_user_session_path %></li>
               <% end %>
             </ul>
@@ -94,6 +94,10 @@
                     <li> <%= link_to "Reject", opportunities_path(:set_filter =>3) %> </li>
                 <% end %>
                 <li> <%= link_to "Help", help_path %>
+              </ul>
+            <% else %>
+              <ul class="nav nav-pills pull-right">
+                <li><%= link_to "About", about_path %></li>
               </ul>
             <% end %> 
           </div><!--/.nav-collapse -->

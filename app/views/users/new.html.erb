@@ -1,140 +1,179 @@
-<% if current_user.role_id == 1 %>
-<h3>New user</h3>
+<% if current_user.present? %>
+  <% if current_user.role_id == 1 %>
+  <h3>New user</h3>
 
+    <%= form_for(@user) do |f| %>
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+
+          <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+      </div>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+      <div>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+
+      <br>
+
+      <h4>New User Roles</h4>
+      <div class="radio">
+        <%= f.collection_radio_buttons(:role_id, Role.all, :id, :title) %>
+      </div>
+
+    <%#= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>
+
+      <h4>User Team</h4>
+      <div class="radio">
+        <%= f.collection_radio_buttons(:team_id, Team.all, :id, :name) %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Submit", :class => "btn btn-default" %>
+      </div>
+    <% end %>
+  <% else %>
+  <div class="row">
+    <div class="span9">
+      <p><%= @current_team.company.name %> Company</p>
+      <h4><%= @current_team.name %> </h4>
+      <p><%= @current_team.description %> </p>
+    </div>
+    <div class="span3">
+      <p>
+        Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
+      </p>
+      <p>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </p>
+    </div>
+  </div>
+  <br>
+  <ul class="nav nav-tabs">
+    <li>
+      <%= link_to "Home", user_path(current_user) %>
+    </li>
+    <li class="active">
+      <%= link_to "Team", "#" %>
+    </li>
+    <li>
+      <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+    </li>
+  </ul>
+
+
+  <div class="row">
+    <div class="span12">
+      <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav nav-pills pull-left">
+            <li><%= link_to "Team Members", team_members_path %></li>
+            <% if current_user.role_id < 3 %>
+              <li class="active"><%= link_to "Add Team Members", new_user_path %></li>
+            <% end %>
+            <li><%= link_to "Change Teams", edit_manage_team_path(@current_user) %> </li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+
+        <h4>Build Your Team</h4> 
+        <p>This form creates a new account on teamFBO. <br>The new user will be added to the team: <%= @current_team.company.name %>.</p>
+        </p>
+        <%= form_for(@user) do |f| %>
+          <% if @user.errors.any? %>
+            <div class="alert alert-danger">
+              <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+
+              <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label "Enter an email address" %>
+            <%= f.text_field :email %>
+          </div>
+          <div class="field">
+            <%= f.label "Pick a username" %>
+            <%= f.text_field :username %>
+          </div>
+          
+          <%= f.hidden_field(:password, :value => "GoTeam!") %>
+          <%= f.hidden_field(:password_confirmation, :value => "GoTeam!") %>
+          <%= f.hidden_field(:role_id, :value => 3) %>
+          <%= f.hidden_field(:team_id, :value => current_user.team_id) %>
+          <%= f.hidden_field 'team_ids][', :value => current_user.team_id %>
+
+          <div class="actions">
+            <%= f.submit "Submit", :class => "btn btn-default" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+<% else %>
+  <h1>Hi</h1>
+  <p>
+    Join the team: <%= @team_to_join.name %> 
+  </p>
   <%= form_for(@user) do |f| %>
     <% if @user.errors.any? %>
       <div class="alert alert-danger">
         <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-
         <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
         </ul>
       </div>
     <% end %>
 
     <div class="field">
-      <%= f.label :username %>
+      <%= f.label "Enter an email address" %>
+        <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label "Pick a username" %>
       <%= f.text_field :username %>
     </div>
-    <div class="field">
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-    </div>
-    <div class="field">
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-    </div>
-    <div>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
-    </div>
-
-    <br>
-
-    <h4>New User Roles</h4>
-    <div class="radio">
-      <%= f.collection_radio_buttons(:role_id, Role.all, :id, :title) %>
-    </div>
-
-  <%#= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>
-
-    <h4>User Team</h4>
-    <div class="radio">
-      <%= f.collection_radio_buttons(:team_id, Team.all, :id, :name) %>
-    </div>
+          
+    <%= f.hidden_field(:password, :value => "GoTeam!") %>
+    <%= f.hidden_field(:password_confirmation, :value => "GoTeam!") %>
+    <%= f.hidden_field(:role_id, :value => 3) %>
+    <%= f.hidden_field(:team_id, :value => @team_to_join.id) %>
+    <%= f.hidden_field 'team_ids][', :value => @team_to_join.id %>
 
     <div class="actions">
       <%= f.submit "Submit", :class => "btn btn-default" %>
     </div>
   <% end %>
-<% else %>
-<div class="row">
-  <div class="span9">
-    <h4><%= current_user.team.name %> </h4>
-    <p><%= current_user.team.description %> </p>
-  </div>
-  <div class="span3">
-    <p>
-      Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
-    </p>
-    <p>
-      Role: <%= link_to current_user.role.title, roles_path %> 
-    </p>
-  </div>
-</div>
-<br>
-<ul class="nav nav-tabs">
-  <li>
-    <%= link_to "Home", user_path(current_user) %>
-  </li>
-  <li class="active">
-    <%= link_to "Team", "#" %>
-  </li>
-  <li>
-    <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
-  </li>
-</ul>
-
-
-<div class="row">
-  <div class="span12">
-    <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <ul class="nav nav-pills pull-left">
-          <li><%= link_to "My Team", team_members_path %></li>
-          <li><%= link_to "All Teams", teams_path %></li>
-          <% if current_user.role_id < 3 %>
-            <li class="active"><%= link_to "Build Your Team", new_user_path %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span12">
-
-      <h4>Build Your Team</h4> 
-      <p>This form creates a new account on teamFBO. When you press submit, teamFBO creates an account and emails the new user. The new user will be added to your team.</p>
-      </p>
-      <%= form_for(@user) do |f| %>
-        <% if @user.errors.any? %>
-          <div class="alert alert-danger">
-            <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-
-            <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <div class="field">
-          <%= f.label "Enter an email address" %>
-          <%= f.text_field :email %>
-        </div>
-        <div class="field">
-          <%= f.label "Pick a username" %>
-          <%= f.text_field :username %>
-        </div>
-        
-        <%= f.hidden_field(:password, :value => "GoTeam!") %>
-        <%= f.hidden_field(:password_confirmation, :value => "GoTeam!") %>
-        <%= f.hidden_field(:role_id, :value => 3) %>
-        <%= f.hidden_field(:team_id, :value => current_user.team_id) %>
-
-        <div class="actions">
-          <%= f.submit "Submit", :class => "btn btn-default" %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-
-
+<% end %>

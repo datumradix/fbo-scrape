@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_team
+    return @current_team = Team.find(current_user.team_id) if current_user
+  end
+
   protected
   def set_current_user
     Authorization.current_user = current_user 

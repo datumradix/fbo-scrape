@@ -1,9 +1,9 @@
 <div class="row">
   <div class="span9">
   <h4>About</h4>
-	<p>teamFBO is a new business evaluation tool.</p>
+	<p>teamFBO streamlines your federal business opportunity search & evaluation by an order of magnitude. </p>
   <p>
-	  We scan the <%= link_to "Federal Business Opportunities web site", "https://www.fbo.gov" %> 24/7 and return opportunities that match your team's evaluation criteria. Your team works together to evaluate and comment on opportunities that are best fit for your company. 
+	  We scan the <%= link_to "Federal Business Opportunities web site", "https://www.fbo.gov" %> 24/7 and return opportunities that match your team's evaluation criteria. Your team works together to evaluate and comment on opportunities that are best fit for your organization. 
 	</p>
 	<br>
   </div>
@@ -89,6 +89,14 @@
         <dd> teamFBO works great on your smart phone, tablet, laptop, and desktop.</dd>
       </dl>
     <hr>
+  </div>
+  <div class="span9">
+    <h4>Your Team</h4>
+    <p> <%= link_to "Public teams", teams_path %> are designed for collaboration. Criteria, evaluations, and comments are viewable by other team members. </p>
+    <p>I envision public teams being managed by organizations motivated by macro economic development objectives. For example, a regional NDIA chapter may want to create teams tailored by a local industrial competency or business type. A state economic development council may wish to create teams around an high growth business sector such as manufacturing or life sciences. Or, a state PTAC group may create teams for minority owned small businesses.</p>
+
+    <p><%= link_to "Private teams", private_team_path %> are for organizations that do not wish to share new business pursuit information.</p>
+
   </div>
 </div>
 

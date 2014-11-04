@@ -1,8 +1,8 @@
 <div class="row">
   <div class="span9">
-    <p><%= current_user.team.company.name %> Company</p>
-    <h4><%= current_user.team.name %> </h4>
-    <p><%= current_user.team.description %> </p>
+    <p><%= @current_team.company.name %> Company</p>
+    <h4><%= @current_team.name %> </h4>
+    <p><%= @current_team.description %> </p>
   </div>
   <div class="span3">
     <p>
@@ -22,7 +22,7 @@
     <%= link_to "Team", "#" %>
   </li>
   <li>
-    <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+    <%= link_to "Selection Criteria", team_path(@current_team.id) %>
   </li>
 </ul>
 <div class="row">
@@ -31,11 +31,11 @@
       <div class="navbar-inner">
         <div class="container">
           <ul class="nav nav-pills pull-left">
-            <li class="active"><%= link_to "My Team", "#" %></li>
-            <li><%= link_to "All Teams", teams_path %></li>
+            <li class="active"><%= link_to "Team Members", team_members_path %></li>
             <% if current_user.role_id < 3 %>
-              <li><%= link_to "Build Your Team", new_user_path %></li>
+              <li><%= link_to "Add Team Members", new_user_path %></li>
             <% end %>
+            <li><%= link_to "Change Teams", edit_manage_team_path(@current_user) %> </li>
           </ul>
         </div>
       </div>

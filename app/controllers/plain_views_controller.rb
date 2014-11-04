@@ -5,7 +5,7 @@ class PlainViewsController < ApplicationController
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @opportunities = current_user.team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 50, :page => params[:page])
+    @opportunities = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 50, :page => params[:page])
   end
   # GET /opportunities/1
   # GET /opportunities/1.json

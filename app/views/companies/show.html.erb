@@ -1,9 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Organization:</strong>
   <%= @company.name %>
 </p>
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+<p>
+<strong>Description:</strong>
+  <%= @company.description %>
+</p>
+
+<table class="table">
+  <tr>
+    <th>Teams</th><th>Description</th>
+  </tr>
+  <% @company.teams.each do |team| %>
+    <tr>
+      <td><%= link_to team.name, public_team_criteria_path(team_id: team.id) %></td>
+      <td> <%= team.description %> </td>
+    </tr>
+  <% end %>
+</table>

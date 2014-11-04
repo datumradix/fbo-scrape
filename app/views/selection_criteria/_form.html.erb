@@ -25,7 +25,7 @@
     </div>
   </div> 
 <br>
-  <% if current_user.team.selection_criterium != nil %>
+  <% if @current_team.selection_criterium != nil %>
     <ul class="nav nav-tabs">
       <li>
         <%= link_to "Home", user_path(current_user) %>
@@ -34,7 +34,7 @@
         <%= link_to "Team", team_members_path %>
       </li>
       <li class="active">
-        <%= link_to "Selection Criteria", team_path(current_user.team_id) %>
+        <%= link_to "Selection Criteria", team_path(@current_team.id) %>
       </li>
     </ul>
   <% end %>

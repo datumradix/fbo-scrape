@@ -152,8 +152,8 @@
       <tbody>
         <tr>
           <th>Team Lead</th>
-          <td><%= link_to 'Edit', edit_team_path(current_user.team) %></td>
-          <td><%= link_to "Edit", edit_selection_criterium_path(current_user.team.selection_criterium) %></td>
+          <td><%= link_to 'Edit', edit_team_path(@current_team) %></td>
+          <td><%= link_to "Edit", edit_selection_criterium_path(@current_team.selection_criterium) %></td>
           <td><%= link_to "View", team_members_path %></td>
           <td><%= link_to "View", opportunities_path %></td>
           <td>Watchlist<br>Reject</td>
@@ -161,8 +161,8 @@
         </tr>
         <tr>
           <th>Evaluator</th>
-          <td><%= link_to 'View', team_path(current_user.team) %></td>
-          <td><%= link_to "View", team_path(current_user.team) %>
+          <td><%= link_to 'View', team_path(@current_team) %></td>
+          <td><%= link_to "View", team_path(@current_team) %>
           <td><%= link_to "View", team_members_path %></td>
           <td><%= link_to "View", opportunities_path %></td>
           <td>Watchlist</td>
@@ -176,7 +176,7 @@
     <hr>
     <h4>Selection Criteria</h4>
     <p>Opportunities featured on FBO.gov contain a Classification Code, Procurement Type, and Set-Aside Code. By down-selecting these values on teamFBO, you will only be presented with leads that match your team's area of expertise.</p>
-    <p>Team Leads may define selection criteria. Your team's selection criteria is <%= link_to "here", team_path(current_user.team) %>.</p>
+    <p>Team Leads may define selection criteria. Your team's selection criteria is <%= link_to "here", team_path(@current_team) %>.</p>
     <div class="alert">
       <strong>Warning!</strong> Selection Criteria changes only look forward. If a Team Lead changes criteria, prior opportunities will not be evaluated with the new criteria.
     </div>

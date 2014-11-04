@@ -23,6 +23,7 @@ class SelectionCriteriaController < ApplicationController
 
   # GET /selection_criteria/1/edit
   def edit
+    @current_team = current_team
     @classification_codes = ClassificationCode.all
     @procurement_types = ProcurementType.all 
     @set_asides = SetAside.all 

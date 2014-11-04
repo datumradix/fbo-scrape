@@ -1,8 +1,8 @@
 <div class="row">
   <div class="span9">
-    <p><%= current_user.team.company.name %> Company</p>
-    <h4><%= current_user.team.name %> </h4>
-    <p><%= current_user.team.description %> </p>
+    <p><%= @current_team.company.name %> Company</p>
+    <h4><%= @current_team.name %> </h4>
+    <p><%= @current_team.description %> </p>
   </div>
   <div class="span3">
     <p>
@@ -26,7 +26,7 @@
       <%= link_to "Selection Criteria", "#" %>
     </li>
     <% if permitted_to? :show, :selection_criteria %>
-      <li><%= link_to "(edit)", edit_selection_criterium_path(current_user.team.selection_criterium) %></li>
+      <li><%= link_to "(edit)", edit_selection_criterium_path(@current_team.selection_criterium) %></li>
     <% end %>
   </ul>
   <div class="row">
