@@ -34,8 +34,8 @@
       <tbody>
         <tr>
           <th>Team Lead</th>
-          <td><%= link_to 'Edit', edit_team_path(current_user.team) %></td>
-          <td><%= link_to "Edit", edit_selection_criterium_path(current_user.team.selection_criterium) %></td>
+          <td><%= link_to 'Edit', edit_team_path(@current_team) %></td>
+          <td><%= link_to "Edit", edit_selection_criterium_path(@current_team.selection_criterium) %></td>
           <td><%= link_to "View", team_members_path %></td>
           <td><%= link_to "View", opportunities_path %></td>
           <td>Watchlist<br>Reject</td>
@@ -43,8 +43,8 @@
         </tr>
         <tr>
           <th>Evaluator</th>
-          <td><%= link_to 'View', team_path(current_user.team) %></td>
-          <td><%= link_to "View", team_path(current_user.team) %>
+          <td><%= link_to 'View', team_path(@current_team) %></td>
+          <td><%= link_to "View", team_path(@current_team) %>
           <td><%= link_to "View", team_members_path %></td>
           <td><%= link_to "View", opportunities_path %></td>
           <td>Watchlist</td>

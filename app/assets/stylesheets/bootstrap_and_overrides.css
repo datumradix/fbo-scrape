@@ -37,6 +37,11 @@
   font-size: 1.5em;
 }
 
+/* Overide link style */
+.black_icon_small{
+  color: black;
+}
+
 /* Comment form style */
 div.comment_form {
     padding-top: 20px;

@@ -1,48 +1,64 @@
+<% if notice %>
+  <div class="alert alert-block">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p><%= notice %></p>
+  </div>
+<% end %>
+
 <div class="row">
-  <div class="span9">
-  <h4>About</h4>
-	<p>teamFBO streamlines your federal business opportunity search & evaluation by an order of magnitude. </p>
-  <p>
-	  We scan the <%= link_to "Federal Business Opportunities web site", "https://www.fbo.gov" %> 24/7 and return opportunities that match your team's evaluation criteria. Your team works together to evaluate and comment on opportunities that are best fit for your organization. 
-	</p>
-	<br>
+  <div class="span10 offset1">
+    <br>
+    <div class="hero-unit">
+  	 <h2>Improve Your Federal Business Opportunity Search by One Order of Magnitude</h2>
+     <!-- <h3>10x Improvement Over Your Current Federal Business Opportunity Search</h3> -->
+      <p>
+  	    teamFBO scans the Federal Business Opportunities web site 24/7 and returns <%= link_to "opportunities", opportunities_path %> that match your search criteria. Teams work together to promote opportunities that are the best fit for your organization. 
+  	 </p>
+    </div>
   </div>
 </div>
+
 <div class="row">
-    <div class="span1 offset1">
-      <p><%= link_to glyph(:cloud_download), "#", :class=>"black_icon" %> <br>Automated FBO Scan </p>
-    </div>
-    <div class="span1", align="center">
-      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
-    </div>
-    <div class="span1">
-      <p><%= link_to glyph(:tasks), "#", :class=>"black_icon" %> Machine Evaluation</p>
-    </div>
-    <div class="span1", align="center">
-      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
-    </div>
-    <div class="span1">
-      <p>
-        <%= link_to glyph(:user), "#", :class=>"black_icon" %>
-        <%= link_to glyph(:user), "#", :class=>"black_icon" %>
-        <%= link_to glyph(:user), "#", :class=>"black_icon" %>
-        Team Evaluation 
-        </p>
-        <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %>
-        <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %>
-    </div>
-    <div class="span1", align="center">
-      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
-    </div>
-    <div class="span1">
-      <p><%= link_to glyph(:user), "#", :class=>"black_icon" %> Management Evaluation</p>
-    </div>
-    <div class="span1", align="center">
-      <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
-    </div>
-    <div class="span1">
-      <p><%= link_to glyph(:road), "#", :class=>"black_icon" %>Opportunity Pursuit</p>
-    </div>
+  <div class="span9 offset1">
+    <p>Every day over 2,000 new busines opportunities are posted on FBO.gov. We evaluate these opportunites against your team's search criteria and build you a customized opportunity list. Your team picks through the list and promotes opportunities that are the best fit for your organization.  Higher level management decides on which opportunities to pursue.</p><br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span1 offset1">
+    <p><%= link_to glyph(:cloud_download), "#", :class=>"black_icon" %> <br>Automated FBO Scan </p>
+  </div>
+  <div class="span1", align="center">
+    <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+  </div>
+  <div class="span1">
+    <p><%= link_to glyph(:tasks), "#", :class=>"black_icon" %> Machine Evaluation</p>
+  </div>
+  <div class="span1", align="center">
+    <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+  </div>
+  <div class="span1">
+    <p>
+      <%= link_to glyph(:user), "#", :class=>"black_icon" %>
+      <%= link_to glyph(:user), "#", :class=>"black_icon" %>
+      <%= link_to glyph(:user), "#", :class=>"black_icon" %>
+      Team Evaluation 
+      </p>
+      <%= link_to glyph(:thumbs_up), "#", :class=>"green_href" %>
+      <%= link_to glyph(:thumbs_down), "#", :class=>"red_href" %>
+  </div>
+  <div class="span1", align="center">
+    <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+  </div>
+  <div class="span1">
+    <p><%= link_to glyph(:user), "#", :class=>"black_icon" %> Management Evaluation</p>
+  </div>
+  <div class="span1", align="center">
+    <%= link_to glyph(:arrow_right), "#", :class=>"black_icon" %>
+  </div>
+  <div class="span1">
+    <p><%= link_to glyph(:road), "#", :class=>"black_icon" %>Opportunity Pursuit</p>
+  </div>
 </div>
 <div class="row">
   <div class="span9 offset1">
@@ -72,32 +88,120 @@
     <em><small>OPD: Opportunites per Day</small></em>
     </div>
   </div>
-  <div class="span9">
-    <h4>Benefits</h4>
-      <dl class="dl-horizontal">
-        <dt>Efficient</dt>
-        <dd> Evaluate more qualified opportunities in far less time.</dd>
-        <dt>Collaborative</dt>
-        <dd> Take advantage of your team's unique capabilities by working together.</dd>
-        <dt>Standardized</dt>
-        <dd> Common evaluation criteria for procurement types, setback codes, and selection codes.</dd>
-        <dt>Intelligent</dt>
-        <dd> Use comments and evaluations to train your team on what opportunities to pursue and reject. And why.</dd>
-        <dt>Self Cleaning</dt>
-        <dd> Opportunites not evaluated after 8 days are purged from the site.</dd>
-        <dt>Platform Independent</dt>
-        <dd> teamFBO works great on your smart phone, tablet, laptop, and desktop.</dd>
-      </dl>
-    <hr>
-  </div>
-  <div class="span9">
-    <h4>Your Team</h4>
-    <p> <%= link_to "Public teams", teams_path %> are designed for collaboration. Criteria, evaluations, and comments are viewable by other team members. </p>
-    <p>I envision public teams being managed by organizations motivated by macro economic development objectives. For example, a regional NDIA chapter may want to create teams tailored by a local industrial competency or business type. A state economic development council may wish to create teams around an high growth business sector such as manufacturing or life sciences. Or, a state PTAC group may create teams for minority owned small businesses.</p>
+</div>
+<br>
 
-    <p><%= link_to "Private teams", private_team_path %> are for organizations that do not wish to share new business pursuit information.</p>
+<div class="row">
+  <div class="span9 offset1">
+    <h3>A Social Network for Federal Business Development</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="span9 offset1">
+    <p>Teams work together to crowdsource new business opportunities. Evaluations build data streams of new opportunities that are specific to your organization's areas of expertise. This can be an effective way to capatilize on personnel who may not have a lot of time for business development. A specialist's perspective can have a big impact potential opportunities.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3>More Qualified Opportunities in Far Less Time</h3>
+    <dl class="dl-horizontal">
+      <dt>Collaborative</dt>
+      <dd> Take advantage of your team's unique capabilities by working together.</dd>
+      <dt>Standardized</dt>
+      <dd> Common evaluation criteria for procurement types, setback codes, and selection codes.</dd>
+      <dt>Intelligent</dt>
+      <dd> Use comments and evaluations to train your team on what opportunities to pursue and reject. And why.</dd>
+      <dt>Platform Independent</dt>
+      <dd> teamFBO works great on your smart phone, tablet, laptop, and desktop.</dd>
+    </dl>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3>Our Business Case</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="span9 offset1">
+    <blockquote>
+      <p>In 2013 the U.S. paid about <strong>$468.8 billion</strong> to vendors to perform contracts ranging from supplying the military with weapons to building websites. These contractors performed work in every single state, including <strong>$3.2 billion worth in Indiana</strong>.</p><br>
+
+      <p>Agency-wise, the biggest spender in Indiana was Department of Defense, which oversaw 68% of federal contract money in the state. Rounding out the top five list are Department of Health and Human Services, Department of Veterans Affairs, Department of Justice , and National Aeronautics and Space Adminstration.</p>
+      <small><cite title="Source Title"><%= link_to "NationalPriorities.org/Federal Contracts in Indiana", "https://www.nationalpriorities.org/smart/indiana/#money-in--federal-contracts" %></cite></small>
+    </blockquote> 
+
+    <p>A <strong>1% increase</strong> in contract wins by dollar value generates an <strong>additional $32 million</strong> for the State. No, teamFBO does not directly increase your win rate. But we can certainly help organizations spend less time identifying opportunities so they can spend more time going for the win.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3>Quick Visit <%= link_to glyph(:arrow_right), "#", :class=>"black_icon_small" %> Big Results</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="span9 offset1">
+    <p>teamFBO users spend, on average, 5 minutes per visit. During their stay, they click about 40 page views as they evaluate and escalate opportunities. They get in and get out. This can be especially useful for organizations with limited business development resources.<br>
+    <small><cite>-Source: Google Analytics</cite></small></p>
 
   </div>
 </div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3>Pick Your Team</h3>
+  </div>
+</div>
+<div class="row">
+<div class="span9 offset1">
+    <p> <%= link_to "Public teams", teams_path %> are designed for collaboration. Criteria, evaluations, and comments are viewable by other team members. Anyone is welcome to participate. </p>
+    <p>We envision semi-public teams managed by organizations motivated by macro economic development objectives. For example, a regional NDIA chapter may create teams tailored for a local industrial competency or business type. A state economic development council might create teams around high growth business sectors such as manufacturing or life sciences. A state PTAC group could create teams for a portfolio of minority owned small businesses.</p>
+
+    <p><%= link_to "Private teams", private_team_path %> are for organizations that do not wish to share new business pursuit information. All information is close hold. We are accepting a limited number of private teams at this time.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3>How Much?</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <p>Access to our <%= link_to "public teams", teams_path %> is free.  Our goal right now is to foster collaboration and to encourage people try the service and provide feedback. </p>
+    <p>Over time we may explore fee based options in exchange for higher levels of service. Early user feedback suggest private teams may be a valuable feed baased option.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3><%= link_to glyph(:heart), "#", :class=>"red_href" %> Testimonials </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <p>Attention Early Adoptors: We'd love some feedback. And if it's positive, may we quote you in our testimonials section? </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <h3>Contact</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9 offset1">
+    <p>Please, if any questions or suggestions, contact <strong><em>win@teamFBO.com</em></strong>.</p>
+  </div>
+</div>
+
+
+
+
 
 

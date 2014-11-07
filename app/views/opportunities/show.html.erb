@@ -1,3 +1,10 @@
+<% if notice %>
+  <div class="alert alert-block alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p><%= notice %></p>
+  </div>
+<% end %>
+
 <% unless current_user.present? %>
 <h1>hello</h1>
 <% end %>

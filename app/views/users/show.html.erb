@@ -1,4 +1,10 @@
-<p id="notice"> <%= notice %></p>
+<% if notice %>
+  <div class="alert alert-block alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p><%= notice %></p>
+  </div>
+<% end %>
+
 
 <% if @user.role_id > 3 %>
   <div class="row">
@@ -81,34 +87,19 @@
   <br>
   <ul class="nav nav-tabs">
     <li class="active">
-      <%= link_to "Home", user_path(@user) %>
+      <%= link_to "Evaluations", user_path(@user) %>
     </li>
     <li>
       <%= link_to "Team", team_members_path %>
     </li>
     <li>
-      <%= link_to "Selection Criteria", team_path(@current_team.id) %>
+      <%= link_to "Criteria", team_path(@current_team.id) %>
+    </li>
+    <li>
+      <%= link_to "Reports", reports_path %>
     </li>
   </ul>
 
-  <div class="row">
-    <div class="span3 offset0">
-      <h4>Opportunity Status</h4>
-      <table class="table table-bordered">
-        <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %></td></tr>
-        <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %></td></tr>
-        <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "3") %></td></tr>
-      </table>
-    </div>
-    <div class="span3 offset6">
-      <h4>Reporting</h4>
-      <p>Show watchlist in <%= link_to "plain view", plain_views_path %>.</p>
-    </div>
-  </div>
-  <small>Opportunity Status is a seven day history based on your selection criteria and evaluation activity.</small>
-  <hr>
-
-  <h4>Comments</h4>
   <%= will_paginate @evaluations_with_comments %>
   <table class="table table-hover">
     <thead>

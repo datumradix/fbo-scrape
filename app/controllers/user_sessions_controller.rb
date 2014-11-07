@@ -14,7 +14,8 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to opportunities_path(:set_filter => 1), notice: 'Welcome to the team. Here are your latest opportunities.' }
+        user_id = User.find_by(username: @user_session.username)
+        format.html { redirect_to user_path(user_id), notice: 'Welcome to the team!' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
         format.html { render action: 'new' }
@@ -30,7 +31,7 @@ class UserSessionsController < ApplicationController
   def destroy
     @user_session.destroy
     respond_to do |format|
-      format.html { redirect_to about_path , notice: 'You are logged out.' }
+      format.html { redirect_to root_path , notice: 'Logged out.' }
       format.json { head :no_content }
     end
   end

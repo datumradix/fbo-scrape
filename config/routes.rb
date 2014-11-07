@@ -81,7 +81,7 @@ Fbo::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'opportunities#index'
+  root 'static_pages#about'
   
 
   # Example of regular route:
@@ -94,6 +94,7 @@ Fbo::Application.routes.draw do
   match '/public_team_criteria', to: 'public_teams#criteria', via: 'get'
   match '/public_team_members', to: 'public_teams#users', via: 'get'
   match '/public_team_opportunities', to: 'public_teams#opportunities', via: 'get'
+  match '/reports', to: 'plain_views#index', via: 'get'
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

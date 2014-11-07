@@ -6,6 +6,7 @@ class RolesController < ApplicationController
   # GET /roles.json
   def index
     @roles = Role.all
+    @current_team = current_team
   end
 
   # GET /roles/1

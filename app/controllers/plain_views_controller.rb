@@ -6,6 +6,10 @@ class PlainViewsController < ApplicationController
   # GET /opportunities.json
   def index
     @opportunities = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 50, :page => params[:page])
+    @not_evaluated_count = current_team.evaluations.where(evaluation_code_id: 1).count
+    @watchlist_count = current_team.evaluations.where(evaluation_code_id: 2).count
+    @reject_count = current_team.evaluations.where(evaluation_code_id: 3).count
+
   end
   # GET /opportunities/1
   # GET /opportunities/1.json

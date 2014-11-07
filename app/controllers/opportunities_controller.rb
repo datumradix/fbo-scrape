@@ -41,7 +41,7 @@ class OpportunitiesController < ApplicationController
 
   def show
     if current_user
-      @opportunity_evaluation = current_team.evaluations.where(opportunity_id: @opportunity.id).first 
+      @opportunity_evaluation = current_team.evaluations.find_by(opportunity_id: @opportunity.id)
     end
   end
 

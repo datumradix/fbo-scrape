@@ -1,11 +1,47 @@
 <div class="row">
-  <div class="span12">
-    <h4 align="center"> Watchlist Plain View</h4> 
+    <div class="span9">
+      <p>Organization: <%= @current_team.company.name %></p>
+      <h4><%= @current_team.name %> </h4>
+      <p><%= @current_team.description %> </p>
+    </div>
+    <div class="span3">
+      <p>
+        Username: <%= link_to @current_user.username, edit_user_path(@current_user) %>  
+      </p>
+      <p>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </p>
+    </div>
   </div>
-</div>
+  <br>
+  <ul class="nav nav-tabs">
+    <li>
+      <%= link_to "Evaluations", user_path(@current_user) %>
+    </li>
+    <li>
+      <%= link_to "Team", team_members_path %>
+    </li>
+    <li>
+      <%= link_to "Criteria", team_path(@current_team.id) %>
+    </li>
+    <li class="active">
+      <%= link_to "Reports", reports_path(@current_team.id) %>
+    </li>
+  </ul>
+
 
 <div class="row">
-  <div class="span12">
+  <div class="span3">
+    <h4 align="center">Seven Day Average</h4>
+    <table class="table table-bordered">
+      <tr><td>Total Opportunities</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %></td></tr>
+      <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %></td></tr>
+      <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "3") %></td></tr>
+    </table>
+  </div>
+  <div class="span9">
+    <h4 align="center"> Watchlist Plain View</h4>
+    <p align="center"><small>Useful to cut/paste into emails & documents</small></p>
       <%= will_paginate @opportunities %>
       <% @opportunities.each do |opportunity| %>
           <p><%= link_to opportunity.opportunity.opportunity, opportunity.opportunity.link %><br>

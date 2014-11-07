@@ -1,3 +1,10 @@
+<% if notice %>
+  <div class="alert alert-block alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p><%= notice %></p>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="span9">
     <p><%= @current_team.company.name %> Company</p>
@@ -17,17 +24,20 @@
 <% if @team.selection_criterium != nil %>
   <ul class="nav nav-tabs">
     <li>
-      <%= link_to "Home", user_path(current_user) %>
+      <%= link_to "Evaluations", user_path(current_user) %>
     </li>
     <li>
       <%= link_to "Team", team_members_path %>
     </li>
     <li class="active">
-      <%= link_to "Selection Criteria", "#" %>
+      <%= link_to "Criteria", "#" %>
     </li>
     <% if permitted_to? :show, :selection_criteria %>
       <li><%= link_to "(edit)", edit_selection_criterium_path(@current_team.selection_criterium) %></li>
     <% end %>
+    <li>
+      <%= link_to "Reports", reports_path %>
+    </li>
   </ul>
   <div class="row">
     <div class="span4">
