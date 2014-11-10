@@ -90,32 +90,23 @@
     <% end %>
   </div>
 
-<!--   <div class="span2">
-    <h4>Join Public Teams</h4>
-    <%#= form_for(@current_user) do |f| %>
-      <div class="checkbox" >
-        <%#= f.collection_check_boxes(:team_ids, @public_teams, :id, :name) %>
-        <%# if @private_teams.present? %>
-          <%#= f.hidden_field 'team_ids][', :value => @private_teams.first.id %>
-        <#% end %>
-        <%# TODO: make this able to accept more than one private team. %>
-      </div>
-      <div class="actions">
-        <%#= f.submit("Submit", :class => "btn btn-default") %>
-      </div>
-    <%# end %>
-  </div> -->
-
   <div class="span8">
     <h4><%= link_to "Public Teams", edit_manage_team_path(@current_public_team.id) %> / <%= @current_public_team.name %></h4>
     <ul class="nav nav-tabs">
       <li class="active">
         <%= link_to "Criteria", "#" %>
       </li>
+      
       <li>
         <%= link_to "Opportunities", manage_teams_path(current_public_team: @current_public_team.id) %>
       </li>
-      <%= link_to "Join", new_user_path(team_id: @current_public_team.id), :class =>"btn btn-primary" %>
+
+      <%= form_for(@current_user) do |f| %>
+        <%= f.hidden_field 'team_ids][', :value => @current_public_team.id %>
+        <div class="actions">
+          <%= f.submit("Join", :class => "btn btn-primary") %>
+        </div>
+      <% end %> 
     </ul>
 
     <table class="table">
@@ -153,3 +144,17 @@
     </table>
   </div>
 </div>
+
+    <h4>Join Public Teams</h4>
+    <%= form_for(@current_user) do |f| %>
+      <div class="checkbox" >
+        <%= f.collection_check_boxes(:team_ids, @public_teams, :id, :name) %>
+        <% if @private_teams.present? %>
+          <%#= f.hidden_field 'team_ids][', :value => @private_teams.first.id %>
+        <% end %>
+        <%# TODO: make this able to accept more than one private team. %>
+      </div>
+      <div class="actions">
+        <%= f.submit("Submit", :class => "btn btn-default") %>
+      </div>
+    <% end %>

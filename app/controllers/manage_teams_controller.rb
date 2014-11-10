@@ -25,7 +25,7 @@ class ManageTeamsController < ApplicationController
   @private_teams = current_user.teams.where(private: true)
   end
 
-  def update 
+  def updates 
     respond_to do |format| 
       if @current_user.update(user_params)
         format.html { redirect_to opportunities_path, notice: "updated teams!"}

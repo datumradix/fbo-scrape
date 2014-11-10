@@ -69,6 +69,6 @@ class EvaluationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def evaluation_params
-      params.require(:evaluation).permit(:evaluation_code_id, :opportunity_id, :team_id)
+      params.require(:evaluation).permit(:evaluation_code_id, :opportunity_id, :team_id, comments_attributes: [:id, :comment, :name])
     end
 end

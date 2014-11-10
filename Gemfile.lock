@@ -40,6 +40,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    cocoon (1.2.6)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -162,6 +163,7 @@ DEPENDENCIES
   authlogic (= 3.4.0)
   better_errors
   binding_of_caller
+  cocoon (~> 1.2.6)
   coffee-rails (~> 4.0.0)
   declarative_authorization (= 0.5.7)
   jbuilder (~> 1.2)

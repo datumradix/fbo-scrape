@@ -57,6 +57,8 @@ gem 'declarative_authorization', '0.5.7'
 #Rake gems
 gem 'nokogiri', '1.6.3.1' #was 2.2
 
+gem 'cocoon', '~> 1.2.6'
+
 gem 'newrelic_rpm'
 
 

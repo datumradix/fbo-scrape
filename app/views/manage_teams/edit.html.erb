@@ -104,17 +104,27 @@
     <%# end %>
   </div> -->
   <div class="span8">
+  <h1><%= @current_user.team_id %> </h1>
+  <h1><%= @current_user.teams.first.name %> </h1>
+  <h1><%= @current_user.teams.last.name %> </h1>
     <h4>Public Teams</h4>
     <table class="table">
       <tr>
-        <th>Update</th>
+        <th></th>
         <th>Name</th>
         <th>Organization</th>
         <th>Description</th>
       </tr>
       <% @public_teams.each do |public_team| %>
         <tr>
-          <td>ck</td>
+          <td>
+            <%= form_for(@current_user) do |f| %>
+        <%= f.hidden_field 'team_ids][', :value => public_team.id %>
+        <div class="actions">
+          <%= f.submit("Join", :class => "btn btn-primary btn-small") %>
+        </div>
+      <% end %> 
+          </td>
           <td><%= link_to public_team.name, manage_team_path(@current_user, team_id: public_team) %> </td>
           <td><%= public_team.company.name %> </td>
           <td><%= public_team.description %> </td>
