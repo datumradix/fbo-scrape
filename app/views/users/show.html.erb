@@ -1,15 +1,18 @@
-<% if notice %>
-  <div class="alert alert-block alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <p><%= notice %></p>
+<div class="row">
+  <div class="span10 offset1">
+    <% if notice %>
+      <div class="alert alert-block alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p><%= notice %></p>
+      </div>
+    <% end %>
   </div>
-<% end %>
-
+</div>
 
 <% if @user.role_id > 3 %>
   <div class="row">
     <div class="span9">
-      <p><%= @current_team.company.name %> Company</p>
+      <p><%= @current_team.company.name %></p>
 
       <h3><%= @user.role.title %> </h3>
     
@@ -39,23 +42,23 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Post Date</th>
             <th>Opportunity</th>
             <th>Team</th>
             <th>Lead</th>
             <th>Last Comment</th>
+            <th>Post Date</th>
           </tr>
         </thead>
         <tbody>
         <% @capture_lead_teams_watchlists.each do |watchlist| %>
           <% if watchlist.team_id == @current_team_id %>
             <tr>
-              <td> <%= watchlist.opportunity.post_date.strftime("%b %d") %> </td>
               <td> <%= link_to watchlist.opportunity.opportunity, watchlist.opportunity %> </td>
               <td> <%= link_to watchlist.team.name, watchlist.team %> </td>
               <td> <%= watchlist.team.users.find_by(role_id: 2).username %></td>
               <% if watchlist.comments.last %>
                 <td> <%= watchlist.comments.last.comment %></td>
+                <td> <%= watchlist.opportunity.post_date.strftime("%b %d") %> </td>
               <% else %>
                 <td>None</td>
               <% end %>
@@ -70,8 +73,8 @@
 <% else %>
 
   <div class="row">
-    <div class="span9">
-      <p>Organization: <%= @current_team.company.name %></p>
+    <div class="span8 offset1">
+      <p><%= @current_team.company.name %></p>
       <h4><%= @current_team.name %> </h4>
       <p><%= @current_team.description %> </p>
     </div>
@@ -85,52 +88,69 @@
     </div>
   </div>
   <br>
-  <ul class="nav nav-tabs">
-    <li class="active">
-      <%= link_to "Evaluations", user_path(@user) %>
-    </li>
-    <li>
-      <%= link_to "Team", team_members_path %>
-    </li>
-    <li>
-      <%= link_to "Criteria", team_path(@current_team.id) %>
-    </li>
-    <li>
-      <%= link_to "Reports", reports_path %>
-    </li>
-  </ul>
 
-  <%= will_paginate @evaluations_with_comments %>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Post Date</th>
-        <th>Opportunity</th>
-        <th>Evaluation</th>
-        <th>Name</th>
-        <th>Comment</th>
-      </tr>
-    </thead>
+  <div class="row">
+    <div class="span10 offset1">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <%= link_to "Evaluations", user_path(@user) %>
+        </li>
+        <li>
+          <%= link_to "Team", team_members_path %>
+        </li>
+        <li>
+          <%= link_to "Criteria", team_path(@current_team.id) %>
+        </li>
+        <li>
+          <%= link_to "Reports", reports_path %>
+        </li>
+      </ul>
 
-    <tbody>
-      <% team_comments_sorted_by_date = 1 %>
-      <% @current_team.evaluations.order("id DESC").each do |evaluation| %>
-        <% evaluation.comments.each do |comment| %>
+      <%= will_paginate @opportunities %>
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td> <%= evaluation.opportunity.post_date.strftime("%b %d") %> </td>
-            <td> <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity) %></td>
-            <td> <%= evaluation.evaluation_code.name %> </td>
-            <td><%= comment.name %></td>
-            <td><%= comment.comment %></td>
+            <th>Opportunity</th>
+            <th>Agency</th>
+            <th>Classification</th>
+            <th>Evaluation</th>
+            <th>Post Date</th>
           </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= will_paginate @evaluations_with_comments %>
+        </thead>
+
+        <tbody>
+          <%# team_comments_sorted_by_date = 1 %>
+          <%# @current_team.evaluations.order("id DESC").each do |evaluation| %>
+            <%# evaluation.comments.each do |comment| %>
+            <% @opportunities.each do |opportunity| %>
+              <% if opportunity.comments.present? %>
+                <tr>
+                  <td> <%= link_to opportunity.opportunity.opportunity, opportunity_path(opportunity.opportunity.id) %></td>
+                  <td><%= opportunity.opportunity.agency %></td>
+                  <td><%= opportunity.opportunity.class_code %> </td> 
+                  <td><%= opportunity.opportunity.opp_type %></td>
+                  <td><%= opportunity.opportunity.post_date.strftime("%b %d") %></td>
+                  <%#= comment.name %>
+                  <%#= comment.comment %>
+                  <%#= evaluation.opportunity.post_date.strftime("%b %d") %> 
+                </tr>
+                <tr>
+                  <td></td>
+                  <th>Name</th>
+                  <th colspan="4">Message</th>
+                </tr>
+                <% opportunity.comments.each do |comment| %>
+                  <tr>
+                    <td></td>
+                    <td><%= comment.name %></td>
+                    <td colspan="4"> <%= comment.comment %> </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <%= will_paginate @opportunities %>
+    </div>
+  </div>
 <% end %>
-
-
-
-
-

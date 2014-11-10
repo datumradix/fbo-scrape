@@ -1,31 +1,51 @@
-<ul class="nav nav-tabs">
-  <li class="active">
-    <%= link_to "Public Teams", teams_path %>
-  </li>
-  <li>
-    <%= link_to "Private Teams", private_team_path %>
-  </li>
-</ul>
+<div class="row">
+  <div class="span10 offset1">
+    <p>
+      <small>
+        Public teams are free. Click on a name to view selection criteria, opportunities, and to join. 
+      </small>
+    </p>
 
-<p>Join any and as many teams as you like. Switch teams whenever your want. Always free. </p>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <%= link_to "Public Teams", teams_path %>
+      </li>
+      <li>
+        <%= link_to "Private Teams", private_team_path %>
+      </li>
+    </ul>
+  </div>
+</div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Organization</th>
-      <th>Name</th>
-      <th>Charter</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @public_teams.each do |team| %>
-      <tr>
-        <td> <%= link_to team.company.name, company_path(team.company) %></td>
-        <td><%= link_to team.name, public_team_criteria_path(team_id: team.id ) %></td>
-        <td><%= team.description %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<% @companies_with_public_teams.each do |team_company| %>
+  <div class="row">
+    <div class="span10 offset1">
+      <h3><%= link_to team_company.company.name, company_path(team_company.company.id) %> </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span10 offset1">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Charter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% company_public_teams = Team.where(company_id: team_company.company.id, private: nil) %>
+            <% company_public_teams.each do |team| %>
+              <td>
+                <%= link_to team.name, public_team_criteria_path(team_id: team.id) %>
+              </td>
+              <td>
+                <%= team.description %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

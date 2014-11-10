@@ -1,37 +1,46 @@
-<ul class="nav nav-tabs">
-  <li class="active">
-    <%= link_to "Public Teams", teams_path %>
-  </li>
-  <li>
-    <%= link_to "Private Teams", private_team_path %>
-  </li>
-</ul>
-
-<%= javascript_tag do %>
-  window.name = "<%= j @public_team.name %>";
-<% end %>
-
 <div class="row">
-  <div class="span9">
-    <h4> <%= @public_team.name %></h4>
-    <p> <%= @public_team.description %></p>
-  </div>
-  <div class="span3">
-  <p>Team Lead:</p>
-  <p>Opportunities:</p>
-  <p>Watchlist:</p>
+  <div class="span10 offset1">
+    <p>
+      <small>
+        <%= link_to "Public Teams", teams_path %> / 
+        <%= link_to @public_team.company.name, company_path(@public_team.company.id) %> / 
+        <%= @public_team.name %>
+      </small>
+    </p>
+  
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <%= link_to "Public Teams", teams_path %>
+      </li>
+      <li>
+        <%= link_to "Private Teams", private_team_path %>
+      </li>
+    </ul>
+
+    <%= javascript_tag do %>
+      window.name = "<%= j @public_team.name %>";
+    <% end %>
   </div>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span8 offset1">
+    <h3><%= @public_team.name %></h3>
+    <p><%= @public_team.description %></p>
+  </div>
+  <div class="span3">
+    <%= link_to "Join This Team!", new_user_path(team_id: @public_team.id), :class =>"btn btn-primary btn-large" %></button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
     <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
         <ul class="nav nav-pills pull-left">
-          <li class="active"><%= link_to "Selection Criteria", public_team_criteria_path(team_id: @public_team.id)  %></li>
+          <li class="active"><%= link_to "Criteria", public_team_criteria_path(team_id: @public_team.id)  %></li>
           <li><%= link_to "Opportunities", public_team_opportunities_path(team_id: @public_team.id)  %></li>
-          <li><%= link_to "Join This Team", new_user_path(team_id: @public_team.id)  %></li>
         </ul>
       </div>
     </div>
@@ -40,7 +49,7 @@
 </div>
 
 <div class="row">
-  <div class="span4">
+  <div class="span4 offset1">
     <p><strong>Classification Codes</strong></p>
     <% @public_team.selection_criterium.classification_codes.each do |cc| %>
       <li><%= cc.name %> </li>
@@ -54,7 +63,7 @@
     <% end %>
   </div>
 
-  <div class="span4">
+  <div class="span3">
     <p><strong>Set Asides</strong></p>
     <p><%= @public_team.selection_criterium.set_aside_radio.name %></p>
     <% unless @public_team.selection_criterium.set_aside_radio_id == 1 %>

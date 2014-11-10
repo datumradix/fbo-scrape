@@ -1,77 +1,51 @@
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <div class="row">
+    <div class="span8 offset1">
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-<div class="row">
-  <div class="span9">
-    <h4>User Profile</h4>
-    <p>Manage user profile.</p>
-
   </div>
-  <div class="span3">
-    <p>
-      Username: <%= current_user.username %> 
-    </p>
-    <p>
-      Role: <%= link_to current_user.role.title, roles_path %>
-    </p>    
-    <% if current_user.role_id == 1 %>
+  <div class="row">
+    <div class="span10 offset1">
+      <p>
+        <strong>Username: </strong><%= @user.username %>
+      </p>
+      <p>
+        <strong>Email:</strong> <%= @user.email %>
+      </p>
+      <p>
+        <strong>Active Team:</strong> <%= Team.find(@user.team_id).name %> 
+      </p>
+      <p><strong>Role:</strong> <%= current_user.role.title %></p> 
+
       <br>
-      <h4>Administrator Functions</h4>
-      <p><%= link_to 'New User', new_user_path %></p>
-      <p><%= link_to "Manage Users", users_path %></p>
-      <p><%= link_to 'New Team', new_team_path %></p>
-      <p><%= link_to 'New Company', new_company_path %></p>
-    <% end %>
-  </div>
-</div>  
-<br>
-<hr>
+      <h5>Change Password</h5>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+    
+      <div class="field">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+      <br>
 
-<div class="row">
-  <div class="span10">
-    <p>
-    <strong>Username: </strong><%= @user.username %>
-  </p>
-  <p>
-    <strong>Email:</strong> <%= @user.email %>
-  </p>
-  <p>
-  <strong>Active Team:</strong> <%= @current_team.name %> 
-  </p>
-
-  <div>
-    <p><strong>Role:</strong> <%= current_user.role.title %></p> 
-  </div>
-
-  <br>
-  <h5>Change Password</h5>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <br>
-
-  <div class="actions">
-    <%= f.submit "Submit", :class => "btn btn-default" %>
+      <div class="actions">
+        <%= f.submit "Submit", :class => "btn btn-default" %>
+      </div>
+    </div>
   </div>
 <% end %>
-  </div>
-</div>
 
+<%# raise %>
 
   

@@ -1,13 +1,17 @@
-<% if notice %>
-  <div class="alert alert-block alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <p><%= notice %></p>
+<div class="row">
+  <div class="span10 offset1">
+    <% if notice %>
+      <div class="alert alert-block alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p><%= notice %></p>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <div class="row">
-  <div class="span9">
-    <p><%= @current_team.company.name %> Company</p>
+  <div class="span8 offset1">
+    <p><%= @current_team.company.name %></p>
     <h4><%= @current_team.name %> </h4>
     <p><%= @current_team.description %> </p>
   </div>
@@ -21,50 +25,61 @@
   </div>
 </div>  
 <br>
-<% if @team.selection_criterium != nil %>
-  <ul class="nav nav-tabs">
-    <li>
-      <%= link_to "Evaluations", user_path(current_user) %>
-    </li>
-    <li>
-      <%= link_to "Team", team_members_path %>
-    </li>
-    <li class="active">
-      <%= link_to "Criteria", "#" %>
-    </li>
-    <% if permitted_to? :show, :selection_criteria %>
-      <li><%= link_to "(edit)", edit_selection_criterium_path(@current_team.selection_criterium) %></li>
-    <% end %>
-    <li>
-      <%= link_to "Reports", reports_path %>
-    </li>
-  </ul>
-  <div class="row">
-    <div class="span4">
-      <p><strong>Classification Codes</p></strong>
-      <% @team.selection_criterium.classification_codes.each do |cc| %>
-        <li><%= cc.name %> </li>
-      <% end %>
-    </div>
-    <div class="span4">
-      <p><strong>Procurement Types</p></strong>
-      <% @team.selection_criterium.procurement_types.each do |pt| %>
-        <li><%= pt.name %> </li>
-      <% end %>
-    </div>
-    <div class="span4">
-      <p><strong>Set Asides</p></strong>
-      <p><%= @team.selection_criterium.set_aside_radio.name %></p>
-      <% unless @team.selection_criterium.set_aside_radio_id == 1 %>
-        <% @team.selection_criterium.set_asides.each do |sa| %>
-          <li><em><%= sa.name %> </em></li>
+
+<div class="row">
+  <div class="span10 offset1">
+    <% if @team.selection_criterium != nil %>
+      <ul class="nav nav-tabs">
+        <li>
+          <%= link_to "Evaluations", user_path(current_user) %>
+        </li>
+        <li>
+          <%= link_to "Team", team_members_path %>
+        </li>
+        <li class="active">
+          <%= link_to "Criteria", "#" %>
+        </li>
+        <% if permitted_to? :show, :selection_criteria %>
+          <li><%= link_to "(edit)", edit_selection_criterium_path(@current_team.selection_criterium) %></li>
         <% end %>
-      <% end %>
+        <li>
+          <%= link_to "Reports", reports_path %>
+        </li>
+      </ul>
     </div>
   </div>
-<% else %>
-  <%= link_to 'Create Selection Criteria', new_selection_criterium_path(team_id: @team.id) %>
-  <br>
-<% end %>
-<br>
+
+  <div class="row">
+    <div class="span4 offset1">
+      <p><strong>Classification Codes</strong></p>
+        <% @team.selection_criterium.classification_codes.each do |cc| %>
+          <li><%= cc.name %> </li>
+        <% end %>
+    </div>
+      <div class="span4">
+        <p><strong>Procurement Types</strong></p>
+        <% @team.selection_criterium.procurement_types.each do |pt| %>
+          <li><%= pt.name %> </li>
+        <% end %>
+      </div>
+    <div class="span3">
+      <p><strong>Set Asides</strong></p>
+      <p><%= @team.selection_criterium.set_aside_radio.name %></p>
+        <% unless @team.selection_criterium.set_aside_radio_id == 1 %>
+          <% @team.selection_criterium.set_asides.each do |sa| %>
+            <li><em><%= sa.name %> </em></li>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+      <%= link_to 'Create Selection Criteria', new_selection_criterium_path(team_id: @team.id) %>
+      <br>
+    <% end %>
+    <br>
+  </div>
+</div>
+
+
+
 

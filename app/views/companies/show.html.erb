@@ -1,23 +1,51 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span10 offset1">
+    <p>
+      <small>
+        <%= link_to "Public Teams", teams_path %> / 
+        <%= @company.name %>
+      </small>
+    </p>
 
-<p>
-  <strong>Organization:</strong>
-  <%= @company.name %>
-</p>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <%= link_to "Public Teams", teams_path %>
+      </li>
+      <li>
+        <%= link_to "Private Teams", private_team_path %>
+      </li>
+    </ul>
+  </div>
+</div>
 
-<p>
-<strong>Description:</strong>
-  <%= @company.description %>
-</p>
-
-<table class="table">
-  <tr>
-    <th>Teams</th><th>Description</th>
-  </tr>
-  <% @company.teams.each do |team| %>
-    <tr>
-      <td><%= link_to team.name, public_team_criteria_path(team_id: team.id) %></td>
-      <td> <%= team.description %> </td>
-    </tr>
-  <% end %>
-</table>
+<div class="row">
+  <div class="span10 offset1">
+    <h3>
+      <%= @company.name %>
+    </h3>
+    <p>
+      <%= @company.description %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="span10 offset1">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Charter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% company_public_teams = @company.teams.where(private: nil) %>
+        <% company_public_teams.each do |team| %>
+          <tr>
+            <td><%= link_to team.name, public_team_criteria_path(team_id: team.id) %></td>
+            <td> <%= team.description %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

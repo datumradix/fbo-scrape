@@ -1,9 +1,13 @@
-<h4>Set Password</h4>
+<div class="row">
+  <div class="span10 offset1">
+    <h3>Reset Password</h3>
 
-<p>Enter your email address and press "Set Password". <br> We will send you a temporary link where you can set a new password.</p>
-<div class="actions">
-  <%= form_tag password_resets_path do %>
-    <%= text_field_tag :email %><br>
-    <%= submit_tag "Set Password", :class => "btn btn-default"  %>
-  <% end %>
+    <p>Enter your email address and press "Set Password". <br> We will send you a temporary link where you can set a new password.</p>
+    <div class="actions">
+      <%= form_tag password_resets_path do %>
+        <%= text_field_tag :email %><br>
+        <%= submit_tag "Set Password", :class => "btn btn-default"  %>
+      <% end %>
+    </div>
+  </div>
 </div>

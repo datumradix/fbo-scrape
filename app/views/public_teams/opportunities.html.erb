@@ -1,33 +1,42 @@
-<ul class="nav nav-tabs">
-  <li class="active">
-    <%= link_to "Public Teams", teams_path %>
-  </li>
-  <li>
-    <%= link_to "Private Teams", private_team_path %>
-  </li>
-</ul>
-
 <div class="row">
-  <div class="span9">
-    <h4> <%= @public_team.name %></h4>
-    <p> <%= @public_team.description %></p>
-  </div>
-  <div class="span3">
-  <p>Team Lead:</p>
-  <p>Opportunities:</p>
-  <p>Watchlist:</p>
+  <div class="span10 offset1">
+    <p>
+      <small>
+        <%= link_to "Public Teams", teams_path %> / 
+        <%= link_to @public_team.company.name, company_path(@public_team.company.id) %> / 
+        <%= @public_team.name %>
+      </small>
+    </p>
+
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <%= link_to "Public Teams", teams_path %>
+      </li>
+      <li>
+        <%= link_to "Private Teams", private_team_path %>
+      </li>
+    </ul>
   </div>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span8 offset1">
+    <h3> <%= @public_team.name %></h3>
+    <p> <%= @public_team.description %></p>
+  </div>
+  <div class="span3">
+    <%= link_to "Join This Team!", new_user_path(team_id: @public_team.id), :class =>"btn btn-primary btn-large" %></button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
     <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
         <ul class="nav nav-pills pull-left">
-          <li><%= link_to "Selection Criteria", public_team_criteria_path(team_id: @public_team.id)  %></li>
-          <li class="active"><%= link_to "Opportunities", public_team_members_path(team_id: @public_team.id)  %></li>
-          <li><%= link_to "Join This Team", new_user_path(team_id: @public_team.id)  %></li>
+          <li><%= link_to "Criteria", public_team_criteria_path(team_id: @public_team.id)  %></li>
+          <li class="active"><%= link_to "Opportunities", public_team_opportunities_path(team_id: @public_team.id)  %></li>
         </ul>
       </div>
     </div>
@@ -36,35 +45,35 @@
 </div>
 
 <div class="row">
-    <div class="span12">
-        <%= will_paginate @public_team_opportunities %>
-        <table class="table table-hover">
-          <thead>
-              <th></th>
-              <th>Opportunity</th>
-              <th>Agency</th>
-              <th>Classification</th>
-              <th>Type</th>
-              <th>Posted</th>
-          </thead>
-          <tbody>
-            <% @public_team_opportunities.each do |opportunity| %>
-              <tr>
-                <td>
-                  <% if opportunity.comments.length > 0 %>
-                    <p><%= pluralize(opportunity.comments.count, "msg") %> </p>
-                  <% end %>
-                </td>
-                <td><%= link_to opportunity.opportunity.opportunity, opportunity.opportunity, :target=>"_blank" %></td>
-                <td><%= opportunity.opportunity.agency %></td>
-                <td><%= opportunity.opportunity.class_code %> </td> 
-                <td><%= opportunity.opportunity.opp_type %></td>
-                <td><%= opportunity.opportunity.post_date.strftime("%b %d") %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <%= will_paginate @public_team_opportunities %>
-    </div>
+  <div class="span11 offset1">
+    <%= will_paginate @public_team_opportunities %>
+    <table class="table table-hover">
+      <thead>
+        <th></th>
+        <th>Opportunity</th>
+        <th>Agency</th>
+        <th>Classification</th>
+        <th>Type</th>
+        <th>Posted</th>
+      </thead>
+      <tbody>
+        <% @public_team_opportunities.each do |opportunity| %>
+          <tr>
+            <td>
+              <% if opportunity.comments.length > 0 %>
+                <p><%= pluralize(opportunity.comments.count, "msg") %> </p>
+              <% end %>
+            </td>
+            <td><%= link_to opportunity.opportunity.opportunity, opportunity.opportunity, :target=>"_blank" %></td>
+            <td><%= opportunity.opportunity.agency %></td>
+            <td><%= opportunity.opportunity.class_code %> </td> 
+            <td><%= opportunity.opportunity.opp_type %></td>
+            <td><%= opportunity.opportunity.post_date.strftime("%b %d") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @public_team_opportunities %>
   </div>
+</div>
 <br>

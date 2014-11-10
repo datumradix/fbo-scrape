@@ -1,18 +1,27 @@
-<ul class="nav nav-tabs">
-  <li>
-    <%= link_to "Public Teams", teams_path %>
-  </li>
-  <li class="active">
-    <%= link_to "Private Teams", private_team_path %>
-  </li>
-</ul>
-
-<h1> <%= @a %></h1>
 <div class="row">
-  <div class="span9">
-    <h4>Private Teams</h4>
-	  <p>Invite only. Criteria, evaluations, and comments are close hold.</p>
-    <p> Contact matt@teamFBO.com for more information.</p>
+  <div class="span10 offset1">
+    <p>
+      <small>
+        Criteria, evaluations, and comments are close hold. 
+      </small>
+    </p>
+
+    <ul class="nav nav-tabs">
+      <li>
+        <%= link_to "Public Teams", teams_path %>
+      </li>
+      <li class="active">
+        <%= link_to "Private Teams", private_team_path %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
+    <h3>Private Teams</h3>
+	  <p>We are accepting a limited number of private teams at this time.</p>
+    <p>Contact win@teamFBO.com for more information.</p>
   </div>
 </div>
 

@@ -1,9 +1,6 @@
 <h4>Welcome to teamFBO.</h4>
 
-<p>Your username is <strong><%= @user.username %>.</strong></p>
-
-<p>Your are on the team: <strong><%= @user.teams.first.name %></strong>.</p>
-
-<p>Your temporary password is </strong>GoTeam!</strong>. Please change your password when you login to something more secure.</p>
-
-<p>You may log in with your email or username <%= link_to "here", @new_session_url %></p>
+<p><strong>Username:</strong> <%= @user.username %></p>
+<p><strong>Temporary password:</strong>GoTeam!</p> 
+<p>Log in and change your password to something more secure.</p>
+<p><%= link_to "Please Log In", @new_session_url %></p>

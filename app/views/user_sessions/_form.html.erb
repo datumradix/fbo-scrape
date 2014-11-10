@@ -1,36 +1,44 @@
-<% if notice %>
-  <div class="alert alert-block alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <p><%= notice %></p>
+<div class="row">
+  <div class="span10 offset1">
+    <h3>Please Log In</h3>
   </div>
-<% end %>
+</div>
 
-<br>
 <%= form_for(@user_session) do |f| %>
   <%#= f.error_messages %>
-  <% if @user_session.errors.any? %>
-    <div class="alert alert-danger">
-      <h3><%= pluralize(@user_session.errors.count, "error") %> prohibited login</h3>
+  <div class="row">
+    <div class="span10 offset1">
+      <% if @user_session.errors.any? %>
+        <div class="alert alert-danger">
+          <h3><%= pluralize(@user_session.errors.count, "error") %> prohibited login</h3>
 
-      <ul>
-      <% @user_session.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+          <% @user_session.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="form-group">    
-    <%= f.label "Enter username or email address" %>
-    <%= f.text_field :username, :value=>params[:name] %><br>
-    
-    <%= f.label :password %>
-    <%= f.password_field :password %><br>
-    <br>
-    <%= f.submit "Submit", :class => "btn btn-default" %>
+  </div>
+  <div class="row">
+    <div class="span8 offset1">
+      <div class="form-group">    
+        <%= f.label "Enter username or email address" %>
+        <%= f.text_field :username, :value=>params[:name] %><br>
+        <%= f.label :password %>
+        <%= f.password_field :password %><br>
+        <br>
+        <%= f.submit "Submit", :class => "btn btn-default" %>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<p><%= link_to "Forgot password?", new_password_reset_path %></p>
-
-<p>New here? <%= link_to "Join a team", teams_path %>.</p>
+<div class="row">
+  <div class="span8 offset1">
+    <p><%= link_to "Forgot password?", new_password_reset_path %></p>
+    <br>
+    <p>New here? <%= link_to "Join a team", teams_path %>.</p>
+  </div>
+</div>

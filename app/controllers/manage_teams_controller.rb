@@ -3,6 +3,9 @@ class ManageTeamsController < ApplicationController
     @current_user = current_user
     @current_team = current_team
     @user_teams = current_user.teams
+    @current_public_team = Team.find(params[:current_public_team])
+    @private_teams = current_user.teams.where(private: true)
+    @public_team_opportunities = @current_public_team.evaluations.where(evaluation_code_id: 1).order("opportunity_id DESC").paginate(:per_page => 50, :page => params[:page]) 
   end
 
   def edit
@@ -18,6 +21,7 @@ class ManageTeamsController < ApplicationController
   @current_team = current_team
   @user_teams = current_user.teams
   @public_teams = Team.where(private: nil)
+  @current_public_team = Team.find(params[:team_id])
   @private_teams = current_user.teams.where(private: true)
   end
 

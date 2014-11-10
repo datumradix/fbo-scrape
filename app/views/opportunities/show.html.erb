@@ -11,7 +11,7 @@
 
 
 <div class="row">
-  <div class="span12">
+  <div class="span10 offset1">
     <% unless @opportunity_evaluation.comments.count == 0 %>  
       <h4>Comments</h4>
       <table class="table table-hover">   
@@ -33,7 +33,7 @@
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span10 offset1">
     <h4><%= link_to @opportunity.opportunity, @opportunity.link, :target=>"_blank", :title =>"View Opportunity on FBO.gov", data: {tooltip: true} %></h4>
     <table class="table table-bordered">
       <tr>
@@ -54,7 +54,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="span8">
+  <div class="span7 offset1">
     <% keywords = ["sole source", "aircraft"] %>
     <% highlighted_string = @opportunity.opportunity_description ||= "nothing" %>
     <% keywords.each do |keyword| %>
@@ -67,7 +67,7 @@
 
 
 
-  <div class="span4">   
+  <div class="span3">   
     <div class="evaluate_form">
       <h4>Evaluation</h4>
         <div class="radio">

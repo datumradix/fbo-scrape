@@ -109,47 +109,40 @@
   <div class="span8">
     <h4><%= link_to "Public Teams", edit_manage_team_path(@current_public_team.id) %> / <%= @current_public_team.name %></h4>
     <ul class="nav nav-tabs">
-      <li class="active">
-        <%= link_to "Criteria", "#" %>
-      </li>
       <li>
-        <%= link_to "Opportunities", manage_teams_path(current_public_team: @current_public_team.id) %>
+        <%= link_to "Criteria", manage_team_path(@current_public_team.id, :team_id => @current_public_team.id) %>
+      </li>
+      <li class="active">
+        <%= link_to "Opportunities", user_path(current_user) %>
       </li>
       <%= link_to "Join", new_user_path(team_id: @current_public_team.id), :class =>"btn btn-primary" %>
     </ul>
 
-    <table class="table">
+    <%= will_paginate @public_team_opportunities %>
+    <table class="table table-hover">
       <thead>
-        <tr>
-          <th>Classification Codes</th>
-          <th>Procurement Types</th>
-          <th>Set Asides</th>
-        </tr>
+        <th>Opportunity</th>
+        <th>Agency</th>
+        <th>Classification</th>
+        <th>Type</th>
+        <th>Posted</th>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <% @current_public_team.selection_criterium.classification_codes.each do |cc| %>
-              <li><%= cc.name %> </li>
-            <% end %>
-          </td>
-
-          <td>
-            <% @current_public_team.selection_criterium.procurement_types.each do |pt| %>
-              <li><%= pt.name %> </li>
-            <% end %>
-          </td>
-
-          <td>
-            <p><%= @current_public_team.selection_criterium.set_aside_radio.name %></p>
-              <% unless @current_public_team.selection_criterium.set_aside_radio_id == 1 %>
-                <% @current_public_team.selection_criterium.set_asides.each do |sa| %>
-                  <li><em><%= sa.name %> </em></li>
-                <% end %>
-              <% end %>
-          </td>
-        </tr>
+        <% @public_team_opportunities.each do |opportunity| %>
+          <tr>
+            <td><%= opportunity.opportunity.opportunity %></td>
+            <td><%= opportunity.opportunity.agency %></td>
+            <td><%= opportunity.opportunity.class_code %> </td> 
+            <td><%= opportunity.opportunity.opp_type %></td>
+            <td><%= opportunity.opportunity.post_date.strftime("%b %d") %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
+    <%= will_paginate @public_team_opportunities %>
+
+
+
+
   </div>
 </div>

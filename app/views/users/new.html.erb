@@ -141,39 +141,81 @@
   </div>
 
 <% else %>
-  <h1>Hi</h1>
-  <p>
-    Join the team: <%= @team_to_join.name %> 
-  </p>
+  <%# Begin registration for public teams %>
+  <div class="row">
+  <div class="span10 offset1">
+    <p>
+      <small>
+        <%= link_to "Public Teams", teams_path %> / 
+        <%= link_to @team_to_join.company.name, company_path(@team_to_join.company.id) %> / 
+        <%= link_to @team_to_join.name, public_team_criteria_path(:team_id => @team_to_join.id) %> /
+        Join
+      </small>
+    </p>
+
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <%= link_to "Public Teams", teams_path %>
+      </li>
+    </ul>
+  </div>
+</div>
+  
+  <div class="row">
+    <div class="span3 offset1">
+      <h3>
+        Join Team <%= @team_to_join.name %>! 
+      </h3>
+    </div>
+  </div>
+  
   <%= form_for(@user) do |f| %>
-    <% if @user.errors.any? %>
-      <div class="alert alert-danger">
-        <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-        <ul>
-          <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+    <div class="row">
+      <div class="span9 offset1">
+        <% if @user.errors.any? %>
+          <div class="alert alert-danger">
+            <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+            <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+    <div class="row">
+      <div class="span3 offset1">
+        <div class="field">
+          <%= f.label "Email Address" %>
+            <%= f.text_field :email %>
+        </div>
+        <div class="field">
+          <%= f.label "Username" %>
+          <%= f.text_field :username %>
+        </div>
+              
+        <%= f.hidden_field(:password, :value => "GoTeam!") %>
+        <%= f.hidden_field(:password_confirmation, :value => "GoTeam!") %>
+        <%= f.hidden_field(:role_id, :value => 3) %>
+        <%= f.hidden_field(:team_id, :value => @team_to_join.id) %>
+        <%= f.hidden_field 'team_ids][', :value => @team_to_join.id %>
 
-    <div class="field">
-      <%= f.label "Enter an email address" %>
-        <%= f.text_field :email %>
+        <div class="actions">
+          <%= f.submit "Submit", :class => "btn btn-default" %>
+        </div>
+      <% end %>
     </div>
-    <div class="field">
-      <%= f.label "Pick a username" %>
-      <%= f.text_field :username %>
+    <div class="span6">
+      <br>
+      <p><em>
+        Your are joining a public team. Your username and opportunity evaluations are viewable by other team members. Your email address is always private.
+      </em></p> 
+      <p><em>
+        Once registered, we email you login instructions. 
+        You may log in with either your email or username.
+      </em></p>
     </div>
-          
-    <%= f.hidden_field(:password, :value => "GoTeam!") %>
-    <%= f.hidden_field(:password_confirmation, :value => "GoTeam!") %>
-    <%= f.hidden_field(:role_id, :value => 3) %>
-    <%= f.hidden_field(:team_id, :value => @team_to_join.id) %>
-    <%= f.hidden_field 'team_ids][', :value => @team_to_join.id %>
-
-    <div class="actions">
-      <%= f.submit "Submit", :class => "btn btn-default" %>
-    </div>
-  <% end %>
+  </div>
 <% end %>
+<br>

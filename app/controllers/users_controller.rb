@@ -17,9 +17,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @evaluations_with_comments = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
-    @not_evaluated_count = current_team.evaluations.where(evaluation_code_id: 1).count
-    @watchlist_count = current_team.evaluations.where(evaluation_code_id: 2).count
-    @reject_count = current_team.evaluations.where(evaluation_code_id: 3).count
+    @opportunities = current_team.evaluations.order("id DESC").paginate(:per_page => 10, :page => params[:page])
+
     @capture_lead_teams_watchlists = Evaluation.where(evaluation_code_id:2).order("id DESC")
   end
 
@@ -73,7 +72,7 @@ class UsersController < ApplicationController
         format.html { redirect_to user_path(current_user), notice: 'Successfully updated profile.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', current_team: @current_team }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

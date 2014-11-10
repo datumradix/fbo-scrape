@@ -1,17 +1,23 @@
-<%= form_for(@selection_criterium) do |f| %>
-  <% if @selection_criterium.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@selection_criterium.errors.count, "error") %> prohibited this selection_criterium from being saved:</h2>
-
-      <ul>
-      <% @selection_criterium.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+<div class="row">
+  <div class="span10 offset1">
+    <%= form_for(@selection_criterium) do |f| %>
+      <% if @selection_criterium.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@selection_criterium.errors.count, "error") %> prohibited this selection_criterium from being saved:
+          </h2>
+          <ul>
+            <% @selection_criterium.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
+  </div>
+
   <div class="row">
-    <div class="span9">
+    <div class="span8 offset1">
       <h4> Edit Selection Criteria </h4>
       <p>Select checkboxes to tailor your team's FBO feed. When done, click the "Update Selection Criteria" button.</p>
     </div>
@@ -24,26 +30,31 @@
       </p>    
     </div>
   </div> 
-<br>
-  <% if @current_team.selection_criterium != nil %>
-    <ul class="nav nav-tabs">
-    <li>
-      <%= link_to "Evaluations", user_path(current_user) %>
-    </li>
-    <li>
-      <%= link_to "Team", team_members_path %>
-    </li>
-    <li class="active">
-      <%= link_to "Edit Criteria", "#" %>
-    </li>
-    <li>
-      <%= link_to "Reports", reports_path %>
-    </li>
-  </ul>
-  <% end %>
+  <br>
 
   <div class="row">
-    <div class="span12">
+    <div class="span10 offset1">
+      <% if @current_team.selection_criterium != nil %>
+        <ul class="nav nav-tabs">
+        <li>
+          <%= link_to "Evaluations", user_path(current_user) %>
+        </li>
+        <li>
+          <%= link_to "Team", team_members_path %>
+        </li>
+        <li class="active">
+          <%= link_to "Edit Criteria", "#" %>
+        </li>
+        <li>
+          <%= link_to "Reports", reports_path %>
+        </li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span11 offset1">
     <div class="row">
       <div class="span4">
         <div class="actions">
@@ -59,7 +70,7 @@
           <%= collection_check_boxes(:selection_criterium, :classification_code_ids, @classification_codes, :id, :name) %>
         </div>
       </div>
-    <div class="span4">
+    <div class="span3">
       <h4>Procurement Types </h4>
       <p><%= link_to glyph(:info_sign), "#", :class=>"black_icon" %><em> Select <u>at least</u> one procurement type.</em></p>
       <div class="checkbox">
@@ -85,6 +96,4 @@
       </div>
     </div>
   </div>
-
-  <hr>
 <% end %>

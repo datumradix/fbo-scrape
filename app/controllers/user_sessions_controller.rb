@@ -14,7 +14,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        user_id = User.find_by(username: @user_session.username)
+        user_id = User.find_by(username: @user_session.username) || User.find_by(email: @user_session.username)
         format.html { redirect_to user_path(user_id), notice: 'Welcome to the team!' }
         format.json { render action: 'show', status: :created, location: @user_session }
       else
