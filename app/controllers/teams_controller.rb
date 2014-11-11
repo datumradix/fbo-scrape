@@ -5,10 +5,9 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    #@teams = Team.where(company_id: current_user.team.company_id)
     @public_teams = Team.where(private: nil)
-    #@teams = Team.all
-    @companies_with_public_teams = Team.where(private: nil).group(:company_id)
+    #@companies_with_public_teams = Team.where(private: nil).group(:company_id)
+    @companies_with_public_teams = Team.where(private: nil).select("DISTINCT ON (company_id) *")
   end
 
   # GET /teams/1
