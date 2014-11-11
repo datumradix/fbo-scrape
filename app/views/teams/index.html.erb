@@ -33,17 +33,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
             <% company_public_teams = Team.where(company_id: team_company.company.id, private: nil) %>
             <% company_public_teams.each do |team| %>
-              <td>
-                <%= link_to team.name, public_team_criteria_path(team_id: team.id) %>
-              </td>
-              <td>
-                <%= team.description %>
-              </td>
+              <tr>
+                <td>
+                  <%= link_to team.name, public_team_criteria_path(team_id: team.id) %>
+                </td>
+                <td>
+                  <%= team.description %>
+                </td>
+              </tr>
             <% end %>
-          </tr>
         </tbody>
       </table>
     </div>

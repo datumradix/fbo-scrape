@@ -1,36 +1,39 @@
+<div class="row">
+  <div class="span8 offset1">
 
+    <p><strong>Username: </strong> <%= @user.username %></p>
 
-<p><strong>Username: </strong> <%= @user.username %>
+    <p>Set a new password:</p> 
 
-<p>Set a new password:</p> 
+    <%= form_for(:password_resets, :url => { :action => "update" }, :method => :put)  do |f| %>
 
-<%= form_for(:password_resets, :url => { :action => "update" }, :method => :put)  do |f| %>
+      <% if @user.errors.any? %>
+          <div class="alert alert-danger">
+            <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
 
-  <% if @user.errors.any? %>
-      <div class="alert alert-danger">
-        <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-
-        <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+            <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
         <% end %>
-        </ul>
+        
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
       </div>
+      <div>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+
+      <br>
+
+      <div class="actions">
+        <%= f.submit "Submit", :class => "btn btn-default" %>
+      </div>
+
     <% end %>
-    
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
   </div>
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <br>
-
-  <div class="actions">
-    <%= f.submit "Submit", :class => "btn btn-default" %>
-  </div>
-
-<% end %>
+</div>

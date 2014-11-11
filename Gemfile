@@ -18,6 +18,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'pg', '0.15.1'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -31,7 +33,7 @@ end
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-  gem 'sqlite3'
+  #gem 'sqlite3'
   gem 'letter_opener'
   gem 'pry'
   gem 'better_errors'
@@ -39,7 +41,6 @@ group :development, :test do
 end
 
 group :production do 
-	gem 'pg', '0.15.1'
 	gem 'rails_12factor', '0.0.2'
 end
 

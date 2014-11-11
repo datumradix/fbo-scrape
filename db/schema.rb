@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141028150045) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "classification_codes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 20141028150045) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["evaluation_id"], name: "index_comments_on_evaluation_id"
+  add_index "comments", ["evaluation_id"], name: "index_comments_on_evaluation_id", using: :btree
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -145,6 +148,6 @@ ActiveRecord::Schema.define(version: 20141028150045) do
     t.string   "perishable_token",  default: "", null: false
   end
 
-  add_index "users", ["perishable_token"], name: "index_users_on_perishable_token"
+  add_index "users", ["perishable_token"], name: "index_users_on_perishable_token", using: :btree
 
 end
