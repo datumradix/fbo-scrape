@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @evaluations_with_comments = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
+    #@evaluations_with_comments = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
+    @evaluations_with_comments = current_team.evaluations.joins(:comments).order("id DESC").paginate(:per_page => 10, :page => params[:page])
     @opportunities = current_team.evaluations.order("id DESC").paginate(:per_page => 10, :page => params[:page])
 
     #join on comments

@@ -106,13 +106,14 @@
         </li>
       </ul>
 
-      <%= will_paginate @opportunities %>
-      <table class="table table-bordered">
+      <%= will_paginate @evaluations_with_comments %>
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Opportunity</th>
             <th>Agency</th>
             <th>Classification</th>
+            <th>Type</th>
             <th>Evaluation</th>
             <th>Post Date</th>
           </tr>
@@ -122,35 +123,40 @@
           <%# team_comments_sorted_by_date = 1 %>
           <%# @current_team.evaluations.order("id DESC").each do |evaluation| %>
             <%# evaluation.comments.each do |comment| %>
-            <% @opportunities.each do |opportunity| %>
-              <% if opportunity.comments.present? %>
-                <tr>
-                  <td> <%= link_to opportunity.opportunity.opportunity, opportunity_path(opportunity.opportunity.id) %></td>
-                  <td><%= opportunity.opportunity.agency %></td>
-                  <td><%= opportunity.opportunity.class_code %> </td> 
-                  <td><%= opportunity.opportunity.opp_type %></td>
-                  <td><%= opportunity.opportunity.post_date.strftime("%b %d") %></td>
-                  <%#= comment.name %>
-                  <%#= comment.comment %>
-                  <%#= evaluation.opportunity.post_date.strftime("%b %d") %> 
-                </tr>
+            <% @evaluations_with_comments.each do |evaluation| %>
+              <tr>
+                <td>
+                  <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity.id) %>
+                </td>
+                <td>
+                  <%= evaluation.opportunity.agency %>
+                </td>
+                <td>
+                  <%= evaluation.opportunity.class_code %> 
+                </td> 
+                <td>
+                  <%= evaluation.opportunity.opp_type %>
+                </td>
+                <td>
+                <%= evaluation.evaluation_code.name %>
+                </td>
+                <td>
+                  <%= evaluation.opportunity.post_date.strftime("%b %d") %>
+                </td>
+              </tr>
+              <% evaluation.comments.each do |evaluation_comment| %>
                 <tr>
                   <td></td>
-                  <th>Name</th>
-                  <th colspan="4">Message</th>
+                  <td colspan="5">
+                    <strong><%= evaluation_comment.name %>: </strong>
+                    <%= evaluation_comment.comment %>  
+                  </td>
                 </tr>
-                <% opportunity.comments.each do |comment| %>
-                  <tr>
-                    <td></td>
-                    <td><%= comment.name %></td>
-                    <td colspan="4"> <%= comment.comment %> </td>
-                  </tr>
-                <% end %>
               <% end %>
             <% end %>
           </tbody>
         </table>
-      <%= will_paginate @opportunities %>
+      <%= will_paginate @evaluations_with_comments %>
     </div>
   </div>
 <% end %>
