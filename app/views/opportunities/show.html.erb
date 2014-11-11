@@ -68,26 +68,8 @@
 
 
 
-
   <div class="span3">   
-    <div>
-      <div class="radio">
-        <%= form_for(@opportunity_evaluation) do |f| %> 
-          <h4>Evaluation</h4>
-          <div class="radio">
-            <%= f.collection_radio_buttons(:evaluation_code_id, EvaluationCode.find(2,3), :id, :name) %>
-          </div>
-
-          <h4>Comments</h4>
-          <%= f.fields_for :comments do |comment|  %>
-            <%= comment.text_field :name, value: current_user.username %>
-            <%= comment.text_area :comment, placeholder: "Comment", rows: 5 %>
-          <% end %>
-
-          <%= f.submit  "Submit", :class => "btn btn-default" %>
-        <% end %>
-      </div>
-    </div>
+    
 
     <div class="evaluate_form">
       <h4>Evaluation</h4>

@@ -106,8 +106,14 @@
         </li>
       </ul>
 
+      <% unless @evaluations_with_comments.present? %>
+        <p>
+          No evaluations yet. Select the <%= link_to "Not Evaluated", opportunities_path %> link to view new opportunities.
+        </p>
+      <% end %>
+
       <%= will_paginate @evaluations_with_comments %>
-      <table class="table table-striped">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>Opportunity</th>
@@ -120,42 +126,39 @@
         </thead>
 
         <tbody>
-          <%# team_comments_sorted_by_date = 1 %>
-          <%# @current_team.evaluations.order("id DESC").each do |evaluation| %>
-            <%# evaluation.comments.each do |comment| %>
-            <% @evaluations_with_comments.each do |evaluation| %>
+          <% @evaluations_with_comments.each do |evaluation| %>
+            <tr>
+              <td>
+                <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity.id) %>
+              </td>
+              <td>
+                <%= evaluation.opportunity.agency %>
+              </td>
+              <td>
+                <%= evaluation.opportunity.class_code %> 
+              </td> 
+              <td>
+                <%= evaluation.opportunity.opp_type %>
+              </td>
+              <td>
+              <%= evaluation.evaluation_code.name %>
+              </td>
+              <td>
+                <%= evaluation.opportunity.post_date.strftime("%b %d") %>
+              </td>
+            </tr>
+            <% evaluation.comments.each do |evaluation_comment| %>
               <tr>
-                <td>
-                  <%= link_to evaluation.opportunity.opportunity, opportunity_path(evaluation.opportunity.id) %>
-                </td>
-                <td>
-                  <%= evaluation.opportunity.agency %>
-                </td>
-                <td>
-                  <%= evaluation.opportunity.class_code %> 
-                </td> 
-                <td>
-                  <%= evaluation.opportunity.opp_type %>
-                </td>
-                <td>
-                <%= evaluation.evaluation_code.name %>
-                </td>
-                <td>
-                  <%= evaluation.opportunity.post_date.strftime("%b %d") %>
+                <td></td>
+                <td colspan="5">
+                  <strong><%= evaluation_comment.name %>: </strong>
+                  <%= evaluation_comment.comment %>  
                 </td>
               </tr>
-              <% evaluation.comments.each do |evaluation_comment| %>
-                <tr>
-                  <td></td>
-                  <td colspan="5">
-                    <strong><%= evaluation_comment.name %>: </strong>
-                    <%= evaluation_comment.comment %>  
-                  </td>
-                </tr>
-              <% end %>
             <% end %>
-          </tbody>
-        </table>
+          <% end %>
+        </tbody>
+      </table>
       <%= will_paginate @evaluations_with_comments %>
     </div>
   </div>
