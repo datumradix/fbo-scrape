@@ -1,23 +1,51 @@
 <br>
 
 <div class="row">
-  <div class="span8 offset1">
+  <div class="span7 offset1">
     <h4>User Roles</h4>
     <p>
-      Role determines what you can do on teamFBO.com. 
+      Role determines what you can do on here. 
     </p>
   </div>
   <div class="span3">
-    <p>
-      Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
+    <p align="right">
+      <small>
+        Username: <%= link_to @current_user.username, edit_user_path(@current_user) %>  
+      </small><br>
+      <small>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </small>
     </p>
-    <p>
-      Role: <%= current_user.role.title %> 
-    </p>    
+    
+    <p align="right">
+      <small>
+        Not Evaluated: <%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %> | 
+        Watchlist: <%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %> | 
+        Reject: <%= link_to @reject_count, opportunities_path(:set_filter => "3") %>
+      </small>
+    </p>
   </div>
 </div>  
+
+<div class="row">
+  <div class="span10 offset1">
+    <ul class="nav nav-tabs">
+      <li>
+        <%= link_to "Evaluations", user_path(current_user) %>
+      </li>
+      <li>
+        <%= link_to "Team", team_members_path %>
+      </li>
+      <li>
+        <%= link_to "Criteria", team_path(@current_team.id) %>
+      </li>
+      <li>
+        <%= link_to "Reports", reports_path %>
+      </li>
+    </ul>
+  </div>
+</div>
 <br>
-<hr>
 <div class="row">
   <div class="span10 offset1">
     <table class="table table-bordered">

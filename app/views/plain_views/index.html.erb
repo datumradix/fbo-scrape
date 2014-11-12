@@ -1,22 +1,31 @@
 <div class="row">
-  <div class="span8 offset1">
+  <div class="span7 offset1">
     <p><%= @current_team.company.name %></p>
     <h4><%= @current_team.name %> </h4>
     <p><%= @current_team.description %> </p>
   </div>
   <div class="span3">
-    <p>
-      Username: <%= link_to @current_user.username, edit_user_path(@current_user) %>  
+    <p align="right">
+      <small>
+        Username: <%= link_to @current_user.username, edit_user_path(@current_user) %>  
+      </small><br>
+      <small>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </small>
     </p>
-    <p>
-      Role: <%= link_to current_user.role.title, roles_path %> 
+    
+    <p align="right">
+      <small>
+        Not Evaluated: <%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %> | 
+        Watchlist: <%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %> | 
+        Reject: <%= link_to @reject_count, opportunities_path(:set_filter => "3") %>
+      </small>
     </p>
   </div>
 </div>
-<br>
 
 <div class="row">
-  <div class="span11 offset1">
+  <div class="span10 offset1">
     <ul class="nav nav-tabs">
       <li>
         <%= link_to "Evaluations", user_path(@current_user) %>
@@ -35,15 +44,7 @@
 </div>
 
 <div class="row">
-  <div class="span2 offset1">
-    <h4 align="center">Seven Day Average</h4>
-    <table class="table table-bordered">
-      <tr><td>Total</td><td><%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %></td></tr>
-      <tr><td>Watchlist</td><td><%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %></td></tr>
-      <tr><td>Reject</td><td><%= link_to @reject_count, opportunities_path(:set_filter => "3") %></td></tr>
-    </table>
-  </div>
-  <div class="span9">
+  <div class="span7 offset3">
     <h4 align="center"> Watchlist Plain View</h4>
     <p align="center"><small>Useful to cut/paste into emails & documents</small></p>
       <%= will_paginate @opportunities %>

@@ -7,6 +7,10 @@ class RolesController < ApplicationController
   def index
     @roles = Role.all
     @current_team = current_team
+
+    @not_evaluated_count = current_team.evaluations.where(evaluation_code_id: 1).count
+    @watchlist_count = current_team.evaluations.where(evaluation_code_id: 2).count
+    @reject_count = current_team.evaluations.where(evaluation_code_id: 3).count
   end
 
   # GET /roles/1

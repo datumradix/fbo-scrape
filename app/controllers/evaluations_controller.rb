@@ -73,3 +73,4 @@ class EvaluationsController < ApplicationController
       params.require(:evaluation).permit(:evaluation_code_id, :opportunity_id, :team_id, comments_attributes: [:id, :comment, :name])
     end
 end
+

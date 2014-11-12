@@ -18,6 +18,10 @@ class UsersController < ApplicationController
     @opportunities = current_team.evaluations.order("id DESC").paginate(:per_page => 10, :page => params[:page])
 
     @capture_lead_teams_watchlists = Evaluation.where(evaluation_code_id:2).order("id DESC")
+
+    @not_evaluated_count = current_team.evaluations.where(evaluation_code_id: 1).count
+    @watchlist_count = current_team.evaluations.where(evaluation_code_id: 2).count
+    @reject_count = current_team.evaluations.where(evaluation_code_id: 3).count
   end
 
   # GET /users/new

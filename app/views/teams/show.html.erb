@@ -10,21 +10,30 @@
 </div>
 
 <div class="row">
-  <div class="span8 offset1">
+  <div class="span7 offset1">
     <p><%= @current_team.company.name %></p>
     <h4><%= @current_team.name %> </h4>
     <p><%= @current_team.description %> </p>
   </div>
   <div class="span3">
-    <p>
-      Username: <%= link_to current_user.username, edit_user_path(current_user) %> 
+    <p align="right">
+      <small>
+        Username: <%= link_to @current_user.username, edit_user_path(@current_user) %>  
+      </small><br>
+      <small>
+        Role: <%= link_to current_user.role.title, roles_path %> 
+      </small>
     </p>
-    <p>
-      Role: <%= link_to current_user.role.title, roles_path %> 
-    </p>    
+    
+    <p align="right">
+      <small>
+        Not Evaluated: <%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %> | 
+        Watchlist: <%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %> | 
+        Reject: <%= link_to @reject_count, opportunities_path(:set_filter => "3") %>
+      </small>
+    </p>
   </div>
 </div>  
-<br>
 
 <div class="row">
   <div class="span10 offset1">
