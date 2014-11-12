@@ -65,29 +65,21 @@
     <p><%= render :inline => highlighted_string %></p>
   </div>
 
-
-
-
   <div class="span3">   
-    
-
-    <div class="evaluate_form">
-      <h4>Evaluation</h4>
-      <div class="radio">
-        <%= form_for(@opportunity_evaluation) do |f| %> 
+    <div>
+      <%= form_for(@opportunity_evaluation) do |f| %> 
+        <h4>Evaluation</h4>
+        <div class="radio">
           <%= f.collection_radio_buttons(:evaluation_code_id, EvaluationCode.find(2,3), :id, :name) %>
-          <%= f.submit  "Submit", :class => "btn btn-default" %>
+        </div>
+        <h4>Comments</h4>
+        <%= f.fields_for :comments, @opportunity_evaluation.comments.build do |comment|  %>
+          <%= comment.hidden_field :name, value: current_user.username %>
+          <%= comment.text_area :comment, placeholder: "Comment", rows: 5 %>
+          <%# TODO after radio button submit, record value moved to watch or reject %>
+          <%#= comment.hidden_field :comment, value: @opportunity_evaluation.evaluation_code.name %>
+          <p><small>Submit by: <%= current_user.username %></small></p>
         <% end %>
-      </div>
-    </div>
-
-    <div class="comment_form">
-      <h4>Comment on Opportunity</h4>    
-      <%= form_for Comment.new do |f| %>
-        <p></p>
-        <%= f.text_field :name, value: current_user.username %> 
-        <%= f.text_area :comment, placeholder: "Comment", :rows => 5 %> 
-        <%= f.hidden_field :evaluation_id, value: @opportunity_evaluation.id %><br>
         <%= f.submit  "Submit", :class => "btn btn-default" %>
       <% end %>
     </div>

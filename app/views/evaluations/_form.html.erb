@@ -23,7 +23,17 @@
     <%= f.label :team_id %><br>
     <%= f.number_field :team_id %>
   </div>
+
+  <%= f.fields_for :comments, @evaluation.comments.build do |comment| %> 
+    <div class="field">
+      <%= comment.text_field :name %>
+      <%= comment.text_area :comment, placeholder: "Comment", rows: 5 %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<p>cat</p>

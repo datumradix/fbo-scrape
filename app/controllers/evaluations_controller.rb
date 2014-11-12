@@ -25,6 +25,7 @@ class EvaluationsController < ApplicationController
   # POST /evaluations.json
   def create
     @evaluation = Evaluation.new(evaluation_params)
+    @evaluation.comments.build
 
     respond_to do |format|
       if @evaluation.save
@@ -42,7 +43,7 @@ class EvaluationsController < ApplicationController
   def update
     respond_to do |format|
       if @evaluation.update(evaluation_params)
-        format.html { redirect_to opportunity_path(@evaluation.opportunity_id), notice: "Evaluation set to: #{@evaluation.evaluation_code.name}." }
+        format.html { redirect_to opportunity_path(@evaluation.opportunity_id), notice: "Good input! Thanks!" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

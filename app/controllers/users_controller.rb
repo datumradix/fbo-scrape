@@ -8,19 +8,14 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  #def team_index
-  #  @team_members = User.where(team_id:current_user.team_id)
-  #end
-#make a new team_members controller
-
   # GET /users/1
   # GET /users/1.json
   def show
-    #@evaluations_with_comments = current_team.evaluations.where(evaluation_code_id: 2).order("id DESC").paginate(:per_page => 10, :page => params[:page])
-    @evaluations_with_comments = current_team.evaluations.joins(:comments).order("id DESC").paginate(:per_page => 10, :page => params[:page])
-    @opportunities = current_team.evaluations.order("id DESC").paginate(:per_page => 10, :page => params[:page])
+    @evaluations_with_comments = current_team.evaluations.joins(:comments).order("opportunity_id DESC").paginate(:per_page => 10, :page => params[:page])
+    evaluations_pluck = current_team.evaluations.joins(:comments).pluck(:opportunity_id).uniq
+    @eval_with_comments = current_team.evaluations.where(opportunity_id: evaluations_pluck).order("opportunity_id DESC").limit(20) #.paginate(:per_page => 10, :page => params[:page])
 
-    #join on comments
+    @opportunities = current_team.evaluations.order("id DESC").paginate(:per_page => 10, :page => params[:page])
 
     @capture_lead_teams_watchlists = Evaluation.where(evaluation_code_id:2).order("id DESC")
   end
