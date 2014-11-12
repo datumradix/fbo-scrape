@@ -65,29 +65,30 @@
           <li><%= cc.name %> </li>
         <% end %>
     </div>
-      <div class="span4">
-        <p><strong>Procurement Types</strong></p>
-        <% @team.selection_criterium.procurement_types.each do |pt| %>
-          <li><%= pt.name %> </li>
-        <% end %>
-      </div>
+
+    <div class="span4">
+      <p><strong>Procurement Types</strong></p>
+      <% @team.selection_criterium.procurement_types.each do |pt| %>
+        <li><%= pt.name %> </li>
+      <% end %>
+    </div>
+
     <div class="span3">
       <p><strong>Set Asides</strong></p>
       <p><%= @team.selection_criterium.set_aside_radio.name %></p>
-        <% unless @team.selection_criterium.set_aside_radio_id == 1 %>
-          <% @team.selection_criterium.set_asides.each do |sa| %>
-            <li><em><%= sa.name %> </em></li>
-          <% end %>
+      <% unless @team.selection_criterium.set_aside_radio_id == 1 %>
+        <% @team.selection_criterium.set_asides.each do |sa| %>
+          <li><em><%= sa.name %> </em></li>
         <% end %>
-      </div>
+      <% end %>
     </div>
     <% else %>
       <%= link_to 'Create Selection Criteria', new_selection_criterium_path(team_id: @team.id) %>
       <br>
     <% end %>
     <br>
-  </div>
 </div>
+
 
 
 
