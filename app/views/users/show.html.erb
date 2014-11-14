@@ -113,10 +113,7 @@
           <%= link_to "Reports", reports_path %>
         </li>
       </ul>
-      <p><small>
-      All commented opportunities listed here. Select <%= link_to "Not Evaluated", opportunities_path(:set_filter => "1") %> to review new opportunities.
-      </small></p>
-
+      
       <% unless @evaluations_with_comments.present? %>
         <br>
         <p>

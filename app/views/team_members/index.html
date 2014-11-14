@@ -53,7 +53,7 @@
             <% if current_user.role_id < 3 %>
               <li><%#= link_to "Add Team Members", new_user_path %></li>
             <% end %>
-            <li><%#= link_to "Change Teams", edit_manage_team_path(@current_user) %> </li>
+            <li><%= link_to "Change Teams", edit_manage_team_path(@current_user) %> </li>
           </ul>
         </div>
       </div>

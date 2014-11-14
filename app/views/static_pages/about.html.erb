@@ -12,7 +12,7 @@
   	 <!-- <h2>Improve Your Federal Business Opportunity Search by an Order of Magnitude</h2> -->
      <h2>Federal Business Opportunity Search 10x Better</h2>
       <p>
-  	    teamFBO scans the Federal Business Opportunities web site 24/7 and returns <%= link_to "opportunities", opportunities_path %> that match your search criteria. Teams work together to promote opportunities that are the best fit for your organization. 
+  	    teamFBO scans the Federal Business Opportunities web site 24/7 and returns <%= link_to "opportunities", opportunities_path %> that match your search criteria. <%= link_to "Teams", teams_path %> work together to promote opportunities that are the best fit for your organization. 
   	 </p>
     </div>
   </div>
@@ -98,7 +98,7 @@
 </div>
 <div class="row">
   <div class="span9 offset1">
-    <p>Teams work together to crowdsource new business opportunities. Evaluations build data streams of opportunities specific to your organization's areas of expertise. This can be an effective way to utilize personnel who may not have a lot of time for business development. A specialist's perspective has a big impact business development.</p>
+    <p>Teams work together to crowdsource new business opportunities. Evaluations build data streams of opportunities specific to your organization's areas of expertise. This can be an effective way to utilize personnel who may not have a lot of time for business development. A specialist's perspective has a big impact on business development.</p>
   </div>
 </div>
 
@@ -113,7 +113,7 @@
       <dt>Intelligent</dt>
       <dd> Use comments and evaluations to train your team on what opportunities to pursue and reject. And why.</dd>
       <dt>Platform Independent</dt>
-      <dd> teamFBO works great on your smart phone, tablet, laptop, and desktop.</dd>
+      <dd> teamFBO equally well on your smart phone, tablet, laptop, and desktop.</dd>
     </dl>
   </div>
 </div>
@@ -128,7 +128,7 @@
     <blockquote>
       <p>In 2013 the U.S. paid about <strong>$468.8 billion</strong> to vendors to perform contracts ranging from supplying the military with weapons to building websites. These contractors performed work in every single state, including <strong>$3.2 billion worth in Indiana</strong>.</p><br>
 
-      <p>Agency-wise, the biggest spender in Indiana was Department of Defense, which oversaw 68% of federal contract money in the state. Rounding out the top five list are Department of Health and Human Services, Department of Veterans Affairs, Department of Justice , and National Aeronautics and Space Adminstration.</p>
+      <p>Agency-wise, the biggest spender in Indiana was Department of Defense, which oversaw 68% of federal contract money in the state. Rounding out the top five list are Department of Health and Human Services, Department of Veterans Affairs, Department of Justice, and National Aeronautics and Space Adminstration.</p>
       <small><cite title="Source Title"><%= link_to "NationalPriorities.org/Federal Contracts in Indiana", "https://www.nationalpriorities.org/smart/indiana/#money-in--federal-contracts" %></cite></small>
     </blockquote> 
 
@@ -145,7 +145,6 @@
   <div class="span9 offset1">
     <p>teamFBO users spend, on average, 5 minutes per visit. During their stay, they click about 40 page views as they evaluate and escalate opportunities. They get in and get out. This can be especially useful for organizations with limited business development resources.<br>
     <small><cite>-Source: Google Analytics</cite></small></p>
-
   </div>
 </div>
 
@@ -159,58 +158,58 @@
     <p> <%= link_to "Public teams", teams_path %> are designed for collaboration. Criteria, evaluations, and comments are viewable by other team members. Anyone is welcome to participate. </p>
     <p>We envision semi-public teams managed by organizations with regional economic development objectives. For example, a local NDIA chapter may create teams tailored for industrial competency or business type. A state economic development council might create teams around high growth business sectors such as manufacturing or life sciences. A state PTAC group could create teams for a portfolio of minority owned small businesses.</p>
 
-    <p><%= link_to "Private teams", private_team_path %> are for organizations that do not wish to share new business pursuit information. All information is close hold. We are accepting a limited number of private teams at this time.</p>
+    <p><%= link_to "Private teams", private_team_path %> are for organizations that do not wish to share new business pursuit information. All information is close hold. We are not hosting private teams at this time.</p>
   </div>
 </div>
-
-<div class="row">
-  <div class="span9 offset1">
-    <h3>How Much?</h3>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span9 offset1">
-    <p>Access to <%= link_to "public teams", teams_path %> is free.  Our goal right now is to foster collaboration and encourage people to try the service and provide feedback. </p>
-    <!-- <p>Over time we may explore fee based options in exchange for higher levels of service. Early feedback suggests private teams may be a valuable fee baased option.</p> -->
-  </div>
-</div>
-
-<div class="row">
-  <div class="span9 offset1">
-    <h3><%= link_to glyph(:heart), "#", :class=>"red_href" %> Testimonials </h3>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span5 offset1">
-    <div class="well">
-      <p><strong>Attention Early Adoptors:</strong> 
-        We'd love some feedback. <br>
-        If it's negative but constructive, we'll fix it. <br>
-        And if it's positive, may we quote you in our testimonials section? </p>
+<!-- 
+  <div class="row">
+    <div class="span9 offset1">
+      <h3>How Much?</h3>
     </div>
   </div>
 
-  <div class="span3">
-    <div class="well">
-      <p>
-        Cha-Ching!<br>
-        <small><cite>-Name, Organization </cite></small>
-      </p><br>
+  <div class="row">
+    <div class="span9 offset1">
+      <p>Access to <%#= link_to "public teams", teams_path %> is free.  Our goal right now is to foster collaboration and encourage people to try the service and provide feedback. </p>
+      <!-- <p>Over time we may explore fee based options in exchange for higher levels of service. Early feedback suggests private teams may be a valuable fee baased option.</p> 
     </div>
   </div>
 
-  <div class="span3">
-    <div class="well">
-      <p>
-        Now everyone contributes to business development!<br>
-        <small><cite>-Name, Company </cite></small>
-      </p>
+  <div class="row">
+    <div class="span9 offset1">
+      <h3><%#= link_to glyph(:heart), "#", :class=>"red_href" %> Testimonials </h3>
     </div>
   </div>
-</div>
 
+  <div class="row">
+    <div class="span5 offset1">
+      <div class="well">
+        <p><strong>Attention Early Adoptors:</strong> 
+          We'd love some feedback. <br>
+          If it's negative but constructive, we'll fix it. <br>
+          And if it's positive, may we quote you in our testimonials section? </p>
+      </div>
+    </div>
+
+    <div class="span3">
+      <div class="well">
+        <p>
+          Cha-Ching!<br>
+          <small><cite>-Name, Organization </cite></small>
+        </p><br>
+      </div>
+    </div>
+
+    <div class="span3">
+      <div class="well">
+        <p>
+          Now everyone contributes to business development!<br>
+          <small><cite>-Name, Company </cite></small>
+        </p>
+      </div>
+    </div>
+  </div>
+ -->
 <div class="row">
   <div class="span9 offset1">
     <h3>Contact</h3>
@@ -219,7 +218,7 @@
 
 <div class="row">
   <div class="span6 offset1">
-    <p>Please, if any questions or suggestions, contact win@teamFBO.com.</p>
+    <p>Please contact win@teamFBO.com with any questions or suggestions.</p>
   </div>
 </div>
 
