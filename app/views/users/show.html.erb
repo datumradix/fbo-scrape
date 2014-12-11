@@ -90,7 +90,7 @@
       
       <p align="right">
         <small>
-          Not Evaluated: <%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %> | 
+          Not Evaluated: <%= link_to @not_evaluated_count, opportunities_path(:set_filter => "1") %><br>
           Watchlist: <%= link_to @watchlist_count, opportunities_path(:set_filter => "2") %> | 
           Reject: <%= link_to @reject_count, opportunities_path(:set_filter => "3") %>
         </small>

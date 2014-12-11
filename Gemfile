@@ -62,6 +62,10 @@ gem 'cocoon', '~> 1.2.6'
 
 gem 'newrelic_rpm'
 
+gem "lograge"
+
+gem 'ransack'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

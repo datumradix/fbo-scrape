@@ -236,7 +236,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 
   todays_date = Date.today.strftime('%m/%d/%Y')
   doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400"))
-  puts doc.css("title")[0].text 
+  #puts doc.css("title")[0].text 
 
 	base_link = "https://www.fbo.gov/index"
 
@@ -286,7 +286,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 
 			def opportunity_database_evaluation(opportunity_row, response_due, opportunity_description, full_link)		
 		   	if opportunity_row.length > 1 
-		   		puts "now evaluating #{opportunity_row[5]}"
+		   		#puts "now evaluating #{opportunity_row[5]}"
 		   		duplicate_title = false 
 		   		duplicate_procurement_type = false
 	   			if Opportunity.find_by(opportunity: opportunity_row[4]) 
@@ -299,8 +299,8 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 	   			end 
 
 	   			if duplicate_title && duplicate_procurement_type
-	   				puts opportunity_row[4]
-	   				puts opportunity_row[2]
+	   				#puts opportunity_row[4]
+	   				#puts opportunity_row[2]
 						raise "Killing the script! We have been here before!. See Opportunity "
 					else
 						Opportunity.create(opportunity: opportunity_row[4],
