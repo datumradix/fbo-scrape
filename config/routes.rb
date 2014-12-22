@@ -55,12 +55,16 @@ Fbo::Application.routes.draw do
   get "public_teams/opportunities"
 
   resources :opportunities do
-    member do
-      get 'increment'
-      get 'decrement'
+    #member do
+    #  get 'increment'
+    #  get 'decrement'
+    #end
+    collection do
+      match 'search' => 'opportunities#search', via: [:get, :post], as: :search  
     end
+    #collection { post :search, to: 'opportunities#index' }
   end
-  
+
   resources :opportunity do
     member do
       get 'increment'

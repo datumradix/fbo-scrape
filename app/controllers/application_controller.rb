@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_filter :set_current_user
+  #before_action :search_params
+
+  before_filter :set_search 
+
+  def set_search
+    @search = Opportunity.search(params[:q])
+    @opportunities = @search.result(distinct: true).order("id DESC").paginate(:per_page => 50, :page => params[:page])
+  end
 
   before_filter { |c| Authorization.current_user = c.current_user}
 
@@ -22,6 +30,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  #def search_params
+  #  @q = Opportunity.search(params[:q])
+  #  @opportunities = @q.result(distinct: true)
+  #end
+
   def set_current_user
     Authorization.current_user = current_user 
   end

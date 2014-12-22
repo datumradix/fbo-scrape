@@ -10,8 +10,14 @@ class OpportunitiesController < ApplicationController
       params[:set_filter]="1" if params[:set_filter].blank?
       @evaluated_opportunities = current_team.evaluations.where(evaluation_code_id:params[:set_filter]).order("opportunity_id DESC").paginate(:per_page => 50, :page => params[:page]) 
     else
-      @opportunities = Opportunity.all.order("id DESC").paginate(:per_page => 50, :page => params[:page])
+      #@q = Opportunity.search(params[:q])
+      #@opportunities = @q.result(distinct: true).order("id DESC").paginate(:per_page => 50, :page => params[:page])
     end
+  end
+
+  def search
+    index
+    render :index
   end
   
   # GET /opportunities/1
