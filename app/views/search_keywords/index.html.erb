@@ -1,0 +1,27 @@
+<h1>Listing search_keywords</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @search_keywords.each do |search_keyword| %>
+      <tr>
+        <td><%= search_keyword.team_id %></td>
+        <td><%= search_keyword.name %></td>
+        <td><%= link_to 'Show', search_keyword %></td>
+        <td><%= link_to 'Edit', edit_search_keyword_path(search_keyword) %></td>
+        <td><%= link_to 'Destroy', search_keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Search keyword', new_search_keyword_path %>

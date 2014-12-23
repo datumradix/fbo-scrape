@@ -9,8 +9,16 @@ class ApplicationController < ActionController::Base
   before_filter :set_search 
 
   def set_search
-    @search = Opportunity.search(params[:q])
-    @opportunities = @search.result(distinct: true).order("id DESC").paginate(:per_page => 50, :page => params[:page])
+    if current_user 
+      params[:set_filter]="1" if params[:set_filter].blank?
+
+      evaluated_opportunities = current_team.evaluations.where(evaluation_code_id:params[:set_filter]).pluck(:opportunity_id)
+      @search = Opportunity.where(id: evaluated_opportunities).search(params[:q])
+      @opportunities = @search.result(distinct: true).order("id DESC").paginate(:per_page => 50, :page => params[:page]) 
+    else
+      @search = Opportunity.search(params[:q])
+      @opportunities = @search.result(distinct: true).order("id DESC").paginate(:per_page => 50, :page => params[:page])
+    end
   end
 
   before_filter { |c| Authorization.current_user = c.current_user}

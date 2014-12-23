@@ -1,5 +1,7 @@
 Fbo::Application.routes.draw do
   
+  resources :search_keywords
+
   resources :team_members
 
   resources :companies

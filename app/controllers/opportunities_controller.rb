@@ -7,8 +7,9 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     if current_user
-      params[:set_filter]="1" if params[:set_filter].blank?
-      @evaluated_opportunities = current_team.evaluations.where(evaluation_code_id:params[:set_filter]).order("opportunity_id DESC").paginate(:per_page => 50, :page => params[:page]) 
+      #params[:set_filter]="1" if params[:set_filter].blank?
+      #@evaluated_opportunities = current_team.evaluations.where(evaluation_code_id:params[:set_filter]).order("opportunity_id DESC").paginate(:per_page => 50, :page => params[:page]) 
+      @active_team = Team.find(current_user.team_id)
     else
       #@q = Opportunity.search(params[:q])
       #@opportunities = @q.result(distinct: true).order("id DESC").paginate(:per_page => 50, :page => params[:page])

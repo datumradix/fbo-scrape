@@ -1,5 +1,5 @@
 <form class="navbar-search pull-right">
-  <%= search_form_for @search, url: search_opportunities_path, method: :post do |f| %>
+  <%= search_form_for @search, url: opportunities_path, method: :post do |f| %>
     <%= f.search_field :opportunity_cont, :class=>"search-query", :placeholder=>"Find Opportunities" %>
     <%= f.submit "Search", :class=>"btn btn-small" %>
   <% end %>

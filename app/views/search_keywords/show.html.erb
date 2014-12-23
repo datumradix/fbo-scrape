@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @search_keyword.team_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @search_keyword.name %>
+</p>
+
+<%= link_to 'Edit', edit_search_keyword_path(@search_keyword) %> |
+<%= link_to 'Back', search_keywords_path %>
