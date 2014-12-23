@@ -34,7 +34,7 @@
 </div>
 
 <div class="row">
-  <div class="span10 offset1">
+  <div class="span11 offset1">
     <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
@@ -48,6 +48,21 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="span4 offset1">
+    <p>
+      <strong>Keywords</strong>
+    </p>
+    <p>
+      <% if @public_team.search_keywords.present? %>
+        <% keywords = @public_team.search_keywords.pluck(:name) %>
+      <% else %>
+        <% keywords = ["None"] %>
+      <% end %>
+      <%= keywords.join(", ") %> 
+    </p>
+  </div>
+</div>
 <div class="row">
   <div class="span4 offset1">
     <p><strong>Classification Codes</strong></p>

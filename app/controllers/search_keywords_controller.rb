@@ -4,7 +4,7 @@ class SearchKeywordsController < ApplicationController
   # GET /search_keywords
   # GET /search_keywords.json
   def index
-    @search_keywords = SearchKeyword.all
+    @search_keywords = SearchKeyword.where(team_id: params[:team_id])
   end
 
   # GET /search_keywords/1

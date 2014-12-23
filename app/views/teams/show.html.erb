@@ -48,13 +48,35 @@
         <li class="active">
           <%= link_to "Criteria", "#" %>
         </li>
-        <% if permitted_to? :show, :selection_criteria %>
-          <li><%= link_to "(edit)", edit_selection_criterium_path(@current_team.selection_criterium) %></li>
-        <% end %>
         <li>
           <%= link_to "Reports", reports_path %>
         </li>
       </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span7 offset1">
+      <p>
+        <% if permitted_to? :show, :selection_criteria %>
+          <p>
+            <%= link_to "Edit Selection Criteria", edit_selection_criterium_path(@current_team.selection_criterium) %> | 
+
+            <%= link_to "Edit Search Keywords", search_keywords_path(team_id: @team.id) %>
+          </p>
+        <% end %>
+    <br>
+    <% if @team.search_keywords.present? %>
+      <% keywords = @team.search_keywords.pluck(:name) %>
+    <% else %>
+      <% keywords = ["No keywords"] %>
+    <% end %>
+    <p>
+      <strong>
+        Keywords:
+      </strong>
+      <%= keywords.join(", ") %>
+    </p> 
     </div>
   </div>
 

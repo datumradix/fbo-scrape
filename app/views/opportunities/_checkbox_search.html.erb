@@ -1,0 +1,19 @@
+<form>
+  <%= search_form_for @search, url: opportunities_path, method: :post do |f| %>
+    <div>  
+    </div>
+    <br>
+    <% if @active_team.search_keywords.present? %>
+      <p><strong>Filter by Keyword</strong></p>
+      <div class="checkbox">
+        <!-- <input type="checkbox" id="selectAll" value="selectAll"> Select All<br/><br/> -->
+        <% @active_team.search_keywords.all.uniq.each do |search_keyword| %>
+          <%= check_box_tag('q[opportunity_cont]', search_keyword.name) %>
+          <%= search_keyword.name %><br>
+        <% end %>
+        <br>
+      </div>
+      <%= f.submit "Apply", :class=>"btn btn-small" %>
+    <% end %>
+  <% end %>
+</form>

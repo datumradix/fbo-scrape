@@ -1,34 +1,10 @@
 <% if current_user %>
-<form class="navbar-search pull-right">
-  <%= search_form_for @search, url: opportunities_path(:set_filter => 3), method: :post do |f| %>
-    <%= f.search_field :opportunity_cont, :class=>"search-query", :placeholder=>"Find Opportunities" %>
-    <%= f.submit "Search", :class=>"btn btn-small" %>
-  <% end %>
-</form>
+  <%= render "opportunities/title_search_box" %>
   <div class="row">
     <div class="span2">
       <br><br><br>
       <div class="well">
-        <form>
-          <%= search_form_for @search, url: opportunities_path, method: :post do |f| %>
-            <div>  
-              <%#= f.search_field :opportunity_cont, :class=>"search-query", :placeholder=>"Find Opportunities" %>
-            </div>
-            <br>
-            <% if @active_team.search_keywords.present? %>
-              <p><strong>Filter by Keyword</strong></p>
-              <div class="checkbox">
-                <% @active_team.search_keywords.all.uniq.each do |search_keyword| %>
-                  <%#= check_box_tag('q[opportunities_opportunity_cont_any][]', search_keyword.name) %>
-                  <%= check_box_tag('q[opportunity_cont]', search_keyword.name) %>
-                  <%= search_keyword.name %><br>
-                <% end %>
-                <br>
-              </div>
-              <%= f.submit "Apply", :class=>"btn btn-small" %>
-            <% end %>
-          <% end %>
-        </form>
+        <%= render "opportunities/checkbox_search" %>
       </div>
     </div>
     <div class="span10">
@@ -47,9 +23,11 @@
             <% @opportunities.each do |evaluated_opportunity| %>
               <tr>
                 <td>
-                  <%# if evaluated_opportunity.comments.length > 0 %>
-                    <p><%#= pluralize(evaluated_opportunity.comments.count, "msg") %> </p>
-                  <%# end %>
+                  <% if evaluated_opportunity.evaluations.find_by(team_id: @active_team.id).comments.present? %>
+                    <p>
+                      <%= pluralize(evaluated_opportunity.evaluations.find_by(team_id: @active_team.id).comments.count, "msg") %> 
+                    </p>
+                  <% end %>
                 </td>
                 <td><%= link_to evaluated_opportunity.opportunity, evaluated_opportunity, :target=>"_blank" %></td>
                 <td><%= evaluated_opportunity.agency %></td>
