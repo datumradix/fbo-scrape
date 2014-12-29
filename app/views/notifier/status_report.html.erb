@@ -1,0 +1,61 @@
+<p>Hi <%= @user.username %>,</p>
+
+<p>
+  Here is a 5 day summary of your federal business opportunities from <%= link_to "teamFBO.com", root_url %>.
+</p>
+
+<p>
+  <strong>
+    Team: <%= @team.name %>
+  </strong>
+</p>
+
+<p>
+  New Opportunities: <%= @not_evaluated.count %> <br>
+  Watchlist Items: <%= @watchlist.count %> <br>
+  Keyword Hits: 14 <br>
+</p>
+
+<h4>
+    Watchlist Items
+  </h4>
+<% @watchlist.each do |watchlist| %>
+  <p><%= link_to watchlist.opportunity.opportunity, opportunity_url(watchlist.opportunity.id) %><br>
+    <strong>Agency: </strong> <%= watchlist.opportunity.agency %><br>
+    <strong>Classification Code: </strong> <%= watchlist.opportunity.class_code %> <br> 
+    <strong>Opportunity Type: </strong> <%= watchlist.opportunity.opp_type %><br>
+    <strong>Post Date: </strong><%= watchlist.opportunity.post_date.strftime("%b %d") %><br>
+    <% if watchlist.comments.count > 0 %>
+      <% last_comment = watchlist.comments.last.comment %>
+    <% else last_comment = "none" %> 
+    <% end %>
+    <strong>Comment: </strong><%=  last_comment %> </p>
+    <br>
+<% end %>
+
+<h4>
+    Keyword Hits
+  </h4>
+
+click to view more.
+
+</p>
+
+<p>
+  <%= link_to "Log in", @new_session_url %>
+</p>
+
+<%= link_to "Forgot Password?", @edit_password_reset_url %>
+
+<p>
+  To stop getting these emails, forward to matt@teamFBO.com with subject line: "unsubscribe".
+</p>
+
+<p>
+  See you around.
+</p>
+
+<p>
+  Matt<br>
+  teamFBO.com
+</p>

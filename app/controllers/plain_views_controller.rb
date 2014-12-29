@@ -10,6 +10,9 @@ class PlainViewsController < ApplicationController
     @watchlist_count = current_team.evaluations.where(evaluation_code_id: 2).count
     @reject_count = current_team.evaluations.where(evaluation_code_id: 3).count
 
+    #@user = current_user
+    #Notifier.status_report(@user).deliver
+
   end
   # GET /opportunities/1
   # GET /opportunities/1.json
