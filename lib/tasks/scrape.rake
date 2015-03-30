@@ -230,10 +230,11 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
   require 'open-uri'
   
   # FIXME: Figure out why OpenSSL is breaking on this URL.
-  if Rails.env.development?
+#=begin
+  #if Rails.env.development?
   	OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-  end
-
+  #end
+#=end
   todays_date = Date.today.strftime('%m/%d/%Y')
   doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400"))
   #puts doc.css("title")[0].text 

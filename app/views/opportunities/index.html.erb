@@ -16,6 +16,7 @@
               <th>Opportunity</th>
               <th>Agency</th>
               <th>Classification</th>
+              <th>NAICS</th>
               <th>Type</th>
               <th>Posted</th>
           </thead>
@@ -32,6 +33,7 @@
                 <td><%= link_to evaluated_opportunity.opportunity, evaluated_opportunity, :target=>"_blank" %></td>
                 <td><%= evaluated_opportunity.agency %></td>
                 <td><%= evaluated_opportunity.class_code %> </td> 
+                <td></td>
                 <td><%= evaluated_opportunity.opp_type %></td>
                 <td><%= evaluated_opportunity.post_date.strftime("%b %d") %></td>
               </tr>
@@ -55,6 +57,7 @@
               <th>Opportunity</th>
               <th>Agency</th>
               <th>Classification</th>
+              <th>NAICS</th>
               <th>Type</th>
               <th>Posted</th>
           </thead>
@@ -66,6 +69,7 @@
                 <td><%= link_to opportunity.opportunity, opportunity, :target=>"_blank" %></td>
                 <td><%= opportunity.agency %></td>
                 <td><%= opportunity.class_code %> </td> 
+                <td></td>
                 <td><%= opportunity.opp_type %></td>
                 <td><%= opportunity.post_date.strftime("%b %d") %></td>
               </tr>

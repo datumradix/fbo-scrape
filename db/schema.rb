@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222170141) do
+ActiveRecord::Schema.define(version: 20141231062848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agencies", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "classification_codes", force: true do |t|
     t.string   "name"
@@ -58,6 +64,12 @@ ActiveRecord::Schema.define(version: 20141222170141) do
     t.datetime "updated_at"
   end
 
+  create_table "naics_codes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "opportunities", force: true do |t|
     t.text     "opportunity"
     t.text     "opportunity_description"
@@ -72,6 +84,16 @@ ActiveRecord::Schema.define(version: 20141222170141) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "class_code"
+    t.integer  "agency_id"
+    t.integer  "solicitation_number_id"
+    t.integer  "naics_code_id"
+    t.integer  "opportunity_type_id"
+  end
+
+  create_table "opportunity_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "procurement_types", force: true do |t|
@@ -118,6 +140,12 @@ ActiveRecord::Schema.define(version: 20141222170141) do
   end
 
   create_table "set_asides", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "solicitation_numbers", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,5 +1,13 @@
 Fbo::Application.routes.draw do
   
+  resources :opportunity_types
+
+  resources :naics_codes
+
+  resources :solicitation_numbers
+
+  resources :agencies
+
   resources :search_keywords
 
   resources :team_members
