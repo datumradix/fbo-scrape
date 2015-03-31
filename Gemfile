@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6' #4.0.2'
+gem 'rails', '4.1.6' #todo set rails to '4.1.10'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -56,7 +56,7 @@ gem "authlogic", '3.4.0'
 gem 'declarative_authorization', '0.5.7'
 
 #Rake gems
-gem 'nokogiri', '1.6.3.1' #was 2.2
+gem 'nokogiri', '1.6.6.2'  #'1.6.3.1' 
 
 gem 'cocoon', '~> 1.2.6'
 
