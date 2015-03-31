@@ -229,14 +229,18 @@ end
 task :scrape => :environment do  #heroku scheduler run every hour with list of 400
   require 'open-uri'
   
-  # FIXME: Figure out why OpenSSL is breaking on this URL.
-#=begin
-  #if Rails.env.development?
-  	OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-  #end
-#=end
+ 
   todays_date = Date.today.strftime('%m/%d/%Y')
-  doc = Nokogiri::HTML(open("https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400"))
+
+  # fbo.gov apparently uses outdated encryption.
+  # We'll just VERIFY_NONE for now to bypass it. We *could*
+  # download a certificate from their signing authority, but 
+  # it doesn't seem worth the effort.
+  doc = Nokogiri::HTML \
+  	open(
+  		"https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400",
+  		ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+  	)
   #puts doc.css("title")[0].text 
 
 	base_link = "https://www.fbo.gov/index"
