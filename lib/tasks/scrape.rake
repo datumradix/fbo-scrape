@@ -231,7 +231,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
   
  
   todays_date = Date.today.strftime('%m/%d/%Y')
-
+#=begin
   # fbo.gov apparently uses outdated encryption.
   # We'll just VERIFY_NONE for now to bypass it. We *could*
   # download a certificate from their signing authority, but 
@@ -241,6 +241,17 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
   		"https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400",
   		ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
   	)
+#=end
+
+=begin
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
+  doc = Nokogiri::HTML \
+  	open(
+  		"https://www.fbo.gov/index?s=opportunity&mode=list&tab=list&tabmode=list&pp=400"
+  	)
+=end 
+
   #puts doc.css("title")[0].text 
 
 	base_link = "https://www.fbo.gov/index"
@@ -260,7 +271,7 @@ task :scrape => :environment do  #heroku scheduler run every hour with list of 4
 				if links.length == 1
 					opportunity_link = links[0]["href"] 
 					full_link = "#{base_link}#{opportunity_link}"
-					link_doc = Nokogiri::HTML(open(full_link))	
+					link_doc = Nokogiri::HTML(open(full_link, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE))	
 	    		response_due = link_doc.css("div[id = 'dnf_class_values_procurement_notice__response_deadline__widget']").text
 	    		opportunity_description = link_doc.css("div[id = 'dnf_class_values_procurement_notice__description__widget']").text
 				end
