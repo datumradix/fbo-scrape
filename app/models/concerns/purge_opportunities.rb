@@ -39,7 +39,8 @@ class PurgeOpportunities
   end 
 
   def evaluation_is_in_initial_state_of_not_evaluated?(evaluation)
-    evaluation.evaluation_code_id == 1 #purge only if team opportunity is not evaluated
+    evaluation.evaluation_code_id == 1 ||  #purge only if team opportunity is not evaluated
+    evaluation.evaluation_code_id == 3  #purges rejects
   end
 
 end
